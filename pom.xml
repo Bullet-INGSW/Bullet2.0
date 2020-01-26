@@ -63,7 +63,7 @@
                 <version>0.0.3</version>
                 <configuration>
                     <executable>${env.JAVA_HOME}\bin\java.exe</executable>
-<!--                    <mainClass>org.openjfx.App</mainClass>-->
+                    <mainClass>ingsw.bullet.client.view.Main</mainClass>
                 </configuration>
 
             </plugin>
