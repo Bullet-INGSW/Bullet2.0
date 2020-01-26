@@ -13,10 +13,13 @@ public class Main extends Application {
 
     public Main()
     {
-        this.main = this;
+        if(Main.main == null)
+            Main.main = this;
+        else
+            throw new RuntimeException("Applicazione già aperta");
     }
 
-    static Main main;
+    static Main main = null;
 
     static public Main getInstance()
     {
@@ -51,7 +54,7 @@ public class Main extends Application {
     public void start(Stage stage) {
         this.stage = stage;
         try {
-            replaceSceneContent("profilo");
+            replaceSceneContent("sceltaCalendariCondivisi");
 
         } catch (Exception e) {
             e.printStackTrace();
