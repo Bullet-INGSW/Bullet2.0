@@ -30,7 +30,7 @@ public class Main extends Application {
         System.out.println(Main.class.getClassLoader().getResource("/"));
 
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("/fxml" + File.separator + name + ".fxml"));
+        loader.setLocation(getClass().getResource("/fxml/"+  name + ".fxml"));
         Parent root = null;
         try {
             root = loader.load();
@@ -42,8 +42,8 @@ public class Main extends Application {
 
         Scene scene = new Scene(root, 600, 400);
         stage.setScene(scene);
-        scene.getStylesheets().add(getClass().getResource("/css" + File.separator + name + ".css").toString());
-
+        if(getClass().getResource("/css/" + name + ".css")!= null)
+            scene.getStylesheets().add(getClass().getResource("/css/" + name + ".css").toString());
     }
 
 
@@ -51,7 +51,7 @@ public class Main extends Application {
     public void start(Stage stage) {
         this.stage = stage;
         try {
-            replaceSceneContent("menu");
+            replaceSceneContent("profilo");
 
         } catch (Exception e) {
             e.printStackTrace();
