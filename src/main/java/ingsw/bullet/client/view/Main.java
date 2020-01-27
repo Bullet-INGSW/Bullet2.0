@@ -56,7 +56,7 @@ public class Main extends Application {
         stage.setMinWidth(600);
         stage.setMinHeight(400);
         try {
-            replaceSceneContent("profilo");
+            replaceSceneContent("creaGruppo");
 
         } catch (Exception e) {
             e.printStackTrace();

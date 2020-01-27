@@ -11,18 +11,22 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-public class SceltaGestoreAttivita implements Initializable {
+public abstract class SceltaGestoreAttivita implements Initializable {
 
+    @FXML
+    void indietro(ActionEvent event) {
+//      torna a profilo
+    }
 
-    public static void setNomeCalendariCondivisi(ArrayList<String> nomeCalendariCondivisi) {
-        SceltaGestoreAttivita.nomiGestoriAttivita = nomeCalendariCondivisi;
+    public static void setNomeGestoriCondivisi(ArrayList<String> nomeGestoriCondivisi) {
+        SceltaGestoreAttivita.nomiGestoriAttivita = nomeGestoriCondivisi;
     }
 
 
     @FXML
     protected FlowPane gestoreAttivitaCondivise;
 
-    public static ArrayList<String> getNomeCalendariCondivisi() {
+    public static ArrayList<String> getNomeGestoriCondivisi() {
         return nomiGestoriAttivita;
     }
 
@@ -49,8 +53,11 @@ public class SceltaGestoreAttivita implements Initializable {
                     @Override
                     public void handle(ActionEvent actionEvent) {
                         System.out.println(n);
+                        mandaAGestoreAttivita(n);
                     }
                 });
             }
     }
+
+    public abstract void mandaAGestoreAttivita(String nome);
 }

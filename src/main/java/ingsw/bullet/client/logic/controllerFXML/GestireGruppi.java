@@ -1,10 +1,12 @@
 package ingsw.bullet.client.logic.controllerFXML;
 
+import ingsw.bullet.client.logic.DBClient;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
@@ -53,6 +55,15 @@ public class GestireGruppi implements Initializable {
         l.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
+                ArrayList<String> membri = DBClient.getIstance().getElencoMembri(gruppo);
+
+                elencoGruppi.getChildren().clear();
+
+                for(String s:membri)
+                {
+                    aggiungiUtente(s);
+                }
+
                 nomeGruppo.setText(gruppo);
             }
         });
@@ -84,13 +95,15 @@ public class GestireGruppi implements Initializable {
     public void aggiungiUtente(String utente)
     {
         Button l = new Button(utente);
-        elencoGruppi.getChildren().add(l);
         l.setOnAction(new EventHandler<ActionEvent>() {
             @Override
-            public void handle(ActionEvent actionEvent) {
+            public void handle(ActionEvent event) {
+                if(!DBClient.getIstance().rimuoviMembro(nomeGruppo.getText(), utente, Profilo.email))
+                    new Alert(Alert.AlertType.ERROR, "Errore nel rimuovere membro");
                 rimuoviUtente(l);
             }
         });
+        elencoGruppi.getChildren().add(l);
     }
 
     public void rimuoviUtente(Button utente)
@@ -102,6 +115,8 @@ public class GestireGruppi implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+        gruppi = DBClient.getIstance().getElencoGruppi(Profilo.email);
+
         if(gruppi!=null)
             if(!gruppi.isEmpty())
                 for(String g:gruppi)
@@ -110,4 +125,13 @@ public class GestireGruppi implements Initializable {
                 }
     }
 
+    @FXML
+    void creaNuovoGruppo(ActionEvent event) {
+//      manda in creaGruppo
+    }
+
+    @FXML
+    void indietro(ActionEvent event) {
+//      manda in profilo
+    }
 }

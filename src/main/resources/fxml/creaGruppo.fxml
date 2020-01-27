@@ -33,11 +33,11 @@
          <bottom>
             <FlowPane alignment="TOP_RIGHT" maxHeight="33.0" prefHeight="33.0" prefWidth="590.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button mnemonicParsing="false" text="Conferma">
+                  <Button mnemonicParsing="false" onAction="#conferma" text="Conferma">
                      <FlowPane.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </FlowPane.margin></Button>
-                  <Button mnemonicParsing="false" text="Annulla">
+                  <Button mnemonicParsing="false" onAction="#annulla" text="Annulla">
                      <FlowPane.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </FlowPane.margin></Button>

@@ -23,8 +23,7 @@
          <left>
             <VBox alignment="BOTTOM_LEFT" prefHeight="306.0" prefWidth="152.0" spacing="10.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button mnemonicParsing="false" text="Crea un nuovo gruppo" />
-                  <Button mnemonicParsing="false" text="Mostra gruppi" />
+                  <Button mnemonicParsing="false" onAction="#creaNuovoGruppo" text="Crea un nuovo gruppo" />
                </children>
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -47,7 +46,7 @@
             </VBox>
          </center>
          <bottom>
-            <Button alignment="TOP_CENTER" mnemonicParsing="false" text="Torna Indietro" BorderPane.alignment="CENTER">
+            <Button alignment="TOP_CENTER" mnemonicParsing="false" onAction="#indietro" text="Torna Indietro" BorderPane.alignment="CENTER">
                <BorderPane.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </BorderPane.margin></Button>

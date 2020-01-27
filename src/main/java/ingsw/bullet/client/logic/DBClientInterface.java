@@ -11,7 +11,7 @@ public interface DBClientInterface {
 
     /* restituisce 1 se crea il gruppo senza problemi, 0 se ha problemi, in dettaglio se il nome del gruppo è gia' usato
         restituisce -1 */
-    int creaGruppo(String nome, ArrayList<String> membri);
+    int creaGruppo(String amministratore, String nome, ArrayList<String> membri);
 
     // dato un utente restituisce l'elenco dei gruppi a lui associati (sia membro che amministratore)
     ArrayList<String> getElencoGruppi(String email);
@@ -29,7 +29,7 @@ public interface DBClientInterface {
     boolean insertUtente(String nome, String cognome, String email, boolean sesso, String password);
 
     // rimuove utente dal gruppo
-    boolean rimuoviMembro(String gruppo, String email);
+    boolean rimuoviMembro(String gruppo, String email, String amministratore);
 
     // verifica se un utente e' iscritto con questi dati
     boolean login(String email, String password);
@@ -46,8 +46,15 @@ public interface DBClientInterface {
     // aggiunge a tutti i membri del gruppo una notifica
     boolean aggiungiNotificheAlGruppo(String gruppo, String notifica);
 
-    // restituisce un elenco dei calendari condivisi associati
-    boolean getElencoCalendariCondivisi(String utente);
+    // restituisce l'elenco dei calendari condivisi associati all'utente
+    ArrayList<String> getElencoCalendariCondivisi(String utente);
 
-    boolean getElencoTDLCondivise(String utente);
+    // restituisce l'elenco dei calendari condivisi associati all'utente
+    ArrayList<String> getElencoTDLCondivise(String utente);
+
+    // restituisce gli utenti che match con la regexEmail dai hai capito D:
+    ArrayList<String> utentiConNomiRegex(String regexEmail);
+
+    boolean esisteGruppo(String gruppo);
+
 }
