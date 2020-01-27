@@ -1,12 +1,10 @@
 package ingsw.bullet.client.logic.controllerFXML;
 
-import ingsw.bullet.client.view.Main;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 
 import java.net.URL;

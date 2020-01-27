@@ -53,8 +53,10 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) {
         this.stage = stage;
+        stage.setMinWidth(600);
+        stage.setMinHeight(400);
         try {
-            replaceSceneContent("sceltaCalendariCondivisi");
+            replaceSceneContent("profilo");
 
         } catch (Exception e) {
             e.printStackTrace();

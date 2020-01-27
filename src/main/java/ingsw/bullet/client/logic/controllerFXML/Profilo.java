@@ -44,7 +44,7 @@ public class Profilo extends ProfiloBase {
             sessoLabel.setText("Maschio");
         else
             sessoLabel.setText("Femmina");
-//      create Label throw notifiche (ArrayList<String>) and set Action of Mouse Clicked (delete the Label if it touch)
+
         if(notifiche != null)
             for(String notifica:notifiche) {
                 Label label = new Label(notifica);
