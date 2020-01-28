@@ -1,5 +1,7 @@
 package ingsw.bullet.client.logic;
 
+import javafx.scene.control.TextInputDialog;
+
 import java.util.ArrayList;
 
 public class DBClient implements DBClientInterface {
@@ -11,6 +13,11 @@ public class DBClient implements DBClientInterface {
         if(dbClient == null)
             dbClient = new DBClient();
         return dbClient;
+    }
+
+    @Override
+    public boolean aggiungiMembro(String gruppo, String email, String amministratore) {
+        return false;
     }
 
     @Override
@@ -52,7 +59,6 @@ public class DBClient implements DBClientInterface {
     public boolean rimuoviMembro(String gruppo, String email, String amministratore) {
         return false;
     }
-
 
     @Override
     public boolean login(String email, String password) {

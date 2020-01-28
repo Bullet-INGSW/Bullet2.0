@@ -9,10 +9,12 @@ import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.VBox;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.function.Predicate;
 
@@ -133,5 +135,20 @@ public class GestireGruppi implements Initializable {
     @FXML
     void indietro(ActionEvent event) {
 //      manda in profilo
+    }
+
+
+    @FXML
+    void aggiungiMembro(ActionEvent event) {
+        TextInputDialog dialog = new TextInputDialog("email membro...");
+        dialog.setContentText("Aggiungi membro gruppo: ");
+
+        Optional<String> resp = dialog.showAndWait();
+        if (resp.isPresent()){
+            String email = resp.get();
+            if(!DBClient.getIstance().esisteUtente(email))
+                new Alert(Alert.AlertType.ERROR, "Non esiste questo utente!");
+            aggiungiUtente(email);
+        }
     }
 }

@@ -23,6 +23,7 @@
          <left>
             <VBox alignment="BOTTOM_LEFT" prefHeight="306.0" prefWidth="152.0" spacing="10.0" BorderPane.alignment="CENTER">
                <children>
+                  <Button mnemonicParsing="false" onAction="#aggiungiMembro" text="Aggiungi Membro" />
                   <Button mnemonicParsing="false" onAction="#creaNuovoGruppo" text="Crea un nuovo gruppo" />
                </children>
                <padding>

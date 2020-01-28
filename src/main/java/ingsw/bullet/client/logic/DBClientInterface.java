@@ -4,7 +4,8 @@ import java.util.ArrayList;
 
 public interface DBClientInterface {
 
-    // crea Gruppo
+    // aggiungi utente dal gruppo
+    boolean aggiungiMembro(String gruppo, String email, String amministratore);
 
     // restituisce true se esiste o false se non esiste
     boolean esisteUtente(String email);
