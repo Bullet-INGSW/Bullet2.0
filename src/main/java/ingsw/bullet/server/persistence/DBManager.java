@@ -2,14 +2,16 @@ package ingsw.bullet.server.persistence;
 
 import ingsw.bullet.server.model.Utente;
 import ingsw.bullet.server.persistence.dao.DAOUtente;
+import io.github.cdimascio.dotenv.Dotenv;
 
 import java.util.List;
 
 public class DBManager {
+	static Dotenv dotenv = Dotenv.configure().load();
 
-	private final static String url = "jdbc:mariadb://bullet.cbogc2q03ixz.eu-west-2.rds.amazonaws.com:3306/bullet";
-	private final static String user = "admin";
-	private final static String password = "6e8PM37WTKmRG7xkdrYK";
+	private final static String url = dotenv.get("DB_URL");
+	private final static String user = dotenv.get("DB_USER");
+	private final static String password = dotenv.get("DB_PASS");
 
 	private static DataSource dataSource;
 
