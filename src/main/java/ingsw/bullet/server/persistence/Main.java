@@ -1,9 +1,8 @@
 package ingsw.bullet.server.persistence;
 
-
 public class Main {
 
     public static void main(String[] args) {
-        DBManager.getInstance();
+        System.out.println(DBManager.getInstance().findUserByPrimaryKey("a@a.a").toString());
     }
 }
