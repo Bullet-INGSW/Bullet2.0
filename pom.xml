@@ -10,6 +10,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.release>13<!-- your java version  --></maven.compiler.release>
     </properties>
 
     <dependencies>
@@ -20,24 +21,45 @@
             <version>2.5.3</version>
             <scope>compile</scope>
         </dependency>
-
-
-
-
-
     </dependencies>
 
     <build>
-
         <plugins>
+
+            <plugin>
+                <groupId> org.apache.maven.plugins </groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>3.2.0</version>
+            <configuration>
+                <archive>
+                    <manifest>
+                        <addClasspath>true</addClasspath>
+                        <mainClass>ingsw.bullet.server.persistence.Main</mainClass>
+                    </manifest>
+                </archive>
+                <descriptorRefs>
+                    <descriptorRef>jar-with-dependencies</descriptorRef>
+                </descriptorRefs>
+            </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+                <configuration>
+                    <release>${maven.compiler.release}</release>
+                </configuration>
+            </plugin>
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
-                <version>3.0.0</version>
+                <version>3.2.0</version>
                 <configuration>
                     <archive>
                         <manifest>
+                            <addClasspath>true</addClasspath>
                             <mainClass>ingsw.bullet.server.persistence.Main</mainClass>
                         </manifest>
                     </archive>
