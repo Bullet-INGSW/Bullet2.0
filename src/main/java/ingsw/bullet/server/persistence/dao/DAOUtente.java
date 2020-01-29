@@ -74,6 +74,4 @@ public class DAOUtente implements DAOInterface<Utente> {
 		
 	}
 
-	
-
 }
