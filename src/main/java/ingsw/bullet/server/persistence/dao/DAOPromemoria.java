@@ -5,28 +5,30 @@ import ingsw.bullet.server.model.Promemoria;
 import java.util.List;
 
 public class DAOPromemoria implements DAOInterface<Promemoria> {
-    @Override
-    public void save(Promemoria promemoria) {
 
-    }
+	public void save(Promemoria t) {
+		// TODO Auto-generated method stub
+		
+	}
 
-    @Override
-    public Promemoria findByPrimaryKey(Object... keys) {
-        return null;
-    }
+	public Promemoria findByPrimaryKey(Object... keys) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
-    @Override
-    public List<Promemoria> findAll() {
-        return null;
-    }
+	public List<Promemoria> findAll() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
-    @Override
-    public void update(Promemoria promemoria) {
+	public void update(Promemoria t) {
+		// TODO Auto-generated method stub
+		
+	}
 
-    }
-
-    @Override
-    public void delete(Promemoria promemoria) {
-
-    }
+	public void delete(Promemoria t) {
+		// TODO Auto-generated method stub
+		
+	}
+    
 }

@@ -5,28 +5,30 @@ import ingsw.bullet.server.model.Evento;
 import java.util.List;
 
 public class DAOEvento implements DAOInterface<Evento> {
-    @Override
-    public void save(Evento evento) {
 
-    }
+	public void save(Evento t) {
+		// TODO Auto-generated method stub
+		
+	}
 
-    @Override
-    public Evento findByPrimaryKey(Object... keys) {
-        return null;
-    }
+	public Evento findByPrimaryKey(Object... keys) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
-    @Override
-    public List<Evento> findAll() {
-        return null;
-    }
+	public List<Evento> findAll() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
-    @Override
-    public void update(Evento evento) {
+	public void update(Evento t) {
+		// TODO Auto-generated method stub
+		
+	}
 
-    }
-
-    @Override
-    public void delete(Evento evento) {
-
-    }
+	public void delete(Evento t) {
+		// TODO Auto-generated method stub
+		
+	}
+    
 }

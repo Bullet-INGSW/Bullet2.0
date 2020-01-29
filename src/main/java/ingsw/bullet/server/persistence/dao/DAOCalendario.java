@@ -5,28 +5,30 @@ import ingsw.bullet.server.model.Calendario;
 import java.util.List;
 
 public class DAOCalendario implements DAOInterface<Calendario> {
-    @Override
-    public void save(Calendario calendario) {
 
-    }
+	public void save(Calendario t) {
+		// TODO Auto-generated method stub
+		
+	}
 
-    @Override
-    public Calendario findByPrimaryKey(Object... keys) {
-        return null;
-    }
+	public Calendario findByPrimaryKey(Object... keys) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
-    @Override
-    public List<Calendario> findAll() {
-        return null;
-    }
+	public List<Calendario> findAll() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
-    @Override
-    public void update(Calendario calendario) {
+	public void update(Calendario t) {
+		// TODO Auto-generated method stub
+		
+	}
 
-    }
-
-    @Override
-    public void delete(Calendario calendario) {
-
-    }
+	public void delete(Calendario t) {
+		// TODO Auto-generated method stub
+		
+	}
+    
 }

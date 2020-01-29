@@ -47,7 +47,7 @@ public class Utente {
 		this.cognome = cognome;
 	}
 
-	public Sesso isSesso() {
+	public Sesso getSesso() {
 		return sesso;
 	}
 

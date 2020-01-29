@@ -6,28 +6,30 @@ import ingsw.bullet.server.persistence.dao.DAOInterface;
 import java.util.List;
 
 public class DAOTdl implements DAOInterface<Tdl> {
-    @Override
-    public void save(Tdl tdl) {
 
-    }
+	public void save(Tdl t) {
+		// TODO Auto-generated method stub
+		
+	}
 
-    @Override
-    public Tdl findByPrimaryKey(Object... keys) {
-        return null;
-    }
+	public Tdl findByPrimaryKey(Object... keys) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
-    @Override
-    public List<Tdl> findAll() {
-        return null;
-    }
+	public List<Tdl> findAll() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
-    @Override
-    public void update(Tdl tdl) {
+	public void update(Tdl t) {
+		// TODO Auto-generated method stub
+		
+	}
 
-    }
-
-    @Override
-    public void delete(Tdl tdl) {
-
-    }
+	public void delete(Tdl t) {
+		// TODO Auto-generated method stub
+		
+	}
+    
 }
