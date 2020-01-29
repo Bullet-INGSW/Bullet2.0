@@ -5,28 +5,30 @@ import ingsw.bullet.server.model.Notifica;
 import java.util.List;
 
 public class DAONotifica implements DAOInterface<Notifica> {
-    @Override
-    public void save(Notifica notifica) {
 
-    }
+	public void save(Notifica t) {
+		// TODO Auto-generated method stub
+		
+	}
 
-    @Override
-    public Notifica findByPrimaryKey(Object... keys) {
-        return null;
-    }
+	public Notifica findByPrimaryKey(Object... keys) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
-    @Override
-    public List<Notifica> findAll() {
-        return null;
-    }
+	public List<Notifica> findAll() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
-    @Override
-    public void update(Notifica notifica) {
+	public void update(Notifica t) {
+		// TODO Auto-generated method stub
+		
+	}
 
-    }
-
-    @Override
-    public void delete(Notifica notifica) {
-
-    }
+	public void delete(Notifica t) {
+		// TODO Auto-generated method stub
+		
+	}
+    
 }

@@ -5,28 +5,30 @@ import ingsw.bullet.server.model.Gruppo;
 import java.util.List;
 
 public class DAOGruppo implements DAOInterface<Gruppo> {
-    @Override
-    public void save(Gruppo gruppo) {
 
-    }
+	public void save(Gruppo t) {
+		// TODO Auto-generated method stub
 
-    @Override
-    public Gruppo findByPrimaryKey(Object... keys) {
-        return null;
-    }
+	}
 
-    @Override
-    public List<Gruppo> findAll() {
-        return null;
-    }
+	public Gruppo findByPrimaryKey(Object... keys) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
-    @Override
-    public void update(Gruppo gruppo) {
+	public List<Gruppo> findAll() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
-    }
+	public void update(Gruppo t) {
+		// TODO Auto-generated method stub
 
-    @Override
-    public void delete(Gruppo gruppo) {
+	}
 
-    }
+	public void delete(Gruppo t) {
+		// TODO Auto-generated method stub
+
+	}
+
 }

@@ -3,28 +3,30 @@ package ingsw.bullet.server.persistence.dao;
 import java.util.List;
 
 public class DAOEtichetta implements DAOInterface<DAOEtichetta> {
-    @Override
-    public void save(DAOEtichetta etichetta) {
 
-    }
+	public void save(DAOEtichetta t) {
+		// TODO Auto-generated method stub
+		
+	}
 
-    @Override
-    public DAOEtichetta findByPrimaryKey(Object... keys) {
-        return null;
-    }
+	public DAOEtichetta findByPrimaryKey(Object... keys) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
-    @Override
-    public List<DAOEtichetta> findAll() {
-        return null;
-    }
+	public List<DAOEtichetta> findAll() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
-    @Override
-    public void update(DAOEtichetta etichetta) {
+	public void update(DAOEtichetta t) {
+		// TODO Auto-generated method stub
+		
+	}
 
-    }
-
-    @Override
-    public void delete(DAOEtichetta etichetta) {
-
-    }
+	public void delete(DAOEtichetta t) {
+		// TODO Auto-generated method stub
+		
+	}
+    
 }
