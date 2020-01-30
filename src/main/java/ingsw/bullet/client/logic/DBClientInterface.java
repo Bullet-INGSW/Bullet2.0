@@ -4,6 +4,9 @@ import java.util.ArrayList;
 
 public interface DBClientInterface {
 
+    // restituisce l'id dell'etichetta appena creata
+    int creaEtichetta(String nome, int colore);
+
     // aggiungi utente dal gruppo
     boolean aggiungiMembro(String gruppo, String email, String amministratore);
 
@@ -50,7 +53,7 @@ public interface DBClientInterface {
     // restituisce l'elenco dei calendari condivisi associati all'utente
     ArrayList<String> getElencoCalendariCondivisi(String utente);
 
-    // restituisce l'elenco dei calendari condivisi associati all'utente
+    // restituisce l'elenco delle tdl condivisi associati all'utente
     ArrayList<String> getElencoTDLCondivise(String utente);
 
     // restituisce gli utenti che match con la regexEmail dai hai capito D:

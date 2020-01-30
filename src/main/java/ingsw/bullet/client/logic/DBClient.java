@@ -16,6 +16,11 @@ public class DBClient implements DBClientInterface {
     }
 
     @Override
+    public int creaEtichetta(String nome, int colore) {
+        return 0;
+    }
+
+    @Override
     public boolean aggiungiMembro(String gruppo, String email, String amministratore) {
         return false;
     }
