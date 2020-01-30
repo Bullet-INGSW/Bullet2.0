@@ -4,7 +4,8 @@ import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.minlog.Log;
-import ingsw.bullet.server.persistence.DBManager;
+import ingsw.bullet.client.NetworkUtility.KryoUtil;
+import ingsw.bullet.client.NetworkUtility.Richiesta;
 
 
 import java.io.IOException;
@@ -16,7 +17,7 @@ public class ClientConnectionhandler {
     public boolean risultatoBool=true;
     public int risultatoInt=-1;
     public ArrayList<String> risultatostringArrayList=null;
-
+    public Richiesta.TipoRichiesta tipoAttuale=null;
 
 
     private static ClientConnectionhandler instance=null;
@@ -43,21 +44,45 @@ public class ClientConnectionhandler {
         client.addListener(new Listener(){
             @Override
             public void connected(Connection connection) {
-                //OggettoInviabile inviabile=new OggettoInviabile("UEUEFRATM");
-                //client.sendTCP(inviabile);
+
+
             }
 
             @Override
             public void disconnected(Connection connection) {
-                System.out.println("M'agg disconesso");
+
+                System.out.println("Disconesso dal server");
             }
 
             @Override
             public void received(Connection connection, Object object) {
-               if(object instanceof String){
-                   String ricevuto=(String)object;
-                   System.out.println("HO ricevuto il testo "+ricevuto);
-               }
+              if(inAttesa){
+                  if(object instanceof Boolean){
+                    risultatoBool=(Boolean)object;
+                    }//se boolean
+
+                  if(object instanceof  Integer){
+                      Integer i=(Integer)object;
+                      risultatoInt=i;
+                    }
+
+                  if(object instanceof ArrayList<?>){
+                      if(((ArrayList<?>)object).get(0) instanceof String)
+                      {
+                         risultatostringArrayList=(ArrayList<String>)object;
+                      }
+
+
+                  }
+                  inAttesa=false;
+              }// se sto aspettando la risposta da una richiesta
+
+            else{
+                //se non sto aspettando nulla
+
+
+              }
+
             }
         });
 

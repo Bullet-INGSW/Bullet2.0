@@ -1,14 +1,13 @@
-package ingsw.bullet.client.ConnectionObject;
+package ingsw.bullet.client.NetworkUtility;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Vector;
 
 public class Richiesta {
 
 
     public enum TipoRichiesta{aggiungiMembro,esisteUtente,creaGruppo, getElencoGruppi,
-        getElencoMembri,setMembroGruppo,getUtente,insertUtente,rimuoviMembro,login,
+        getElencoMembri,setMembriGruppo,getUtente,insertUtente,rimuoviMembro,login,
         getNotifiche,setNotifiche,aggiungiNotifica,aggiungiNotificheAlGruppo, getElencoCalendariCondivisi,getElencoTDLCondivise,
         utentiConNomiRegex,esisteGruppo
 

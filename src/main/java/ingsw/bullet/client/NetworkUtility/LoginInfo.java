@@ -1,4 +1,4 @@
-package ingsw.bullet.client.ConnectionObject;
+package ingsw.bullet.client.NetworkUtility;
 
 public class LoginInfo {
     String email;

@@ -1,7 +1,7 @@
 package ingsw.bullet.client.logic;
 
 import ingsw.bullet.client.ClientConnectionhandler;
-import ingsw.bullet.client.ConnectionObject.Richiesta;
+import ingsw.bullet.client.NetworkUtility.Richiesta;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -26,6 +26,7 @@ public class DBClient implements DBClientInterface {
         valori.put("email",email);
         valori.put("amministratore",amministratore);
         Richiesta richiesta=new Richiesta(Richiesta.TipoRichiesta.aggiungiMembro, valori);
+
         ClientConnectionhandler.getInstance().inAttesa=true;
         ClientConnectionhandler.getInstance().client.sendTCP(richiesta);
         while(inAttesa()){
@@ -102,7 +103,7 @@ public class DBClient implements DBClientInterface {
     public boolean setMembriGruppo(String gruppo, ArrayList<String> elencoMembri) {
         HashMap<String,String> valori=new HashMap<>();
         valori.put("gruppo",gruppo);
-        Richiesta richiesta=new Richiesta(Richiesta.TipoRichiesta.setMembroGruppo,valori,elencoMembri);
+        Richiesta richiesta=new Richiesta(Richiesta.TipoRichiesta.setMembriGruppo,valori,elencoMembri);
 
         ClientConnectionhandler.getInstance().inAttesa=true;
         ClientConnectionhandler.getInstance().client.sendTCP(richiesta);
@@ -220,6 +221,8 @@ public class DBClient implements DBClientInterface {
         return ClientConnectionhandler.getInstance().risultatoBool;
     }
 
+
+    //NOTIFICA
     @Override
     public boolean aggiungiNotificheAlGruppo(String gruppo, String notifica) {
         HashMap<String,String> valori=new HashMap<>();
