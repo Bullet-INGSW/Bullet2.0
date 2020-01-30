@@ -24,12 +24,12 @@ public class DAOCalendario implements DAOInterface<Calendario> {
 		try {
 			connection = this.dataSource.getConnection();
 			PreparedStatement statement;
-			String query = "INSERT INTO calendario (id_gruppo, email, descrizione) VALUES (?,?,?);";
+			String query = "INSERT INTO calendario (id_gruppo, email, nome) VALUES (?,?,?);";
 			statement = connection.prepareStatement(query);
 
 			statement.setInt(1, t.getIdGruppo());
 			statement.setString(2, t.getEmail());
-			statement.setString(3, t.getDescrizione());
+			statement.setString(3, t.getNome());
 
 			statement.executeUpdate();
 
@@ -65,7 +65,7 @@ public class DAOCalendario implements DAOInterface<Calendario> {
 				calendario.setIdCalendario(result.getInt("id_calendario"));
 				calendario.setIdGruppo(result.getInt("id_gruppo"));
 				calendario.setEmail(result.getString("email"));
-				calendario.setDescrizione(result.getString("descrizione"));
+				calendario.setNome(result.getString("nome"));
 
 			}
 		} catch (SQLException e) {
@@ -96,7 +96,7 @@ public class DAOCalendario implements DAOInterface<Calendario> {
 				calendario.setIdCalendario(result.getInt("id_calendario"));
 				calendario.setIdGruppo(result.getInt("id_gruppo"));
 				calendario.setEmail(result.getString("email"));
-				calendario.setDescrizione(result.getString("descrizione"));
+				calendario.setNome(result.getString("nome"));
 				calendari.add(calendario);
 			}
 		} catch (SQLException e) {
@@ -120,13 +120,13 @@ public class DAOCalendario implements DAOInterface<Calendario> {
 			String query = "UPDATE calendario SET " +
 					"calendario.id_gruppo = ?, " +
 					"calendario.email = ?, " +
-					"calendario.descrizione = ? " +
+					"calendario.nome = ? " +
 					"WHERE calendario.id_calendario = ? ";
 			statement = connection.prepareStatement(query);
 
 			statement.setInt(1, t.getIdGruppo());
 			statement.setString(2, t.getEmail());
-			statement.setString(3, t.getDescrizione());
+			statement.setString(3, t.getNome());
 			statement.setInt(4, t.getIdCalendario());
 
 			statement.executeUpdate();

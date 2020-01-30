@@ -1,9 +1,15 @@
 package ingsw.bullet.server.persistence.dao;
 
+import ingsw.bullet.server.model.Calendario;
 import ingsw.bullet.server.model.Membro;
 import ingsw.bullet.server.persistence.DataSource;
 import ingsw.bullet.server.persistence.dao.DAOInterface;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class DAOMembro implements DAOInterface<Membro> {
@@ -15,28 +21,146 @@ public class DAOMembro implements DAOInterface<Membro> {
 	}
 
 	public void save(Membro t) {
-		// TODO Auto-generated method stub
-		
+		Connection connection = null;
+
+		try {
+			connection = this.dataSource.getConnection();
+			PreparedStatement statement;
+			String query = "INSERT INTO membro (email, id_gruppo, admin) VALUES (?,?,?);";
+			statement = connection.prepareStatement(query);
+
+			statement.setString(1, t.getEmail());
+			statement.setInt(2, t.getIdGruppo());
+			statement.setBoolean(3, t.isAdmin());
+
+			statement.executeUpdate();
+
+		} catch (SQLException e) {
+			throw new RuntimeException(e.getMessage());
+		} finally {
+			try {
+				connection.close();
+			} catch (SQLException e) {
+				throw new RuntimeException(e.getMessage());
+			}
+		}
 	}
 
 	public Membro findByPrimaryKey(Object... keys) {
-		// TODO Auto-generated method stub
-		return null;
+		Connection connection = null;
+		Membro membro = null;
+
+		// parser chiavi primarie...
+		String email = (String)keys[0];
+		int id_gruppo = (Integer)keys[1];
+
+		try {
+			connection = this.dataSource.getConnection();
+			PreparedStatement statement;
+			String query = "SELECT * FROM membro WHERE membro.email = ? AND gruppo.id_gruppo = ?";
+			statement = connection.prepareStatement(query);
+			statement.setString(1, email);
+			statement.setInt(2, id_gruppo);
+			ResultSet result = statement.executeQuery();
+
+			if (result.next()) {
+				membro = new Membro();
+				membro.setEmail(result.getString("email"));
+				membro.setIdGruppo(result.getInt("id_gruppo"));
+				membro.setAdmin(result.getBoolean("admin"));
+
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException(e.getMessage());
+		} finally {
+			try {
+				connection.close();
+			} catch (SQLException e) {
+				throw new RuntimeException(e.getMessage());
+			}
+		}
+		return membro;
 	}
 
 	public List<Membro> findAll() {
-		// TODO Auto-generated method stub
-		return null;
+		Connection connection = null;
+		Membro membro = null;
+		List<Membro> membri = new ArrayList<Membro>();
+
+		try {
+			connection = this.dataSource.getConnection();
+			PreparedStatement statement;
+			String query = "SELECT * FROM membro";
+			statement = connection.prepareStatement(query);
+			ResultSet result = statement.executeQuery();
+
+			if (result.next()) {
+				membro = new Membro();
+				membro.setEmail(result.getString("email"));
+				membro.setIdGruppo(result.getInt("id_gruppo"));
+				membro.setAdmin(result.getBoolean("admin"));
+				membri.add(membro);
+
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException(e.getMessage());
+		} finally {
+			try {
+				connection.close();
+			} catch (SQLException e) {
+				throw new RuntimeException(e.getMessage());
+			}
+		}
+		return membri;
 	}
 
 	public void update(Membro t) {
-		// TODO Auto-generated method stub
-		
+		Connection connection = null;
+
+		try {
+			connection = this.dataSource.getConnection();
+			PreparedStatement statement;
+			String query = "UPDATE membro SET " +
+					"membro.admin = ? " +
+					"WHERE membro.email = ? " +
+					"AND membro.id_gruppo = ? ";
+			statement = connection.prepareStatement(query);
+
+			statement.setBoolean(1, t.isAdmin());
+			statement.setString(2, t.getEmail());
+			statement.setInt(3, t.getIdGruppo());
+
+			statement.executeUpdate();
+
+		} catch (SQLException e) {
+			throw new RuntimeException(e.getMessage());
+		} finally {
+			try {
+				connection.close();
+			} catch (SQLException e) {
+				throw new RuntimeException(e.getMessage());
+			}
+		}
 	}
 
 	public void delete(Membro t) {
-		// TODO Auto-generated method stub
-		
+		Connection connection = null;
+		try {
+			connection = this.dataSource.getConnection();
+			String delete = "DELETE FROM membro WHERE membro.email = ? AND membro.id_gruppo = ?";
+			PreparedStatement statement = connection.prepareStatement(delete);
+			statement.setString(1, t.getEmail());
+			statement.setInt(2, t.getIdGruppo());
+			statement.executeUpdate();
+		} catch (SQLException e) {
+			throw new RuntimeException(e.getMessage());
+		} finally {
+			try {
+				connection.close();
+			} catch (SQLException e) {
+				throw new RuntimeException(e.getMessage());
+			}
+		}
+
 	}
-    
 }

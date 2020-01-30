@@ -208,8 +208,8 @@ public class DBManager {
     }
     
     // MEMBRO //
-	public Membro findMembroByPrimaryKey(int id) {
-		return getDAOMembro().findByPrimaryKey(id);
+	public Membro findMembroByPrimaryKey(int id, String email) {
+		return getDAOMembro().findByPrimaryKey(id, email);
 	}
 
 	public List<Membro> getAllMembro() {
