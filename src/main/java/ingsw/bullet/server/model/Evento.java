@@ -7,24 +7,41 @@ public class Evento {
     private int id_evento;
     private int id_calendario;
     private int id_etichetta;
+    private String nome;
     private String descrizione;
     private LocalDateTime data_inizio;
     private LocalDateTime data_fine;
     private boolean periodicita;
-    private String nome;
+    private boolean full_day;
+    private String recurrence_rule;
+    private int id_recurrence;
 
     public Evento() {
     }
 
-    public Evento(int id_evento, int id_calendario, int id_etichetta, String descrizione, LocalDateTime data_inizio, LocalDateTime data_fine, boolean periodicita, String nome) {
+    public Evento(int id_evento,
+                  int id_calendario,
+                  int id_etichetta,
+                  String nome,
+                  String descrizione,
+                  LocalDateTime data_inizio,
+                  LocalDateTime data_fine,
+                  boolean periodicita,
+                  boolean full_day,
+                  String recurrence_rule,
+                  int id_recurrence) {
+
         this.id_evento = id_evento;
         this.id_calendario = id_calendario;
         this.id_etichetta = id_etichetta;
+        this.nome = nome;
         this.descrizione = descrizione;
         this.data_inizio = data_inizio;
         this.data_fine = data_fine;
         this.periodicita = periodicita;
-        this.nome = nome;
+        this.full_day = full_day;
+        this.recurrence_rule = recurrence_rule;
+        this.id_recurrence = id_recurrence;
     }
 
     @Override
@@ -33,9 +50,14 @@ public class Evento {
     			"id_evento: " + this.id_evento + "\n" +
     			"id_calendario: " + this.id_calendario + "\n" +
     			"id_etichetta: " + this.id_etichetta + "\n" +
+                "nome: " + this.nome + "\n" +
     			"descrizione: " + this.descrizione + "\n" +
     			"data_inizio: " + this.data_inizio + "\n" +
     			"data_fine: " + this.data_fine + "\n" +
+                "periodicità: " + this.periodicita + "\n" +
+                "full_day: " + this.full_day + "\n" +
+                "recurrence_rule: " + this.recurrence_rule + "\n" +
+                "id_recurrence: " + this.id_recurrence + "\n" +
     			"periodicità: " + this.periodicita + "\n}\n";
     }
 
@@ -50,6 +72,10 @@ public class Evento {
     public int getIdEtichetta() {return id_etichetta;}
 
     public void setIdEtichetta(int id_etichetta) {this.id_etichetta = id_etichetta;}
+
+    public String getNome() {return nome;}
+
+    public void setNome(String nome) {this.nome = nome;}
 
     public String getDescrizione() {return descrizione;}
 
@@ -67,7 +93,15 @@ public class Evento {
 
     public void setPeriodicita(boolean periodicita) {this.periodicita = periodicita;}
 
-    public String getNome() {return nome;}
+    public boolean isFullDay() {return full_day;}
 
-    public void setNome(String nome) {this.nome = nome;}
+    public void setFullDay(boolean full_day) {this.full_day = full_day;}
+
+    public String getRecurrenceRule() {return recurrence_rule;}
+
+    public void setRecurrenceRule(String recurrence_rule) {this.recurrence_rule = recurrence_rule;}
+
+    public int getIdRecurrence() {return id_recurrence;}
+
+    public void setIdRecurrence(int recurrence_rule) {this.id_recurrence = id_recurrence;}
 }
