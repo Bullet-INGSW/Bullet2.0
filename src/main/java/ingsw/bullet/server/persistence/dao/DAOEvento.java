@@ -4,10 +4,10 @@ import ingsw.bullet.server.model.Evento;
 import ingsw.bullet.server.persistence.DataSource;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,8 +31,8 @@ public class DAOEvento implements DAOInterface<Evento> {
 			statement.setInt(1, t.getIdCalendario());
 			statement.setInt(2, t.getIdEtichetta());
 			statement.setString(3, t.getDescrizione());
-			statement.setDate(4, (Date) t.getDataInizio());
-			statement.setDate(5, (Date) t.getDataFine());
+			statement.setTimestamp(4, Timestamp.valueOf(t.getDataInizio()));
+			statement.setTimestamp(5, Timestamp.valueOf(t.getDataFine()));
 			statement.setBoolean(6, t.getPeriodicita());
 
 			statement.executeUpdate();
@@ -70,8 +70,8 @@ public class DAOEvento implements DAOInterface<Evento> {
 				evento.setIdCalendario(result.getInt("id_calendario"));
 				evento.setIdEtichetta(result.getInt("id_etichetta"));
 				evento.setDescrizione(result.getString("descrizione"));
-				evento.setDataInizio(result.getDate("data_inizio"));
-				evento.setDataFine(result.getDate("data_fine"));
+				evento.setDataInizio((result.getTimestamp("data_inizio")).toLocalDateTime());
+				evento.setDataFine((result.getTimestamp("data_fine")).toLocalDateTime());
 				evento.setPeriodicita(result.getBoolean("periodicita"));
 
 			}
@@ -106,8 +106,8 @@ public class DAOEvento implements DAOInterface<Evento> {
 				evento.setIdCalendario(result.getInt("id_calendario"));
 				evento.setIdEtichetta(result.getInt("id_etichetta"));
 				evento.setDescrizione(result.getString("descrizione"));
-				evento.setDataInizio(result.getDate("data_inizio"));
-				evento.setDataFine(result.getDate("data_fine"));
+				evento.setDataInizio((result.getTimestamp("data_inizio")).toLocalDateTime());
+				evento.setDataFine((result.getTimestamp("data_fine")).toLocalDateTime());
 				evento.setPeriodicita(result.getBoolean("periodicita"));
 				eventi.add(evento);
 
@@ -144,8 +144,8 @@ public class DAOEvento implements DAOInterface<Evento> {
 			statement.setInt(1, t.getIdCalendario());
 			statement.setInt(2, t.getIdEtichetta());
 			statement.setString(3, t.getDescrizione());
-			statement.setDate(4, (Date) t.getDataInizio());
-			statement.setDate(5, (Date) t.getDataFine());
+			statement.setTimestamp(4, Timestamp.valueOf(t.getDataInizio()));
+			statement.setTimestamp(5, Timestamp.valueOf(t.getDataFine()));
 			statement.setBoolean(6, t.getPeriodicita());
 			statement.setInt(7, t.getIdEvento());
 

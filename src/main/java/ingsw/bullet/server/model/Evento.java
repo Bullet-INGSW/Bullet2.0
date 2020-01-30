@@ -1,6 +1,6 @@
 package ingsw.bullet.server.model;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 public class Evento {
 
@@ -8,15 +8,15 @@ public class Evento {
     private int id_calendario;
     private int id_etichetta;
     private String descrizione;
-    private Date data_inizio;
-    private Date data_fine;
+    private LocalDateTime data_inizio;
+    private LocalDateTime data_fine;
     private boolean periodicita;
     private String nome;
 
     public Evento() {
     }
 
-    public Evento(int id_evento, int id_calendario, int id_etichetta, String descrizione, Date data_inizio, Date data_fine, boolean periodicita, String nome) {
+    public Evento(int id_evento, int id_calendario, int id_etichetta, String descrizione, LocalDateTime data_inizio, LocalDateTime data_fine, boolean periodicita, String nome) {
         this.id_evento = id_evento;
         this.id_calendario = id_calendario;
         this.id_etichetta = id_etichetta;
@@ -55,13 +55,13 @@ public class Evento {
 
     public void setDescrizione(String descrizione) {this.descrizione = descrizione;}
 
-    public Date getDataInizio() {return data_inizio;}
+    public LocalDateTime getDataInizio() {return data_inizio;}
 
-    public void setDataInizio(Date data_inizio) {this.data_inizio = data_inizio;}
+    public void setDataInizio(LocalDateTime data_inizio) {this.data_inizio = data_inizio;}
 
-    public Date getDataFine() {return data_fine;}
+    public LocalDateTime getDataFine() {return data_fine;}
 
-    public void setDataFine(Date data_fine) {this.data_fine = data_fine;}
+    public void setDataFine(LocalDateTime data_fine) {this.data_fine = data_fine;}
 
     public boolean getPeriodicita() {return periodicita;}
 
