@@ -122,19 +122,19 @@ public class DAOUtente implements DAOInterface<Utente> {
 		try {
 			connection = this.dataSource.getConnection();
 			PreparedStatement statement;
-			String query = "UPDATE utente SET" +
-					"utente.email = ?, " +
+			String query = "UPDATE utente SET " +
 					"utente.password = ?, " +
 					"utente.nome = ?, " +
 					"utente.cognome = ?, " +
-					"utente.sesso = ?";
+					"utente.sesso = ? " +
+					"WHERE utente.email = ?";
 			statement = connection.prepareStatement(query);
 
-			statement.setString(1, t.getEmail());
-			statement.setString(2, t.getPassword());
-			statement.setString(3, t.getNome());
-			statement.setString(4, t.getCognome());
-			statement.setString(5, t.getSesso().name());
+			statement.setString(1, t.getPassword());
+			statement.setString(2, t.getNome());
+			statement.setString(3, t.getCognome());
+			statement.setString(4, t.getSesso().name());
+			statement.setString(5, t.getEmail());
 
 			statement.executeUpdate();
 

@@ -23,12 +23,12 @@ public class Utente {
 	
 	@Override
 	public String toString() {
-		// TODO Auto-generated method stub
-		return "nome: " + this.nome + "\n" +
-		"cognome: " + this.cognome + "\n" +
-		"sesso: " + this.sesso + "\n" +
-		"email: " + this.email + "\n" +
-		"password: " + this.password;
+		return  "[Utente] {" + "\n" +
+				"nome: " + this.nome + "\n" +
+				"cognome: " + this.cognome + "\n" +
+				"sesso: " + this.sesso + "\n" +
+				"email: " + this.email + "\n" +
+				"password: " + this.password + "\n}\n";
 	}
 
 	public String getNome() {

@@ -15,15 +15,14 @@ public class Gruppo {
 
     @Override
     public String toString() {
-        return "Gruppo{" +
-                "id_gruppo=" + id_gruppo +
-                ", nome='" + nome + '\'' +
-                '}';
+    	return	"[Gruppo] {" + "\n" +
+    			"id_gruppo: " + this.id_gruppo + "\n" +
+    			"nome: " + this.nome + "\n}\n";
     }
 
-    public int getId_gruppo() {return id_gruppo;}
+    public int getIdGruppo() {return id_gruppo;}
 
-    public void setId_gruppo(int id_gruppo) {this.id_gruppo = id_gruppo;}
+    public void setIdGruppo(int id_gruppo) {this.id_gruppo = id_gruppo;}
 
     public String getNome() {return nome;}
 

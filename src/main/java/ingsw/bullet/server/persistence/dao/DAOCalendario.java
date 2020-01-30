@@ -27,7 +27,7 @@ public class DAOCalendario implements DAOInterface<Calendario> {
 			String query = "INSERT INTO calendario (id_gruppo, email, descrizione) VALUES (?,?,?);";
 			statement = connection.prepareStatement(query);
 
-			statement.setInt(1, t.getId_gruppo());
+			statement.setInt(1, t.getIdGruppo());
 			statement.setString(2, t.getEmail());
 			statement.setString(3, t.getDescrizione());
 
@@ -50,20 +50,20 @@ public class DAOCalendario implements DAOInterface<Calendario> {
 		Calendario calendario = null;
 
 		// parser chiavi primarie...
-		String id_calendario = (String)keys[0];
+		int id_calendario = (Integer)keys[0];
 
 		try {
 			connection = this.dataSource.getConnection();
 			PreparedStatement statement;
 			String query = "SELECT * FROM calendario WHERE calendario.id_calendario = ?";
 			statement = connection.prepareStatement(query);
-			statement.setString(1, id_calendario);
+			statement.setInt(1, id_calendario);
 			ResultSet result = statement.executeQuery();
 
 			if (result.next()) {
 				calendario = new Calendario();
-				calendario.setId_calendario(result.getInt("id_calendario"));
-				calendario.setId_gruppo(result.getInt("id_gruppo"));
+				calendario.setIdCalendario(result.getInt("id_calendario"));
+				calendario.setIdGruppo(result.getInt("id_gruppo"));
 				calendario.setEmail(result.getString("email"));
 				calendario.setDescrizione(result.getString("descrizione"));
 
@@ -93,8 +93,8 @@ public class DAOCalendario implements DAOInterface<Calendario> {
 			ResultSet result = statement.executeQuery();
 			while (result.next()) {
 				calendario = new Calendario();
-				calendario.setId_calendario(result.getInt("id_calendario"));
-				calendario.setId_gruppo(result.getInt("id_gruppo"));
+				calendario.setIdCalendario(result.getInt("id_calendario"));
+				calendario.setIdGruppo(result.getInt("id_gruppo"));
 				calendario.setEmail(result.getString("email"));
 				calendario.setDescrizione(result.getString("descrizione"));
 				calendari.add(calendario);
@@ -117,17 +117,17 @@ public class DAOCalendario implements DAOInterface<Calendario> {
 		try {
 			connection = this.dataSource.getConnection();
 			PreparedStatement statement;
-			String query = "UPDATE calendario SET" +
-					"calendario.id_calendario = ?, " +
+			String query = "UPDATE calendario SET " +
 					"calendario.id_gruppo = ?, " +
 					"calendario.email = ?, " +
-					"calendario.descrizione = ?";
+					"calendario.descrizione = ? " +
+					"WHERE calendario.id_calendario = ? ";
 			statement = connection.prepareStatement(query);
 
-			statement.setInt(1, t.getId_calendario());
-			statement.setInt(2, t.getId_gruppo());
-			statement.setString(3, t.getEmail());
-			statement.setString(4, t.getDescrizione());
+			statement.setInt(1, t.getIdGruppo());
+			statement.setString(2, t.getEmail());
+			statement.setString(3, t.getDescrizione());
+			statement.setInt(4, t.getIdCalendario());
 
 			statement.executeUpdate();
 
@@ -149,7 +149,7 @@ public class DAOCalendario implements DAOInterface<Calendario> {
 			connection = this.dataSource.getConnection();
 			String delete = "DELETE FROM calendario WHERE calendario.id_calendario = ?";
 			PreparedStatement statement = connection.prepareStatement(delete);
-			statement.setInt(1, t.getId_calendario());
+			statement.setInt(1, t.getIdCalendario());
 			statement.executeUpdate();
 		} catch (SQLException e) {
 			throw new RuntimeException(e.getMessage());
