@@ -1,35 +1,13 @@
 package ingsw.bullet.client.view;
 
-import com.calendarfx.model.Calendar;
-import com.calendarfx.model.CalendarSource;
-import com.calendarfx.model.Entry;
-import com.calendarfx.view.*;
-import com.calendarfx.view.popover.EntryDetailsView;
-import com.calendarfx.view.popover.EntryPopOverContentPane;
-import ingsw.bullet.client.logic.calendar.Calendario;
+import ingsw.bullet.client.logic.calendar.CalendarioCondiviso;
 import javafx.application.Application;
-import javafx.application.Platform;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.scene.input.ContextMenuEvent;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
-import javafx.util.Callback;
 
-import java.io.File;
 import java.io.IOException;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.util.Iterator;
-import java.util.List;
 
 public class Main extends Application {
 
@@ -77,11 +55,11 @@ public class Main extends Application {
     {
         this.stage = stage;
 
-        Scene scene = new Scene(new Calendario("no"));
+        Scene scene = new Scene(new CalendarioCondiviso("no"));
         stage.setTitle("Calendar");
         stage.setScene(scene);
-        stage.setWidth(600);
-        stage.setHeight(400);
+        stage.setWidth(800);
+        stage.setHeight(800);
         stage.centerOnScreen();
         stage.show();
     }

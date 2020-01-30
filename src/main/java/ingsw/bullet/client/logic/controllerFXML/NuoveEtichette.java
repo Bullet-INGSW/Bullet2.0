@@ -12,17 +12,9 @@ import javafx.stage.Stage;
 
 import java.util.HashMap;
 
-public class NuoveEtichette {
+public class NuoveEtichette extends DialogCalendario{
 
-    public Calendario getCalendario() {
-        return calendario;
-    }
 
-    public void setCalendario(Calendario calendario) {
-        this.calendario = calendario;
-    }
-
-    Calendario calendario;
 
     HashMap<String, Integer> coloriMap =new HashMap<>(){ {
         put("Verde" ,0);
@@ -79,15 +71,4 @@ public class NuoveEtichette {
         chiudi(event);
     }
 
-    protected void chiudi(ActionEvent event)
-    {
-        Node source = (Node)  event.getSource();
-        Stage stage  = (Stage) source.getScene().getWindow();
-        stage.close();
-    }
-
-    @FXML
-    void annulla(ActionEvent event) {
-        chiudi(event);
-    }
 }

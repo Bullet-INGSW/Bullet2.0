@@ -2,14 +2,15 @@ package ingsw.bullet.client.logic.calendar;
 
 
 import java.sql.Time;
+import java.time.LocalDateTime;
 
 public class Evento {
 
     protected int id;
     protected String titolo;
     protected Etichetta etichetta;
-    protected Time dataInizio;
-    protected Time dataFine;
+    protected LocalDateTime dataInizio;
+    protected LocalDateTime dataFine;
     protected boolean fullDay;
 
     public int getId() {
@@ -36,19 +37,19 @@ public class Evento {
         this.etichetta = etichetta;
     }
 
-    public Time getDataInizio() {
+    public LocalDateTime getDataInizio() {
         return dataInizio;
     }
 
-    public void setDataInizio(Time dataInizio) {
+    public void setDataInizio(LocalDateTime dataInizio) {
         this.dataInizio = dataInizio;
     }
 
-    public Time getDataFine() {
+    public LocalDateTime getDataFine() {
         return dataFine;
     }
 
-    public void setDataFine(Time dataFine) {
+    public void setDataFine(LocalDateTime dataFine) {
         this.dataFine = dataFine;
     }
 
@@ -60,7 +61,7 @@ public class Evento {
         this.fullDay = fullDay;
     }
 
-    public Evento(int id, String titolo, Etichetta etichetta, Time dataInizio, Time dataFine, boolean fullDay) {
+    public Evento(int id, String titolo, Etichetta etichetta, LocalDateTime dataInizio, LocalDateTime dataFine, boolean fullDay) {
         this.id = id;
         this.titolo = titolo;
         this.etichetta = etichetta;
