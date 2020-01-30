@@ -25,15 +25,30 @@ public class DAOEvento implements DAOInterface<Evento> {
 		try {
 			connection = this.dataSource.getConnection();
 			PreparedStatement statement;
-			String query = "INSERT INTO evento (id_calendario, id_etichetta, descrizione, data_inizio, data_fine, periodicita) VALUES (?,?,?,?,?,?);";
+			String query = "INSERT INTO evento (" +
+					"id_calendario, " +
+					"id_etichetta, " +
+					"nome, " +
+					"descrizione, " +
+					"data_inizio, " +
+					"data_fine, " +
+					"periodicita, " +
+					"full_day, " +
+					"recurrence_rule, " +
+					"id_recurrence" +
+					") VALUES (?,?,?,?,?,?,?,?,?,?);";
 			statement = connection.prepareStatement(query);
 
 			statement.setInt(1, t.getIdCalendario());
 			statement.setInt(2, t.getIdEtichetta());
-			statement.setString(3, t.getDescrizione());
-			statement.setTimestamp(4, Timestamp.valueOf(t.getDataInizio()));
-			statement.setTimestamp(5, Timestamp.valueOf(t.getDataFine()));
-			statement.setBoolean(6, t.getPeriodicita());
+			statement.setString(3, t.getNome());
+			statement.setString(4, t.getDescrizione());
+			statement.setTimestamp(5, Timestamp.valueOf(t.getDataInizio()));
+			statement.setTimestamp(6, Timestamp.valueOf(t.getDataFine()));
+			statement.setBoolean(7, t.getPeriodicita());
+			statement.setBoolean(8, t.isFullDay());
+			statement.setString(9, t.getRecurrenceRule());
+			statement.setInt(10, t.getIdRecurrence());
 
 			statement.executeUpdate();
 
@@ -69,10 +84,14 @@ public class DAOEvento implements DAOInterface<Evento> {
 				evento.setIdEvento(result.getInt("id_evento"));
 				evento.setIdCalendario(result.getInt("id_calendario"));
 				evento.setIdEtichetta(result.getInt("id_etichetta"));
+				evento.setNome(result.getString("nome"));
 				evento.setDescrizione(result.getString("descrizione"));
 				evento.setDataInizio((result.getTimestamp("data_inizio")).toLocalDateTime());
 				evento.setDataFine((result.getTimestamp("data_fine")).toLocalDateTime());
 				evento.setPeriodicita(result.getBoolean("periodicita"));
+				evento.setFullDay(result.getBoolean("full_day"));
+				evento.setRecurrenceRule(result.getString("recurrence_rule"));
+				evento.setIdRecurrence(result.getInt("id_recurrence"));
 
 			}
 		} catch (SQLException e) {
@@ -105,10 +124,15 @@ public class DAOEvento implements DAOInterface<Evento> {
 				evento.setIdEvento(result.getInt("id_evento"));
 				evento.setIdCalendario(result.getInt("id_calendario"));
 				evento.setIdEtichetta(result.getInt("id_etichetta"));
+				evento.setNome(result.getString("nome"));
 				evento.setDescrizione(result.getString("descrizione"));
 				evento.setDataInizio((result.getTimestamp("data_inizio")).toLocalDateTime());
 				evento.setDataFine((result.getTimestamp("data_fine")).toLocalDateTime());
 				evento.setPeriodicita(result.getBoolean("periodicita"));
+				evento.setFullDay(result.getBoolean("full_day"));
+				evento.setRecurrenceRule(result.getString("recurrence_rule"));
+				evento.setIdRecurrence(result.getInt("id_recurrence"));
+
 				eventi.add(evento);
 
 			}
@@ -135,19 +159,28 @@ public class DAOEvento implements DAOInterface<Evento> {
 					"evento.id_calendario = ?, " +
 					"evento.id_etichetta = ?, " +
 					"evento.descrizione = ?, " +
+					"evento.nome = ?, " +
 					"evento.data_inizio = ?, " +
 					"evento.data_fine = ?, " +
-					"evento.periodicita = ? " +
+					"evento.periodicita = ?, " +
+					"evento.full_day = ?, " +
+					"evento.recurrence_rule = ?, " +
+					"evento.id_recurrence = ? " +
 					"WHERE evento.id_evento = ?";
+
 			statement = connection.prepareStatement(query);
 
 			statement.setInt(1, t.getIdCalendario());
 			statement.setInt(2, t.getIdEtichetta());
-			statement.setString(3, t.getDescrizione());
-			statement.setTimestamp(4, Timestamp.valueOf(t.getDataInizio()));
-			statement.setTimestamp(5, Timestamp.valueOf(t.getDataFine()));
-			statement.setBoolean(6, t.getPeriodicita());
-			statement.setInt(7, t.getIdEvento());
+			statement.setString(3, t.getNome());
+			statement.setString(4, t.getDescrizione());
+			statement.setTimestamp(5, Timestamp.valueOf(t.getDataInizio()));
+			statement.setTimestamp(6, Timestamp.valueOf(t.getDataFine()));
+			statement.setBoolean(7, t.getPeriodicita());
+			statement.setBoolean(8, t.isFullDay());
+			statement.setString(9, t.getRecurrenceRule());
+			statement.setInt(10, t.getIdRecurrence());
+			statement.setInt(11, t.getIdEvento());
 
 			statement.executeUpdate();
 
