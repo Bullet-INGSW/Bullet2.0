@@ -1,4 +1,4 @@
-package ingsw.bullet.server.NetworkUtility;
+package ingsw.bullet.client.NetworkUtility;
 
 public class Error {
     public enum ErrorType{ Nessuno, UserNotExist, WrongPassword   }

@@ -1,8 +1,10 @@
-package ingsw.bullet.client;
+package ingsw.bullet.client.NetworkUtility;
 
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Server;
+
+import java.util.ArrayList;
 
 
 public class KryoUtil {
@@ -25,8 +27,10 @@ public class KryoUtil {
        //kryo.register(OggettoInviabile.class);
         kryo.register(int.class);
         kryo.register(String.class);
-
-
+        kryo.register(Boolean.class);
+        kryo.register(boolean.class);
+        kryo.register(ArrayList.class);
+        //FINIRE THIS
 
     }
 
