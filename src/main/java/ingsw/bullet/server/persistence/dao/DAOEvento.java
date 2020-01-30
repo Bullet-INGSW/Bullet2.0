@@ -155,7 +155,7 @@ public class DAOEvento implements DAOInterface<Evento> {
 		try {
 			connection = this.dataSource.getConnection();
 			PreparedStatement statement;
-			String query = "UPDATE evento SET" +
+			String query = "UPDATE evento SET " +
 					"evento.id_calendario = ?, " +
 					"evento.id_etichetta = ?, " +
 					"evento.descrizione = ?, " +
