@@ -17,16 +17,15 @@ public class Etichetta {
 
     @Override
     public String toString() {
-        return "Etichetta{" +
-                "id_etichetta=" + id_etichetta +
-                ", colore=" + colore +
-                ", nome='" + nome + '\'' +
-                '}';
+    	return	"[Etichetta] {" + "\n" +
+    			"id_etichetta: " + this.id_etichetta + "\n" +
+    			"colore: " + this.colore + "\n" +
+    			"nome: " + this.nome + "\n}\n";
     }
 
-    public int getId_etichetta() {return id_etichetta;}
+    public int getIdEtichetta() {return id_etichetta;}
 
-    public void setId_etichetta(int id_etichetta) {this.id_etichetta = id_etichetta;}
+    public void setIdEtichetta(int id_etichetta) {this.id_etichetta = id_etichetta;}
 
     public int getColore() {return colore;}
 

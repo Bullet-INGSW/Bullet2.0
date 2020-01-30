@@ -17,16 +17,15 @@ public class Notifica {
 
     @Override
     public String toString() {
-        return "Notifica{" +
-                "id_notifica=" + id_notifica +
-                ", email='" + email + '\'' +
-                ", descrizione='" + descrizione + '\'' +
-                '}';
+    	return	"[Notifica] {" + "\n" +
+    			"id_notifica: " + this.id_notifica + "\n" +
+    			"email: " + this.email + "\n" +
+    			"descrizione: " + this.descrizione + "\n}\n";
     }
 
-    public int getId_notifica() {return id_notifica;}
+    public int getIdNotifica() {return id_notifica;}
 
-    public void setId_notifica(int id_notifica) {this.id_notifica = id_notifica;}
+    public void setIdNotifica(int id_notifica) {this.id_notifica = id_notifica;}
 
     public String getEmail() {return email;}
 

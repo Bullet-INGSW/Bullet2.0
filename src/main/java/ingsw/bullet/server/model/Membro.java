@@ -17,20 +17,19 @@ public class Membro {
 
     @Override
     public String toString() {
-        return "Membro{" +
-                "email='" + email + '\'' +
-                ", id_gruppo=" + id_gruppo +
-                ", admin=" + admin +
-                '}';
+    	return	"[Membro] {" + "\n" +
+    			"email: " + this.email + "\n" +
+    			"id_gruppo: " + this.id_gruppo + "\n" +
+    			"admin: " + this.admin + "\n}\n";
     }
 
     public String getEmail() {return email;}
 
     public void setEmail(String email) {this.email = email;}
 
-    public int getId_gruppo() {return id_gruppo;}
+    public int getIdGruppo() {return id_gruppo;}
 
-    public void setId_gruppo(int id_gruppo) {this.id_gruppo = id_gruppo;}
+    public void setIdGruppo(int id_gruppo) {this.id_gruppo = id_gruppo;}
 
     public boolean isAdmin() {return admin;}
 

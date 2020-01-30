@@ -25,27 +25,26 @@ public class Promemoria {
 
     @Override
     public String toString() {
-        return "Promemoria{" +
-                "id_promemoria=" + id_promemoria +
-                ", id_tdl=" + id_tdl +
-                ", id_etichetta=" + id_etichetta +
-                ", descrizione='" + descrizione + '\'' +
-                ", completato=" + completato +
-                ", scadenza=" + scadenza +
-                '}';
+    	return	"[Promemoria] {" + "\n" +
+    			"id_promemoria: " + this.id_promemoria + "\n" +
+    			"id_tdl: " + this.id_tdl + "\n" +
+    			"id_etichetta: " + this.id_etichetta + "\n" +
+    			"descrizione: " + this.descrizione + "\n" +
+    			"completato: " + this.completato + "\n" +
+    			"scadenza: " + this.scadenza + "\n}\n";
     }
 
-    public int getId_promemoria() {return id_promemoria;}
+    public int getIdPromemoria() {return id_promemoria;}
 
-    public void setId_promemoria(int id_promemoria) {this.id_promemoria = id_promemoria;}
+    public void setIdPromemoria(int id_promemoria) {this.id_promemoria = id_promemoria;}
 
-    public int getId_tdl() {return id_tdl;}
+    public int getIdTDL() {return id_tdl;}
 
-    public void setId_tdl(int id_tdl) {this.id_tdl = id_tdl;}
+    public void setIdTDL(int id_tdl) {this.id_tdl = id_tdl;}
 
-    public int getId_etichetta() {return id_etichetta;}
+    public int getIdEtichetta() {return id_etichetta;}
 
-    public void setId_etichetta(int id_etichetta) {this.id_etichetta = id_etichetta;}
+    public void setIdEtichetta(int id_etichetta) {this.id_etichetta = id_etichetta;}
 
     public String getDescrizione() {return descrizione;}
 

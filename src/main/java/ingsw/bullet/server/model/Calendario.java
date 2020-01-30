@@ -19,20 +19,19 @@ public class Calendario {
 
     @Override
     public String toString() {
-        return "Calendario{" +
-                "id_calendario=" + id_calendario +
-                ", id_gruppo=" + id_gruppo +
-                ", email='" + email + '\'' +
-                '}';
+    	return	"[Calendario] {" + "\n" +
+    			"id_calendario: " + this.id_calendario + "\n" +
+    			"email: " + this.email + "\n" +
+    			"descrizione: " + this.descrizione + "\n}\n";
     }
 
-    public int getId_calendario() {return id_calendario;}
+    public int getIdCalendario() {return id_calendario;}
 
-    public void setId_calendario(int id_calendario) {this.id_calendario = id_calendario;}
+    public void setIdCalendario(int id_calendario) {this.id_calendario = id_calendario;}
 
-    public int getId_gruppo() {return id_gruppo;}
+    public int getIdGruppo() {return id_gruppo;}
 
-    public void setId_gruppo(int id_gruppo) {this.id_gruppo = id_gruppo;}
+    public void setIdGruppo(int id_gruppo) {this.id_gruppo = id_gruppo;}
 
     public String getEmail() {return email;}
 

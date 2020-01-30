@@ -1,10 +1,16 @@
 package ingsw.bullet.server.persistence.dao;
 
 import ingsw.bullet.server.model.Notifica;
+import ingsw.bullet.server.persistence.DataSource;
 
 import java.util.List;
 
 public class DAONotifica implements DAOInterface<Notifica> {
+	private DataSource dataSource;
+
+	public DAONotifica(DataSource dataSource) {
+		this.dataSource = dataSource;
+	}
 
 	public void save(Notifica t) {
 		// TODO Auto-generated method stub
