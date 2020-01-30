@@ -40,11 +40,11 @@ public class DBManager {
 	}
 
 	// UTENTE //
-	public Utente findUserByPrimaryKey(String email) {
+	public Utente findUtenteByPrimaryKey(String email) {
 		return getDAOUtente().findByPrimaryKey(email);
 	}
 
-	public List<Utente> getAllUsers() {
+	public List<Utente> getAllUtente() {
 		return getDAOUtente().findAll();
 	}
 
@@ -65,7 +65,7 @@ public class DBManager {
 		return getDAOCalendario().findByPrimaryKey(id);
 	}
 
-	public List<Calendario> getAllCalendari() {
+	public List<Calendario> getAllCalendario() {
 		return getDAOCalendario().findAll();
 	}
 
@@ -86,7 +86,7 @@ public class DBManager {
 		return getDAOEvento().findByPrimaryKey(id);
 	}
 
-	public List<Evento> getAllEventi() {
+	public List<Evento> getAllEvento() {
 		return getDAOEvento().findAll();
 	}
 
