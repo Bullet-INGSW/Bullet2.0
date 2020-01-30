@@ -4,10 +4,10 @@ import ingsw.bullet.server.model.Promemoria;
 import ingsw.bullet.server.persistence.DataSource;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,7 +32,7 @@ public class DAOPromemoria implements DAOInterface<Promemoria> {
 			statement.setInt(2, t.getIdEtichetta());
 			statement.setString(3, t.getDescrizione());
 			statement.setBoolean(4, t.isCompletato());
-			statement.setDate(5, (Date) t.getScadenza());
+			statement.setTimestamp(5, Timestamp.valueOf(t.getScadenza()));
 
 			statement.executeUpdate();
 
@@ -69,7 +69,7 @@ public class DAOPromemoria implements DAOInterface<Promemoria> {
 				promemoria.setIdEtichetta(result.getInt("id_etichetta"));
 				promemoria.setDescrizione(result.getString("descrizione"));
 				promemoria.setCompletato(result.getBoolean("completato"));
-				promemoria.setScadenza(result.getDate("scadenza"));
+				promemoria.setScadenza((result.getTimestamp("scadenza")).toLocalDateTime());
 
 			}
 		} catch (SQLException e) {
@@ -103,7 +103,7 @@ public class DAOPromemoria implements DAOInterface<Promemoria> {
 				promemoria.setIdEtichetta(result.getInt("id_etichetta"));
 				promemoria.setDescrizione(result.getString("descrizione"));
 				promemoria.setCompletato(result.getBoolean("completato"));
-				promemoria.setScadenza(result.getDate("scadenza"));
+				promemoria.setScadenza((result.getTimestamp("scadenza")).toLocalDateTime());
 				pr.add(promemoria);
 
 			}
@@ -138,7 +138,7 @@ public class DAOPromemoria implements DAOInterface<Promemoria> {
 			statement.setInt(2, t.getIdEtichetta());
 			statement.setString(3, t.getDescrizione());
 			statement.setBoolean(4, t.isCompletato());
-			statement.setDate(5, (Date) t.getScadenza());
+			statement.setTimestamp(5, Timestamp.valueOf(t.getScadenza()));
 
 			statement.executeUpdate();
 

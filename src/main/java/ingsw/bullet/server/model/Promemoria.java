@@ -1,6 +1,6 @@
 package ingsw.bullet.server.model;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 public class Promemoria {
 
@@ -9,12 +9,12 @@ public class Promemoria {
     private int id_etichetta;
     private String descrizione;
     private boolean completato;
-    private Date scadenza;
+    private LocalDateTime scadenza;
 
     public Promemoria() {
     }
 
-    public Promemoria(int id_promemoria, int id_tdl, int id_etichetta, String descrizione, boolean completato, Date scadenza) {
+    public Promemoria(int id_promemoria, int id_tdl, int id_etichetta, String descrizione, boolean completato, LocalDateTime scadenza) {
         this.id_promemoria = id_promemoria;
         this.id_tdl = id_tdl;
         this.id_etichetta = id_etichetta;
@@ -54,7 +54,7 @@ public class Promemoria {
 
     public void setCompletato(boolean completato) {this.completato = completato;}
 
-    public Date getScadenza() {return scadenza;}
+    public LocalDateTime getScadenza() {return scadenza;}
 
-    public void setScadenza(Date scadenza) {this.scadenza = scadenza;}
+    public void setScadenza(LocalDateTime scadenza) {this.scadenza = scadenza;}
 }
