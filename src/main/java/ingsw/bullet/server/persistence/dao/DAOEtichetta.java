@@ -24,11 +24,11 @@ public class DAOEtichetta implements DAOInterface<Etichetta> {
 		try {
 			connection = this.dataSource.getConnection();
 			PreparedStatement statement;
-			String query = "INSERT INTO etichetta (colore, nome) VALUES (?,?);";
+			String query = "INSERT INTO etichetta (nome, colore) VALUES (?,?);";
 			statement = connection.prepareStatement(query);
 
-			statement.setInt(1, t.getColore());
-			statement.setString(2, t.getNome());
+			statement.setString(1, t.getNome());
+			statement.setInt(2, t.getColore());
 
 			statement.executeUpdate();
 
@@ -61,8 +61,8 @@ public class DAOEtichetta implements DAOInterface<Etichetta> {
 			if (result.next()) {
 				etichetta = new Etichetta();
 				etichetta.setIdEtichetta(result.getInt("id_etichetta"));
-				etichetta.setColore(result.getInt("colore"));
 				etichetta.setNome(result.getString("nome"));
+				etichetta.setColore(result.getInt("colore"));
 
 			}
 		} catch (SQLException e) {
@@ -91,8 +91,8 @@ public class DAOEtichetta implements DAOInterface<Etichetta> {
 			while (result.next()) {
 				etichetta = new Etichetta();
 				etichetta.setIdEtichetta(result.getInt("id_etichetta"));
-				etichetta.setColore(result.getInt("colore"));
 				etichetta.setNome(result.getString("nome"));
+				etichetta.setColore(result.getInt("colore"));
 				etichette.add(etichetta);
 			}
 		} catch (SQLException e) {
@@ -114,14 +114,14 @@ public class DAOEtichetta implements DAOInterface<Etichetta> {
 			connection = this.dataSource.getConnection();
 			PreparedStatement statement;
 			String query = "UPDATE etichetta SET " +
-					"etichetta.colore = ?, " +
-					"etichetta.nome = ? " +
+					"etichetta.nome = ?, " +
+					"etichetta.colore = ? " +
 					"WHERE etichetta.id_etichetta = ?";
 			statement = connection.prepareStatement(query);
 
 			statement.setInt(1, t.getColore());
-			statement.setString(2, t.getNome());
-			statement.setInt(3, t.getIdEtichetta());
+			statement.setInt(2, t.getIdEtichetta());
+			statement.setString(3, t.getNome());
 
 			statement.executeUpdate();
 

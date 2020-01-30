@@ -5,24 +5,25 @@ public class Calendario {
     private int id_calendario;
     private int id_gruppo;
     private String email;
-    private String descrizione;
+    private String nome;
 
     public Calendario() {
     }
 
-    public Calendario(int id_calendario, int id_gruppo, String email, String descrizione) {
+    public Calendario(int id_calendario, int id_gruppo, String email, String nome) {
         this.id_calendario = id_calendario;
         this.id_gruppo = id_gruppo;
         this.email = email;
-        this.descrizione = descrizione;
+        this.nome = nome;
     }
 
     @Override
     public String toString() {
-    	return	"[Calendario] {" + "\n" +
-    			"id_calendario: " + this.id_calendario + "\n" +
-    			"email: " + this.email + "\n" +
-    			"descrizione: " + this.descrizione + "\n}\n";
+        return	"[TDL] {" + "\n" +
+                "id_calendario: " + this.id_calendario + "\n" +
+                "id_gruppo: " + this.id_gruppo + "\n" +
+                "email: " + this.email + "\n" +
+                "nome: " + this.nome + "\n}\n";
     }
 
     public int getIdCalendario() {return id_calendario;}
@@ -37,7 +38,7 @@ public class Calendario {
 
     public void setEmail(String email) {this.email = email;}
 
-    public String getDescrizione() {return descrizione;}
+    public String getNome() {return nome;}
 
-    public void setDescrizione(String descrizione) {this.descrizione = descrizione;}
+    public void setNome(String descrizione) {this.nome = nome;}
 }
