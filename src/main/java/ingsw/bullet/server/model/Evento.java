@@ -13,8 +13,8 @@ public class Evento {
     private LocalDateTime data_fine;
     private boolean periodicita;
     private boolean full_day;
-    private String recurrence_rule;
     private int id_recurrence;
+    private String recurrence_rule;
 
     public Evento() {
     }
@@ -28,8 +28,8 @@ public class Evento {
                   LocalDateTime data_fine,
                   boolean periodicita,
                   boolean full_day,
-                  String recurrence_rule,
-                  int id_recurrence) {
+                  int id_recurrence,
+                  String recurrence_rule) {
 
         this.id_evento = id_evento;
         this.id_calendario = id_calendario;
@@ -40,8 +40,8 @@ public class Evento {
         this.data_fine = data_fine;
         this.periodicita = periodicita;
         this.full_day = full_day;
-        this.recurrence_rule = recurrence_rule;
         this.id_recurrence = id_recurrence;
+        this.recurrence_rule = recurrence_rule;
     }
 
     @Override
@@ -56,9 +56,8 @@ public class Evento {
     			"data_fine: " + this.data_fine + "\n" +
                 "periodicità: " + this.periodicita + "\n" +
                 "full_day: " + this.full_day + "\n" +
-                "recurrence_rule: " + this.recurrence_rule + "\n" +
                 "id_recurrence: " + this.id_recurrence + "\n" +
-    			"periodicità: " + this.periodicita + "\n}\n";
+                "recurrence_rule: " + this.recurrence_rule + "\n}\n";
     }
 
     public int getIdEvento() {return id_evento;}
@@ -97,11 +96,11 @@ public class Evento {
 
     public void setFullDay(boolean full_day) {this.full_day = full_day;}
 
-    public String getRecurrenceRule() {return recurrence_rule;}
-
-    public void setRecurrenceRule(String recurrence_rule) {this.recurrence_rule = recurrence_rule;}
-
     public int getIdRecurrence() {return id_recurrence;}
 
     public void setIdRecurrence(int recurrence_rule) {this.id_recurrence = id_recurrence;}
+
+    public String getRecurrenceRule() {return recurrence_rule;}
+
+    public void setRecurrenceRule(String recurrence_rule) {this.recurrence_rule = recurrence_rule;}
 }

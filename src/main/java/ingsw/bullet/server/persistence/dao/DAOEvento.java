@@ -34,8 +34,8 @@ public class DAOEvento implements DAOInterface<Evento> {
 					"data_fine, " +
 					"periodicita, " +
 					"full_day, " +
+					"id_recurrence," +
 					"recurrence_rule, " +
-					"id_recurrence" +
 					") VALUES (?,?,?,?,?,?,?,?,?,?);";
 			statement = connection.prepareStatement(query);
 
@@ -47,8 +47,8 @@ public class DAOEvento implements DAOInterface<Evento> {
 			statement.setTimestamp(6, Timestamp.valueOf(t.getDataFine()));
 			statement.setBoolean(7, t.getPeriodicita());
 			statement.setBoolean(8, t.isFullDay());
-			statement.setString(9, t.getRecurrenceRule());
-			statement.setInt(10, t.getIdRecurrence());
+			statement.setInt(9, t.getIdRecurrence());
+			statement.setString(10, t.getRecurrenceRule());
 
 			statement.executeUpdate();
 
@@ -90,8 +90,8 @@ public class DAOEvento implements DAOInterface<Evento> {
 				evento.setDataFine((result.getTimestamp("data_fine")).toLocalDateTime());
 				evento.setPeriodicita(result.getBoolean("periodicita"));
 				evento.setFullDay(result.getBoolean("full_day"));
-				evento.setRecurrenceRule(result.getString("recurrence_rule"));
 				evento.setIdRecurrence(result.getInt("id_recurrence"));
+				evento.setRecurrenceRule(result.getString("recurrence_rule"));
 
 			}
 		} catch (SQLException e) {
@@ -105,6 +105,48 @@ public class DAOEvento implements DAOInterface<Evento> {
 		}
 		return evento;
 
+	}
+
+	public List<Evento> findByCalendario(int id_calendario) {
+		Connection connection = null;
+		Evento evento = null;
+		List<Evento> eventi = new ArrayList<Evento>();
+
+		try {
+			connection = this.dataSource.getConnection();
+			PreparedStatement statement;
+			String query = "SELECT * FROM evento WHERE evento.idCalendario = ?";
+			statement = connection.prepareStatement(query);
+			statement.setInt(1, id_calendario);
+			ResultSet result = statement.executeQuery();
+
+			if (result.next()) {
+				evento = new Evento();
+				evento.setIdEvento(result.getInt("id_evento"));
+				evento.setIdCalendario(result.getInt("id_calendario"));
+				evento.setIdEtichetta(result.getInt("id_etichetta"));
+				evento.setNome(result.getString("nome"));
+				evento.setDescrizione(result.getString("descrizione"));
+				evento.setDataInizio((result.getTimestamp("data_inizio")).toLocalDateTime());
+				evento.setDataFine((result.getTimestamp("data_fine")).toLocalDateTime());
+				evento.setPeriodicita(result.getBoolean("periodicita"));
+				evento.setFullDay(result.getBoolean("full_day"));
+				evento.setIdRecurrence(result.getInt("id_recurrence"));
+				evento.setRecurrenceRule(result.getString("recurrence_rule"));
+
+				eventi.add(evento);
+
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException(e.getMessage());
+		} finally {
+			try {
+				connection.close();
+			} catch (SQLException e) {
+				throw new RuntimeException(e.getMessage());
+			}
+		}
+		return eventi;
 	}
 
 	public List<Evento> findAll() {
@@ -130,8 +172,8 @@ public class DAOEvento implements DAOInterface<Evento> {
 				evento.setDataFine((result.getTimestamp("data_fine")).toLocalDateTime());
 				evento.setPeriodicita(result.getBoolean("periodicita"));
 				evento.setFullDay(result.getBoolean("full_day"));
-				evento.setRecurrenceRule(result.getString("recurrence_rule"));
 				evento.setIdRecurrence(result.getInt("id_recurrence"));
+				evento.setRecurrenceRule(result.getString("recurrence_rule"));
 
 				eventi.add(evento);
 
@@ -164,8 +206,8 @@ public class DAOEvento implements DAOInterface<Evento> {
 					"evento.data_fine = ?, " +
 					"evento.periodicita = ?, " +
 					"evento.full_day = ?, " +
-					"evento.recurrence_rule = ?, " +
-					"evento.id_recurrence = ? " +
+					"evento.id_recurrence = ?, " +
+					"evento.recurrence_rule = ? " +
 					"WHERE evento.id_evento = ?";
 
 			statement = connection.prepareStatement(query);
@@ -178,8 +220,8 @@ public class DAOEvento implements DAOInterface<Evento> {
 			statement.setTimestamp(6, Timestamp.valueOf(t.getDataFine()));
 			statement.setBoolean(7, t.getPeriodicita());
 			statement.setBoolean(8, t.isFullDay());
-			statement.setString(9, t.getRecurrenceRule());
-			statement.setInt(10, t.getIdRecurrence());
+			statement.setInt(9, t.getIdRecurrence());
+			statement.setString(10, t.getRecurrenceRule());
 			statement.setInt(11, t.getIdEvento());
 
 			statement.executeUpdate();

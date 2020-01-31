@@ -86,6 +86,10 @@ public class DBManager {
 		return getDAOEvento().findByPrimaryKey(id);
 	}
 
+	public List<Evento> findEventoByCalendario(int id) {
+		return getDAOEvento().findByCalendario(id);
+	}
+
 	public List<Evento> getAllEvento() {
 		return getDAOEvento().findAll();
 	}
