@@ -36,6 +36,7 @@ public interface DBClientInterface {
     Notifica findNotificaById(int id);
     Notifica insertNotifica(Notifica c);
     Notifica updateNotifica(Notifica c);
+    boolean removeNotifica(int id);
 
     Promemoria findPromemoriaById(int id);
     Promemoria insertPromemoria(Promemoria c);

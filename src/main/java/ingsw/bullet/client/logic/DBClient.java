@@ -67,6 +67,8 @@ public class DBClient implements DBClientInterface {
     public Notifica insertNotifica(Notifica c) {return null;}
     @Override
     public Notifica updateNotifica(Notifica c) {return null;}
+    @Override
+    public boolean removeNotifica(int id) {return false;}
 
     @Override
     public Promemoria findPromemoriaById(int id) {return null;}
