@@ -92,7 +92,7 @@ public class DAONotifica implements DAOInterface<Notifica> {
 			statement.setString(1, email);
 			ResultSet result = statement.executeQuery();
 
-			if (result.next()) {
+			while (result.next()) {
 				notifica = new Notifica();
 				notifica.setIdNotifica(result.getInt("id_notifica"));
 				notifica.setEmail(result.getString("email"));
@@ -124,7 +124,7 @@ public class DAONotifica implements DAOInterface<Notifica> {
 			statement = connection.prepareStatement(query);
 			ResultSet result = statement.executeQuery();
 
-			if (result.next()) {
+			while (result.next()) {
 				notifica = new Notifica();
 				notifica.setIdNotifica(result.getInt("id_notifica"));
 				notifica.setEmail(result.getString("email"));

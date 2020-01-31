@@ -3,7 +3,7 @@ package ingsw.bullet.server.model;
 public class Membro {
 
     private String email;
-    private  int id_gruppo;
+    private int id_gruppo;
     private boolean admin;
 
     public Membro() {

@@ -1,6 +1,7 @@
 package ingsw.bullet.server.model;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class Promemoria {
 
@@ -10,6 +11,8 @@ public class Promemoria {
     private String descrizione;
     private boolean completato;
     private LocalDateTime scadenza;
+
+    private List<Partecipante> partecipanti;
 
     public Promemoria() {
     }
@@ -57,4 +60,8 @@ public class Promemoria {
     public LocalDateTime getScadenza() {return scadenza;}
 
     public void setScadenza(LocalDateTime scadenza) {this.scadenza = scadenza;}
+
+    public List<Partecipante> getPartecipanti() {return partecipanti;}
+
+    public void setPartecipanti(List<Partecipante> partecipanti) {this.partecipanti = partecipanti;}
 }

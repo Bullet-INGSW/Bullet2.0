@@ -58,7 +58,7 @@ public class DAOEtichetta implements DAOInterface<Etichetta> {
 			statement.setInt(1, id_etichetta);
 			ResultSet result = statement.executeQuery();
 
-			if (result.next()) {
+			while (result.next()) {
 				etichetta = new Etichetta();
 				etichetta.setIdEtichetta(result.getInt("id_etichetta"));
 				etichetta.setNome(result.getString("nome"));
@@ -88,6 +88,7 @@ public class DAOEtichetta implements DAOInterface<Etichetta> {
 			String query = "SELECT * FROM etichetta";
 			statement = connection.prepareStatement(query);
 			ResultSet result = statement.executeQuery();
+
 			while (result.next()) {
 				etichetta = new Etichetta();
 				etichetta.setIdEtichetta(result.getInt("id_etichetta"));

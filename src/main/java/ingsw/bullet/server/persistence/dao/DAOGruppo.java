@@ -2,7 +2,9 @@ package ingsw.bullet.server.persistence.dao;
 
 import ingsw.bullet.server.model.Etichetta;
 import ingsw.bullet.server.model.Gruppo;
+import ingsw.bullet.server.model.Membro;
 import ingsw.bullet.server.model.Notifica;
+import ingsw.bullet.server.persistence.DBManager;
 import ingsw.bullet.server.persistence.DataSource;
 
 import java.sql.Connection;
@@ -28,9 +30,7 @@ public class DAOGruppo implements DAOInterface<Gruppo> {
 			PreparedStatement statement;
 			String query = "INSERT INTO gruppo (nome) VALUES (?);";
 			statement = connection.prepareStatement(query);
-
 			statement.setString(1, t.getNome());
-
 			statement.executeUpdate();
 
 		} catch (SQLException e) {
@@ -65,10 +65,14 @@ public class DAOGruppo implements DAOInterface<Gruppo> {
 				gruppo.setNome(result.getString("nome"));
 			}
 
-			// devo trovare tutti i membri che hanno come chiave esterna idGruppo
-			// new DAOMembro(dataSource).findByGruppo(id_gruppo);
-			// inserire tutti in membri
-			// inserire quelli amministratore in amministratori
+			gruppo.setMembri(new DAOMembro(dataSource).findByGruppo(id_gruppo));
+			List<Membro> amministratori = new ArrayList<Membro>();
+			for(Membro m : gruppo.getMembri())
+				if(m.isAdmin())
+					amministratori.add(m);
+			gruppo.setAmministratori(amministratori);
+			gruppo.setCalendari(new DAOCalendario(dataSource).findByGruppo(id_gruppo));
+			gruppo.setTDL(new DAOTDL(dataSource).findByGruppo(id_gruppo));
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e.getMessage());
@@ -94,12 +98,23 @@ public class DAOGruppo implements DAOInterface<Gruppo> {
 			statement = connection.prepareStatement(query);
 			ResultSet result = statement.executeQuery();
 
-			if (result.next()) {
+			while (result.next()) {
 				gruppo = new Gruppo();
 				gruppo.setIdGruppo(result.getInt("id_gruppo"));
 				gruppo.setNome(result.getString("nome"));
+
+				gruppo.setMembri(new DAOMembro(dataSource).findByGruppo(gruppo.getIdGruppo()));
+				List<Membro> amministratori = new ArrayList<Membro>();
+				for(Membro m : gruppo.getMembri())
+					if(m.isAdmin())
+						amministratori.add(m);
+				gruppo.setAmministratori(amministratori);
+				gruppo.setCalendari(new DAOCalendario(dataSource).findByGruppo(gruppo.getIdGruppo()));
+				gruppo.setTDL(new DAOTDL(dataSource).findByGruppo(gruppo.getIdGruppo()));
+
 				gruppi.add(gruppo);
 			}
+
 		} catch (SQLException e) {
 			throw new RuntimeException(e.getMessage());
 		} finally {
@@ -122,7 +137,6 @@ public class DAOGruppo implements DAOInterface<Gruppo> {
 					"gruppo.nome = ? " +
 					"WHERE gruppo.id_gruppo = ?";
 			statement = connection.prepareStatement(query);
-
 			statement.setString(1, t.getNome());
 			statement.setInt(2, t.getIdGruppo());
 
