@@ -1,64 +1,50 @@
 package ingsw.bullet.client.logic;
 
+import ingsw.bullet.server.model.*;
+
 import java.util.ArrayList;
 
 public interface DBClientInterface {
 
-    // restituisce l'id dell'etichetta appena creata
-    int creaEtichetta(String nome, int colore);
+    // se non trova qualcosa restituisce null
 
-    // aggiungi utente dal gruppo
-    boolean aggiungiMembro(String gruppo, String email, String amministratore);
+    Calendario findCalendarioById(int id);
+    Calendario insertCalendario(Calendario c);
+    Calendario updateCalendario(Calendario c);
 
-    // restituisce true se esiste o false se non esiste
-    boolean esisteUtente(String email);
+    Etichetta findEtichettaById(int id);
+    Etichetta insertEtichetta(Etichetta c);
+    Etichetta updateEtichetta(Etichetta c);
 
-    /* restituisce 1 se crea il gruppo senza problemi, 0 se ha problemi, in dettaglio se il nome del gruppo è gia' usato
-        restituisce -1 */
-    int creaGruppo(String amministratore, String nome, ArrayList<String> membri);
+    Evento findEventoById(int id);
+    Evento insertEvento(Etichetta c);
+    Evento updateEvento(Etichetta c);
 
-    // dato un utente restituisce l'elenco dei gruppi a lui associati (sia membro che amministratore)
-    ArrayList<String> getElencoGruppi(String email);
+    Gruppo findGruppoById(int id);
+    Gruppo insertGruppo(Gruppo c);
+    Gruppo updateGruppo(Gruppo c);
 
-    // restituisce l'elenco dei membri associati a quel gruppo
-    ArrayList<String> getElencoMembri(String gruppo);
+    Membro findMembroById(String email);
+    Membro insertMembro(Membro c);
+    Membro updateMembro(Membro c);
 
-    // se a buon fine true oppure false
-    boolean setMembriGruppo(String gruppo, ArrayList<String> elencoMembri);
+    Notifica findNotificaById(int id);
+    Notifica insertNotifica(Notifica c);
+    Notifica updateNotifica(Notifica c);
 
-    // restituisce nei parametri i dati dell'utente --- Maschio 1, Femmina 0
-    boolean getUtente(String nome, String cognome, String email, boolean sesso);
+    Promemoria findPromemoriaById(int id);
+    Promemoria insertPromemoria(Promemoria c);
+    Promemoria updatePromemoria(Promemoria c);
 
-    // inserisce un nuovo utente --- Maschio 1, Femmina 0
-    boolean insertUtente(String nome, String cognome, String email, boolean sesso, String password);
+    TDL findTDLById(int id);
+    TDL insertTDL(TDL c);
+    TDL updateTDL(TDL c);
 
-    // rimuove utente dal gruppo
-    boolean rimuoviMembro(String gruppo, String email, String amministratore);
+    Utente findUtenteById(String email);
+    Utente insertUtente(Utente c);
+    Utente updateUtente(Utente c);
 
-    // verifica se un utente e' iscritto con questi dati
-    boolean login(String email, String password);
-
-    // restituisce l'elenco delle notifiche associate all'utente
-    ArrayList<String> getNotifiche(String utente);
-
-    // set le notifiche dell'utente
-    boolean setNotifiche(String utente, ArrayList<String> notifiche);
-
-    // aggiunge una notifica all'utente
-    boolean aggiungiNotiche(String utente, String notifica);
-
-    // aggiunge a tutti i membri del gruppo una notifica
-    boolean aggiungiNotificheAlGruppo(String gruppo, String notifica);
-
-    // restituisce l'elenco dei calendari condivisi associati all'utente
-    ArrayList<String> getElencoCalendariCondivisi(String utente);
-
-    // restituisce l'elenco delle tdl condivisi associati all'utente
-    ArrayList<String> getElencoTDLCondivise(String utente);
-
-    // restituisce gli utenti che match con la regexEmail dai hai capito D:
-    ArrayList<String> utentiConNomiRegex(String regexEmail);
-
-    boolean esisteGruppo(String gruppo);
-
+    Partecipante findPromemoriaById(String email);
+    Partecipante insertPromemoria(Partecipante c);
+    Partecipante updatePromemoria(Partecipante c);
 }
