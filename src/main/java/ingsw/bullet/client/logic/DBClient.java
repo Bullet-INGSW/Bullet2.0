@@ -1,5 +1,6 @@
 package ingsw.bullet.client.logic;
 
+import ingsw.bullet.server.model.*;
 import javafx.scene.control.TextInputDialog;
 
 import java.util.ArrayList;
@@ -16,97 +17,119 @@ public class DBClient implements DBClientInterface {
     }
 
     @Override
-    public int creaEtichetta(String nome, int colore) {
-        return 0;
-    }
+    public Calendario findCalendarioById(int id) {return null;}
+    @Override
+    public Calendario insertCalendario(Calendario c) {return null;}
+    @Override
+    public Calendario updateCalendario(Calendario c) {return null;}
+    @Override
+    public boolean removeCalendario(int id) {return false;}
 
     @Override
-    public boolean aggiungiMembro(String gruppo, String email, String amministratore) {
-        return false;
-    }
+    public Etichetta findEtichettaById(int id) {return null;}
+    @Override
+    public Etichetta insertEtichetta(Etichetta c) {return null;}
+    @Override
+    public Etichetta updateEtichetta(Etichetta c) {return null;}
+    @Override
+    public boolean removeEtichetta(int id) {return false;}
 
     @Override
-    public boolean esisteUtente(String email) {
-        return false;
-    }
+    public Evento findEventoById(int id) {return null;}
+    @Override
+    public Evento insertEvento(Etichetta c) {return null;}
+    @Override
+    public Evento updateEvento(Etichetta c) {return null;}
+    @Override
+    public boolean removeEvento(int id) {return false;}
 
     @Override
-    public int creaGruppo(String amministratore, String nome, ArrayList<String> membri) {
-        return 0;
-    }
+    public Gruppo findGruppoById(int id) {return null;}
+    @Override
+    public Gruppo insertGruppo(Gruppo c) {return null;}
+    @Override
+    public Gruppo updateGruppo(Gruppo c) {return null;}
+    @Override
+    public boolean removeGruppo(int id) {return false;}
 
     @Override
-    public ArrayList<String> getElencoGruppi(String email) {
+    public Membro findMembroById(String email) {return null;}
+    @Override
+    public Membro insertMembro(Membro c) {return null;}
+    @Override
+    public Membro updateMembro(Membro c) {return null;}
+    @Override
+    public boolean removeMembro(int id) {return false;}
+
+    @Override
+    public Notifica findNotificaById(int id) {return null;}
+    @Override
+    public Notifica insertNotifica(Notifica c) {return null;}
+    @Override
+    public Notifica updateNotifica(Notifica c) {return null;}
+
+    @Override
+    public Promemoria findPromemoriaById(int id) {return null;}
+    @Override
+    public Promemoria insertPromemoria(Promemoria c) {return null;}
+    @Override
+    public Promemoria updatePromemoria(Promemoria c) {return null; }
+    @Override
+    public boolean removePromemoria(int id) {return false;}
+
+    @Override
+    public TDL findTDLById(int id) {return null;}
+
+    @Override
+    public TDL insertTDL(TDL c) {return null;}
+
+    @Override
+    public TDL updateTDL(TDL c) {
         return null;
     }
 
     @Override
-    public ArrayList<String> getElencoMembri(String gruppo) {
+    public boolean removeTDL(int id) {
+        return false;
+    }
+
+    @Override
+    public Utente findUtenteByEmail(String email) {
         return null;
     }
 
     @Override
-    public boolean setMembriGruppo(String gruppo, ArrayList<String> elencoMembri) {
-        return false;
-    }
-
-    @Override
-    public boolean getUtente(String nome, String cognome, String email, boolean sesso) {
-        return false;
-    }
-
-    @Override
-    public boolean insertUtente(String nome, String cognome, String email, boolean sesso, String password) {
-        return false;
-    }
-
-    @Override
-    public boolean rimuoviMembro(String gruppo, String email, String amministratore) {
-        return false;
-    }
-
-    @Override
-    public boolean login(String email, String password) {
-        return false;
-    }
-
-    @Override
-    public ArrayList<String> getNotifiche(String utente) {
+    public Utente insertUtente(Utente c) {
         return null;
     }
 
     @Override
-    public boolean setNotifiche(String utente, ArrayList<String> notifiche) {
-        return false;
-    }
-
-    @Override
-    public boolean aggiungiNotiche(String utente, String notifica) {
-        return false;
-    }
-
-    @Override
-    public boolean aggiungiNotificheAlGruppo(String gruppo, String notifica) {
-        return false;
-    }
-
-    @Override
-    public ArrayList<String> getElencoCalendariCondivisi(String utente) {
+    public Utente updateUtente(Utente c) {
         return null;
     }
 
     @Override
-    public ArrayList<String> getElencoTDLCondivise(String utente) {
+    public boolean removeUtente(String email) {
+        return false;
+    }
+
+    @Override
+    public Partecipante findPartecipanteByEmail(String email) {
         return null;
     }
 
     @Override
-    public ArrayList<String> utentiConNomiRegex(String regexEmail) {
+    public Partecipante insertPartecipante(Partecipante c) {
         return null;
     }
 
     @Override
-    public boolean esisteGruppo(String gruppo) {
+    public Partecipante updatePartecipante(Partecipante c) {
+        return null;
+    }
+
+    @Override
+    public boolean removePartecipante(String email) {
         return false;
     }
 }
