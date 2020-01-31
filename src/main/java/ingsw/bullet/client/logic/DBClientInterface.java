@@ -6,8 +6,6 @@ import java.util.ArrayList;
 
 public interface DBClientInterface {
 
-    // se non trova qualcosa restituisce null
-
     Calendario findCalendarioById(int id);
     Calendario insertCalendario(Calendario c);
     Calendario updateCalendario(Calendario c);
