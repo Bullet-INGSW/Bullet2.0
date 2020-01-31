@@ -84,6 +84,78 @@ public class DAOPromemoria implements DAOInterface<Promemoria> {
 		return promemoria;
 	}
 
+	public List<Promemoria> findByTDL(int id_tdl) {
+		Connection connection = null;
+		Promemoria promemoria = null;
+		List<Promemoria> pr = new ArrayList<Promemoria>();
+
+		try {
+			connection = this.dataSource.getConnection();
+			PreparedStatement statement;
+			String query = "SELECT * FROM promemoria WHERE promemoria.id_tdl = ?";
+			statement = connection.prepareStatement(query);
+			statement.setInt(1, id_tdl);
+			ResultSet result = statement.executeQuery();
+
+			if (result.next()) {
+				promemoria = new Promemoria();
+				promemoria.setIdPromemoria(result.getInt("id_promemoria"));
+				promemoria.setIdTDL(result.getInt("id_tdl"));
+				promemoria.setIdEtichetta(result.getInt("id_etichetta"));
+				promemoria.setDescrizione(result.getString("descrizione"));
+				promemoria.setCompletato(result.getBoolean("completato"));
+				promemoria.setScadenza((result.getTimestamp("scadenza")).toLocalDateTime());
+				pr.add(promemoria);
+
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException(e.getMessage());
+		} finally {
+			try {
+				connection.close();
+			} catch (SQLException e) {
+				throw new RuntimeException(e.getMessage());
+			}
+		}
+		return pr;
+	}
+
+	public List<Promemoria> findByEtichetta(int id_etichetta) {
+		Connection connection = null;
+		Promemoria promemoria = null;
+		List<Promemoria> pr = new ArrayList<Promemoria>();
+
+		try {
+			connection = this.dataSource.getConnection();
+			PreparedStatement statement;
+			String query = "SELECT * FROM promemoria WHERE promemoria.etichetta = ?";
+			statement = connection.prepareStatement(query);
+			statement.setInt(1, id_etichetta);
+			ResultSet result = statement.executeQuery();
+
+			if (result.next()) {
+				promemoria = new Promemoria();
+				promemoria.setIdPromemoria(result.getInt("id_promemoria"));
+				promemoria.setIdTDL(result.getInt("id_tdl"));
+				promemoria.setIdEtichetta(result.getInt("id_etichetta"));
+				promemoria.setDescrizione(result.getString("descrizione"));
+				promemoria.setCompletato(result.getBoolean("completato"));
+				promemoria.setScadenza((result.getTimestamp("scadenza")).toLocalDateTime());
+				pr.add(promemoria);
+
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException(e.getMessage());
+		} finally {
+			try {
+				connection.close();
+			} catch (SQLException e) {
+				throw new RuntimeException(e.getMessage());
+			}
+		}
+		return pr;
+	}
+
 	public List<Promemoria> findAll() {
 		Connection connection = null;
 		Promemoria promemoria = null;

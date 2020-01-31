@@ -80,6 +80,70 @@ public class DAOCalendario implements DAOInterface<Calendario> {
 		return calendario;
 	}
 
+	public List<Calendario> findByUtente(String email) {
+		Connection connection = null;
+		List<Calendario> calendari = new ArrayList<Calendario>();
+
+		try {
+			connection = this.dataSource.getConnection();
+			Calendario calendario;
+			PreparedStatement statement;
+			String query = "SELECT * FROM calendario WHERE calendario.email = ?";
+			statement = connection.prepareStatement(query);
+			statement.setString(1, email);
+			ResultSet result = statement.executeQuery();
+			while (result.next()) {
+				calendario = new Calendario();
+				calendario.setIdCalendario(result.getInt("id_calendario"));
+				calendario.setIdGruppo(result.getInt("id_gruppo"));
+				calendario.setEmail(result.getString("email"));
+				calendario.setNome(result.getString("nome"));
+				calendari.add(calendario);
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException(e.getMessage());
+		} finally {
+			try {
+				connection.close();
+			} catch (SQLException e) {
+				throw new RuntimeException(e.getMessage());
+			}
+		}
+		return calendari;
+	}
+
+	public List<Calendario> findByGruppo(int id_gruppo) {
+		Connection connection = null;
+		List<Calendario> calendari = new ArrayList<Calendario>();
+
+		try {
+			connection = this.dataSource.getConnection();
+			Calendario calendario;
+			PreparedStatement statement;
+			String query = "SELECT * FROM calendario WHERE calendario.id_gruppo = ?";
+			statement = connection.prepareStatement(query);
+			statement.setInt(1, id_gruppo);
+			ResultSet result = statement.executeQuery();
+			while (result.next()) {
+				calendario = new Calendario();
+				calendario.setIdCalendario(result.getInt("id_calendario"));
+				calendario.setIdGruppo(result.getInt("id_gruppo"));
+				calendario.setEmail(result.getString("email"));
+				calendario.setNome(result.getString("nome"));
+				calendari.add(calendario);
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException(e.getMessage());
+		} finally {
+			try {
+				connection.close();
+			} catch (SQLException e) {
+				throw new RuntimeException(e.getMessage());
+			}
+		}
+		return calendari;
+	}
+
 	public List<Calendario> findAll() {
 		Connection connection = null;
 		List<Calendario> calendari = new ArrayList<Calendario>();

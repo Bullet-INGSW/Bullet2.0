@@ -65,6 +65,14 @@ public class DBManager {
 		return getDAOCalendario().findByPrimaryKey(id);
 	}
 
+	public List<Calendario> findCalendarioByUtente(String email) {
+		return getDAOCalendario().findByUtente(email);
+	}
+
+	public List<Calendario> findCalendarioByGruppo(int id) {
+		return getDAOCalendario().findByGruppo(id);
+	}
+
 	public List<Calendario> getAllCalendario() {
 		return getDAOCalendario().findAll();
 	}
@@ -90,6 +98,10 @@ public class DBManager {
 		return getDAOEvento().findByCalendario(id);
 	}
 
+	public List<Evento> findEventoByEtichetta(int id) {
+		return getDAOEvento().findByEtichetta(id);
+	}
+
 	public List<Evento> getAllEvento() {
 		return getDAOEvento().findAll();
 	}
@@ -111,16 +123,24 @@ public class DBManager {
 		return getDAOTDL().findByPrimaryKey(id);
 	}
 
+	public List<TDL> findTDLByGruppo(int id) {
+		return getDAOTDL().findByGruppo(id);
+	}
+
+	public List<TDL> findTDLByUtente(String email) {
+		return getDAOTDL().findByUtente(email);
+	}
+
 	public List<TDL> getAllTDL() {
 		return getDAOTDL().findAll();
 	}
 
-	public void addTDL(TDL TDL) {
-		getDAOTDL().save(TDL);
+	public void addTDL(TDL tdl) {
+		getDAOTDL().save(tdl);
 	}
 
-	public void deleteTDL(TDL TDL) {
-		getDAOTDL().delete(TDL);
+	public void deleteTDL(TDL tdl) {
+		getDAOTDL().delete(tdl);
 	}
 
 	public DAOTDL getDAOTDL() {
@@ -130,6 +150,14 @@ public class DBManager {
     // PROMEMORIA //
 	public Promemoria findPromemoriaByPrimaryKey(int id) {
 		return getDAOPromemoria().findByPrimaryKey(id);
+	}
+
+	public List<Promemoria> findPromemoriaByTDL(int id) {
+		return getDAOPromemoria().findByTDL(id);
+	}
+
+	public List<Promemoria> findPromemoriaByEtichetta(int id) {
+		return getDAOPromemoria().findByEtichetta(id);
 	}
 
 	public List<Promemoria> getAllPromemoria() {
@@ -174,6 +202,10 @@ public class DBManager {
 		return getDAONotifica().findByPrimaryKey(id);
 	}
 
+	public List<Notifica> findNotificaByUtente(String email) {
+		return getDAONotifica().findByUtente(email);
+	}
+
 	public List<Notifica> getAllNotifica() {
 		return getDAONotifica().findAll();
 	}
@@ -216,6 +248,8 @@ public class DBManager {
 		return getDAOMembro().findByPrimaryKey(email, id_gruppo);
 	}
 
+	public List<Membro> findMembroByUtente(String email) { return getDAOMembro().findByUtente(email); }
+
 	public List<Membro> findMembroByGruppo(int id) { return getDAOMembro().findByGruppo(id); }
 
 	public List<Membro> getAllMembro() {
@@ -237,6 +271,10 @@ public class DBManager {
 	// PARTECIPANTE //
 	public Partecipante findPartecipanteByPrimaryKey(String email, int id_evento) {
 		return getDAOPartecipante().findByPrimaryKey(email, id_evento);
+	}
+
+	public List<Partecipante> findPartecipanteByUtente(String email) {
+		return getDAOPartecipante().findByUtente(email);
 	}
 
 	public List<Partecipante> findPartecipanteByEvento(int id) {

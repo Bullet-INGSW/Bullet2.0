@@ -80,6 +80,39 @@ public class DAOPartecipante implements DAOInterface<Partecipante> {
         return partecipante;
     }
 
+    public List<Partecipante> findByUtente(String email) {
+        Connection connection = null;
+        Partecipante partecipante = null;
+        List<Partecipante> partecipanti = new ArrayList<Partecipante>();
+
+        try {
+            connection = this.dataSource.getConnection();
+            PreparedStatement statement;
+            String query = "SELECT * FROM partecipante WHERE partecipante.email = ?";
+            statement = connection.prepareStatement(query);
+            statement.setString(1, email);
+            ResultSet result = statement.executeQuery();
+
+            if (result.next()) {
+                partecipante = new Partecipante();
+                partecipante.setEmail(result.getString("email"));
+                partecipante.setIdEvento(result.getInt("id_evento"));
+                partecipante.setPresente(result.getBoolean("presente"));
+                partecipanti.add(partecipante);
+
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e.getMessage());
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e.getMessage());
+            }
+        }
+        return partecipanti;
+    }
+
     public List<Partecipante> findByEvento(int id_evento) {
         Connection connection = null;
         Partecipante partecipante = null;

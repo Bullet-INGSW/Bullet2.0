@@ -82,6 +82,39 @@ public class DAOMembro implements DAOInterface<Membro> {
 		return membro;
 	}
 
+	public List<Membro> findByUtente(String email) {
+		Connection connection = null;
+		Membro membro = null;
+		List<Membro> membri = new ArrayList<Membro>();
+
+		try {
+			connection = this.dataSource.getConnection();
+			PreparedStatement statement;
+			String query = "SELECT * FROM membro WHERE membro.email = ?";
+			statement = connection.prepareStatement(query);
+			statement.setString(1, email);
+			ResultSet result = statement.executeQuery();
+
+			if (result.next()) {
+				membro = new Membro();
+				membro.setEmail(result.getString("email"));
+				membro.setIdGruppo(result.getInt("id_gruppo"));
+				membro.setAdmin(result.getBoolean("admin"));
+				membri.add(membro);
+
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException(e.getMessage());
+		} finally {
+			try {
+				connection.close();
+			} catch (SQLException e) {
+				throw new RuntimeException(e.getMessage());
+			}
+		}
+		return membri;
+	}
+
 	public List<Membro> findByGruppo(int id_gruppo) {
 		Connection connection = null;
 		Membro membro = null;
@@ -90,7 +123,7 @@ public class DAOMembro implements DAOInterface<Membro> {
 		try {
 			connection = this.dataSource.getConnection();
 			PreparedStatement statement;
-			String query = "SELECT * FROM membro WHERE id_gruppo = ?";
+			String query = "SELECT * FROM membro WHERE membro.id_gruppo = ?";
 			statement = connection.prepareStatement(query);
 			statement.setInt(1, id_gruppo);
 			ResultSet result = statement.executeQuery();

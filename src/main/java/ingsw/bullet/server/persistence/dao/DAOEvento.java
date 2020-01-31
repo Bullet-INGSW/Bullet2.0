@@ -115,9 +115,51 @@ public class DAOEvento implements DAOInterface<Evento> {
 		try {
 			connection = this.dataSource.getConnection();
 			PreparedStatement statement;
-			String query = "SELECT * FROM evento WHERE evento.idCalendario = ?";
+			String query = "SELECT * FROM evento WHERE evento.id_calendario = ?";
 			statement = connection.prepareStatement(query);
 			statement.setInt(1, id_calendario);
+			ResultSet result = statement.executeQuery();
+
+			if (result.next()) {
+				evento = new Evento();
+				evento.setIdEvento(result.getInt("id_evento"));
+				evento.setIdCalendario(result.getInt("id_calendario"));
+				evento.setIdEtichetta(result.getInt("id_etichetta"));
+				evento.setNome(result.getString("nome"));
+				evento.setDescrizione(result.getString("descrizione"));
+				evento.setDataInizio((result.getTimestamp("data_inizio")).toLocalDateTime());
+				evento.setDataFine((result.getTimestamp("data_fine")).toLocalDateTime());
+				evento.setPeriodicita(result.getBoolean("periodicita"));
+				evento.setFullDay(result.getBoolean("full_day"));
+				evento.setIdRecurrence(result.getInt("id_recurrence"));
+				evento.setRecurrenceRule(result.getString("recurrence_rule"));
+
+				eventi.add(evento);
+
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException(e.getMessage());
+		} finally {
+			try {
+				connection.close();
+			} catch (SQLException e) {
+				throw new RuntimeException(e.getMessage());
+			}
+		}
+		return eventi;
+	}
+
+	public List<Evento> findByEtichetta(int id_etichetta) {
+		Connection connection = null;
+		Evento evento = null;
+		List<Evento> eventi = new ArrayList<Evento>();
+
+		try {
+			connection = this.dataSource.getConnection();
+			PreparedStatement statement;
+			String query = "SELECT * FROM evento WHERE evento.id_etichetta = ?";
+			statement = connection.prepareStatement(query);
+			statement.setInt(1, id_etichetta);
 			ResultSet result = statement.executeQuery();
 
 			if (result.next()) {

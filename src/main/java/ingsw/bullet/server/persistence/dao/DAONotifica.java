@@ -79,6 +79,39 @@ public class DAONotifica implements DAOInterface<Notifica> {
 		return notifica;
 	}
 
+	public List<Notifica> findByUtente(String email) {
+		Connection connection = null;
+		Notifica notifica = null;
+		List<Notifica> notifiche = new ArrayList<Notifica>();
+
+		try {
+			connection = this.dataSource.getConnection();
+			PreparedStatement statement;
+			String query = "SELECT * FROM notifica WHERE notifica.email = ?";
+			statement = connection.prepareStatement(query);
+			statement.setString(1, email);
+			ResultSet result = statement.executeQuery();
+
+			if (result.next()) {
+				notifica = new Notifica();
+				notifica.setIdNotifica(result.getInt("id_notifica"));
+				notifica.setEmail(result.getString("email"));
+				notifica.setDescrizione(result.getString("descrizione"));
+				notifiche.add(notifica);
+
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException(e.getMessage());
+		} finally {
+			try {
+				connection.close();
+			} catch (SQLException e) {
+				throw new RuntimeException(e.getMessage());
+			}
+		}
+		return notifiche;
+	}
+
 	public List<Notifica> findAll() {
 		Connection connection = null;
 		Notifica notifica = null;
