@@ -1,6 +1,8 @@
 package ingsw.bullet.server.model;
 
+import javax.swing.event.ListDataEvent;
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class Evento {
 
@@ -16,6 +18,8 @@ public class Evento {
     private int id_recurrence;
     private String recurrence_rule;
 
+    private List<Partecipante> partecipanti;
+
     public Evento() {
     }
 
@@ -29,7 +33,8 @@ public class Evento {
                   boolean periodicita,
                   boolean full_day,
                   int id_recurrence,
-                  String recurrence_rule) {
+                  String recurrence_rule,
+                  List<Partecipante> partecipanti) {
 
         this.id_evento = id_evento;
         this.id_calendario = id_calendario;
@@ -42,6 +47,7 @@ public class Evento {
         this.full_day = full_day;
         this.id_recurrence = id_recurrence;
         this.recurrence_rule = recurrence_rule;
+        this.partecipanti = partecipanti;
     }
 
     @Override
@@ -103,4 +109,8 @@ public class Evento {
     public String getRecurrenceRule() {return recurrence_rule;}
 
     public void setRecurrenceRule(String recurrence_rule) {this.recurrence_rule = recurrence_rule;}
+
+    public List<Partecipante> getPartecipanti() {return partecipanti;}
+
+    public void setPartecipanti(List<Partecipante> partecipanti) {this.partecipanti = partecipanti;}
 }

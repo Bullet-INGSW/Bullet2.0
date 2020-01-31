@@ -50,7 +50,7 @@ public class DAOPartecipante implements DAOInterface<Partecipante> {
 
         // parser chiavi primarie...
         String email = (String)keys[0];
-        int id_gruppo = (Integer)keys[1];
+        int id_evento = (Integer)keys[1];
 
         try {
             connection = this.dataSource.getConnection();
@@ -58,7 +58,7 @@ public class DAOPartecipante implements DAOInterface<Partecipante> {
             String query = "SELECT * FROM partecipante WHERE partecipante.email = ? AND partecipante.id_evento = ?";
             statement = connection.prepareStatement(query);
             statement.setString(1, email);
-            statement.setInt(2, id_gruppo);
+            statement.setInt(2, id_evento);
             ResultSet result = statement.executeQuery();
 
             if (result.next()) {
@@ -78,6 +78,39 @@ public class DAOPartecipante implements DAOInterface<Partecipante> {
             }
         }
         return partecipante;
+    }
+
+    public List<Partecipante> findByEvento(int id_evento) {
+        Connection connection = null;
+        Partecipante partecipante = null;
+        List<Partecipante> partecipanti = new ArrayList<Partecipante>();
+
+        try {
+            connection = this.dataSource.getConnection();
+            PreparedStatement statement;
+            String query = "SELECT * FROM partecipante WHERE partecipante.id_evento = ?";
+            statement = connection.prepareStatement(query);
+            statement.setInt(1, id_evento);
+            ResultSet result = statement.executeQuery();
+
+            if (result.next()) {
+                partecipante = new Partecipante();
+                partecipante.setEmail(result.getString("email"));
+                partecipante.setIdEvento(result.getInt("id_evento"));
+                partecipante.setPresente(result.getBoolean("presente"));
+                partecipanti.add(partecipante);
+
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e.getMessage());
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e.getMessage());
+            }
+        }
+        return partecipanti;
     }
 
     public List<Partecipante> findAll() {

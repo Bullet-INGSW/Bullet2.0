@@ -212,8 +212,8 @@ public class DBManager {
     }
     
     // MEMBRO //
-	public Membro findMembroByPrimaryKey(int id, String email) {
-		return getDAOMembro().findByPrimaryKey(id, email);
+	public Membro findMembroByPrimaryKey(String email, int id_gruppo) {
+		return getDAOMembro().findByPrimaryKey(email, id_gruppo);
 	}
 
 	public List<Membro> getAllMembro() {
@@ -230,6 +230,31 @@ public class DBManager {
 
 	public DAOMembro getDAOMembro() {
 		return new DAOMembro(dataSource);
+	}
+
+	// PARTECIPANTE //
+	public Partecipante findPartecipanteByPrimaryKey(String email, int id_evento) {
+		return getDAOPartecipante().findByPrimaryKey(email, id_evento);
+	}
+
+	public List<Partecipante> findPartecipanteByEvento(int id) {
+		return getDAOPartecipante().findByEvento(id);
+	}
+
+	public List<Partecipante> getAllPartecipante() {
+		return getDAOPartecipante().findAll();
+	}
+
+	public void addPartecipante(Partecipante partecipante) {
+		getDAOPartecipante().save(partecipante);
+	}
+
+	public void deletePartecipante(Partecipante partecipante) {
+		getDAOPartecipante().delete(partecipante);
+	}
+
+	public DAOPartecipante getDAOPartecipante() {
+		return new DAOPartecipante(dataSource);
 	}
 
 }
