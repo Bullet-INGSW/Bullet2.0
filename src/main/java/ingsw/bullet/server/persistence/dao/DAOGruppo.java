@@ -64,6 +64,12 @@ public class DAOGruppo implements DAOInterface<Gruppo> {
 				gruppo.setIdGruppo(result.getInt("id_gruppo"));
 				gruppo.setNome(result.getString("nome"));
 			}
+
+			// devo trovare tutti i membri che hanno come chiave esterna idGruppo
+			// new DAOMembro(dataSource).findByGruppo(id_gruppo);
+			// inserire tutti in membri
+			// inserire quelli amministratore in amministratori
+
 		} catch (SQLException e) {
 			throw new RuntimeException(e.getMessage());
 		} finally {

@@ -1,9 +1,16 @@
 package ingsw.bullet.server.model;
 
+import java.util.ArrayList;
+
 public class Gruppo {
 
     private int id_gruppo;
     private String nome;
+    private ArrayList<Membro> membri;
+    private ArrayList<Membro> amministratori;
+    private ArrayList<Calendario> calendari;
+    private ArrayList<TDL> tdl;
+
 
     public Gruppo() {
     }
