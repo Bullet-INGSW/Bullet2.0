@@ -79,57 +79,28 @@ public class DBClient implements DBClientInterface {
 
     @Override
     public TDL findTDLById(int id) {return null;}
-
     @Override
     public TDL insertTDL(TDL c) {return null;}
+    @Override
+    public TDL updateTDL(TDL c) {return null;}
+    @Override
+    public boolean removeTDL(int id) {return false;}
 
     @Override
-    public TDL updateTDL(TDL c) {
-        return null;
-    }
+    public Utente findUtenteByEmail(String email) {return null;}
+    @Override
+    public Utente insertUtente(Utente c) {return null;}
+    @Override
+    public Utente updateUtente(Utente c) {return null;}
+    @Override
+    public boolean removeUtente(String email) {return false;}
 
     @Override
-    public boolean removeTDL(int id) {
-        return false;
-    }
-
+    public Partecipante findPartecipanteByEmail(String email) {return null;}
     @Override
-    public Utente findUtenteByEmail(String email) {
-        return null;
-    }
-
+    public Partecipante insertPartecipante(Partecipante c) {return null;}
     @Override
-    public Utente insertUtente(Utente c) {
-        return null;
-    }
-
+    public Partecipante updatePartecipante(Partecipante c) {return null;}
     @Override
-    public Utente updateUtente(Utente c) {
-        return null;
-    }
-
-    @Override
-    public boolean removeUtente(String email) {
-        return false;
-    }
-
-    @Override
-    public Partecipante findPartecipanteByEmail(String email) {
-        return null;
-    }
-
-    @Override
-    public Partecipante insertPartecipante(Partecipante c) {
-        return null;
-    }
-
-    @Override
-    public Partecipante updatePartecipante(Partecipante c) {
-        return null;
-    }
-
-    @Override
-    public boolean removePartecipante(String email) {
-        return false;
-    }
+    public boolean removePartecipante(String email) {return false;}
 }
