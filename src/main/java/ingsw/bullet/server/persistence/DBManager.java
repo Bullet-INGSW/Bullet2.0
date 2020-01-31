@@ -216,6 +216,8 @@ public class DBManager {
 		return getDAOMembro().findByPrimaryKey(email, id_gruppo);
 	}
 
+	public List<Membro> findMembroByGruppo(int id) { return getDAOMembro().findByGruppo(id); }
+
 	public List<Membro> getAllMembro() {
 		return getDAOMembro().findAll();
 	}
