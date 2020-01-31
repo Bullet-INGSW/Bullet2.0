@@ -55,7 +55,7 @@ public class DAOPartecipante implements DAOInterface<Partecipante> {
         try {
             connection = this.dataSource.getConnection();
             PreparedStatement statement;
-            String query = "SELECT * FROM partecipante WHERE partecipante.email = ? AND evento.id_evento = ?";
+            String query = "SELECT * FROM partecipante WHERE partecipante.email = ? AND partecipante.id_evento = ?";
             statement = connection.prepareStatement(query);
             statement.setString(1, email);
             statement.setInt(2, id_gruppo);
