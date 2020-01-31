@@ -2,15 +2,15 @@ package ingsw.bullet.server.model;
 
 public class Partecipante {
     private String email;
-    private  int id_evento;
+    private int id;
     private boolean presente;
 
     public Partecipante() {
     }
 
-    public Partecipante(String email, int id_evento, boolean presente) {
+    public Partecipante(String email, int id, boolean presente) {
         this.email = email;
-        this.id_evento = id_evento;
+        this.id = id;
         this.presente = presente;
     }
 
@@ -18,7 +18,7 @@ public class Partecipante {
     public String toString() {
         return	"[Partecipante] {" + "\n" +
                 "email: " + this.email + "\n" +
-                "id_evento: " + this.id_evento + "\n" +
+                "id: " + this.id + "\n" +
                 "presente: " + this.presente + "\n}\n";
     }
 
@@ -26,9 +26,9 @@ public class Partecipante {
 
     public void setEmail(String email) {this.email = email;}
 
-    public int getIdEvento() {return id_evento;}
+    public int getId() {return id;}
 
-    public void setIdEvento(int id_evento) {this.id_evento = id_evento;}
+    public void setId(int id) {this.id = id;}
 
     public boolean isPresente() {return presente;}
 

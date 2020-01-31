@@ -92,6 +92,7 @@ public class DAOCalendario implements DAOInterface<Calendario> {
 			statement = connection.prepareStatement(query);
 			statement.setString(1, email);
 			ResultSet result = statement.executeQuery();
+
 			while (result.next()) {
 				calendario = new Calendario();
 				calendario.setIdCalendario(result.getInt("id_calendario"));
@@ -124,6 +125,7 @@ public class DAOCalendario implements DAOInterface<Calendario> {
 			statement = connection.prepareStatement(query);
 			statement.setInt(1, id_gruppo);
 			ResultSet result = statement.executeQuery();
+
 			while (result.next()) {
 				calendario = new Calendario();
 				calendario.setIdCalendario(result.getInt("id_calendario"));
@@ -155,6 +157,7 @@ public class DAOCalendario implements DAOInterface<Calendario> {
 			String query = "SELECT * FROM calendario";
 			statement = connection.prepareStatement(query);
 			ResultSet result = statement.executeQuery();
+
 			while (result.next()) {
 				calendario = new Calendario();
 				calendario.setIdCalendario(result.getInt("id_calendario"));

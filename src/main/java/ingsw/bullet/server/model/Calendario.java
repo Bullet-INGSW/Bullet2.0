@@ -1,11 +1,16 @@
 package ingsw.bullet.server.model;
 
+import java.util.List;
+
 public class Calendario {
 
     private int id_calendario;
     private int id_gruppo;
     private String email;
     private String nome;
+
+    private List<Evento> eventi;
+    private List<Etichetta> etichette;
 
     public Calendario() {
     }
@@ -19,7 +24,7 @@ public class Calendario {
 
     @Override
     public String toString() {
-        return	"[TDL] {" + "\n" +
+        return	"[Calendario] {" + "\n" +
                 "id_calendario: " + this.id_calendario + "\n" +
                 "id_gruppo: " + this.id_gruppo + "\n" +
                 "email: " + this.email + "\n" +
@@ -41,4 +46,12 @@ public class Calendario {
     public String getNome() {return nome;}
 
     public void setNome(String descrizione) {this.nome = nome;}
+
+    public List<Evento> getEventi() { return eventi; }
+
+    public void setEventi(List<Evento> eventi) { this.eventi = eventi; }
+
+    public List<Etichetta> getEtichette() { return etichette; }
+
+    public void setEtichette(List<Etichetta> etichette) { this.etichette = etichette; }
 }

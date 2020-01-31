@@ -1,15 +1,16 @@
 package ingsw.bullet.server.model;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class Gruppo {
 
     private int id_gruppo;
     private String nome;
-    private ArrayList<Membro> membri;
-    private ArrayList<Membro> amministratori;
-    private ArrayList<Calendario> calendari;
-    private ArrayList<TDL> tdl;
+
+    private List<Membro> membri;
+    private List<Membro> amministratori;
+    private List<Calendario> calendari;
+    private List<TDL> tdl;
 
 
     public Gruppo() {
@@ -34,4 +35,20 @@ public class Gruppo {
     public String getNome() {return nome;}
 
     public void setNome(String nome) {this.nome = nome;}
+
+    public List<Membro> getMembri() {return membri;}
+
+    public void setMembri(List<Membro> membri) {this.membri = membri;}
+
+    public List<Membro> getAmministratori() {return amministratori;}
+
+    public void setAmministratori(List<Membro> amministratori) {this.amministratori = amministratori;}
+
+    public List<Calendario> getCalendari() {return calendari;}
+
+    public void setCalendari(List<Calendario> calendari) {this.calendari = calendari;}
+
+    public List<TDL> getTDL() {return tdl;}
+
+    public void setTDL(List<TDL> calendari) {this.tdl = tdl;}
 }

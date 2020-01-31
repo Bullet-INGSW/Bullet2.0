@@ -95,7 +95,7 @@ public class DAOMembro implements DAOInterface<Membro> {
 			statement.setString(1, email);
 			ResultSet result = statement.executeQuery();
 
-			if (result.next()) {
+			while (result.next()) {
 				membro = new Membro();
 				membro.setEmail(result.getString("email"));
 				membro.setIdGruppo(result.getInt("id_gruppo"));
@@ -128,7 +128,7 @@ public class DAOMembro implements DAOInterface<Membro> {
 			statement.setInt(1, id_gruppo);
 			ResultSet result = statement.executeQuery();
 
-			if (result.next()) {
+			while (result.next()) {
 				membro = new Membro();
 				membro.setEmail(result.getString("email"));
 				membro.setIdGruppo(result.getInt("id_gruppo"));

@@ -71,6 +71,8 @@ public class DAOPromemoria implements DAOInterface<Promemoria> {
 				promemoria.setCompletato(result.getBoolean("completato"));
 				promemoria.setScadenza((result.getTimestamp("scadenza")).toLocalDateTime());
 
+				promemoria.setPartecipanti(new DAOPartecipantePromemoria(dataSource)
+						.findBypromemoria(id_promemoria));
 			}
 		} catch (SQLException e) {
 			throw new RuntimeException(e.getMessage());
@@ -97,7 +99,7 @@ public class DAOPromemoria implements DAOInterface<Promemoria> {
 			statement.setInt(1, id_tdl);
 			ResultSet result = statement.executeQuery();
 
-			if (result.next()) {
+			while (result.next()) {
 				promemoria = new Promemoria();
 				promemoria.setIdPromemoria(result.getInt("id_promemoria"));
 				promemoria.setIdTDL(result.getInt("id_tdl"));
@@ -105,6 +107,10 @@ public class DAOPromemoria implements DAOInterface<Promemoria> {
 				promemoria.setDescrizione(result.getString("descrizione"));
 				promemoria.setCompletato(result.getBoolean("completato"));
 				promemoria.setScadenza((result.getTimestamp("scadenza")).toLocalDateTime());
+
+				promemoria.setPartecipanti(new DAOPartecipantePromemoria(dataSource)
+						.findBypromemoria(promemoria.getIdPromemoria()));
+
 				pr.add(promemoria);
 
 			}
@@ -133,7 +139,7 @@ public class DAOPromemoria implements DAOInterface<Promemoria> {
 			statement.setInt(1, id_etichetta);
 			ResultSet result = statement.executeQuery();
 
-			if (result.next()) {
+			while (result.next()) {
 				promemoria = new Promemoria();
 				promemoria.setIdPromemoria(result.getInt("id_promemoria"));
 				promemoria.setIdTDL(result.getInt("id_tdl"));
@@ -141,6 +147,10 @@ public class DAOPromemoria implements DAOInterface<Promemoria> {
 				promemoria.setDescrizione(result.getString("descrizione"));
 				promemoria.setCompletato(result.getBoolean("completato"));
 				promemoria.setScadenza((result.getTimestamp("scadenza")).toLocalDateTime());
+
+				promemoria.setPartecipanti(new DAOPartecipantePromemoria(dataSource)
+						.findBypromemoria(promemoria.getIdPromemoria()));
+
 				pr.add(promemoria);
 
 			}
@@ -168,7 +178,7 @@ public class DAOPromemoria implements DAOInterface<Promemoria> {
 			statement = connection.prepareStatement(query);
 			ResultSet result = statement.executeQuery();
 
-			if (result.next()) {
+			while (result.next()) {
 				promemoria = new Promemoria();
 				promemoria.setIdPromemoria(result.getInt("id_promemoria"));
 				promemoria.setIdTDL(result.getInt("id_tdl"));

@@ -1,5 +1,7 @@
 package ingsw.bullet.server.model;
 
+import java.util.List;
+
 public class Utente {
 	
 	public enum Sesso {M,F};
@@ -9,6 +11,7 @@ public class Utente {
 	private Sesso sesso;
 	private String email;
 	private String password;
+	private List<Notifica> notifiche;
 	
 	public Utente() {
 	}
@@ -70,4 +73,8 @@ public class Utente {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
+	public List<Notifica> getNotifiche() { return notifiche; }
+
+	public void setNotifiche(List<Notifica> notifiche) { this.notifiche = notifiche; }
 }

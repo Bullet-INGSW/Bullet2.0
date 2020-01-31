@@ -268,33 +268,62 @@ public class DBManager {
 		return new DAOMembro(dataSource);
 	}
 
-	// PARTECIPANTE //
-	public Partecipante findPartecipanteByPrimaryKey(String email, int id_evento) {
-		return getDAOPartecipante().findByPrimaryKey(email, id_evento);
+	// PARTECIPANTE_EVENTO //
+	public Partecipante findPartecipanteEventoByPrimaryKey(String email, int id) {
+		return getDAOPartecipanteEvento().findByPrimaryKey(email, id);
 	}
 
-	public List<Partecipante> findPartecipanteByUtente(String email) {
-		return getDAOPartecipante().findByUtente(email);
+	public List<Partecipante> findPartecipanteEventoByUtente(String email) {
+		return getDAOPartecipanteEvento().findByUtente(email);
 	}
 
 	public List<Partecipante> findPartecipanteByEvento(int id) {
-		return getDAOPartecipante().findByEvento(id);
+		return getDAOPartecipanteEvento().findByEvento(id);
 	}
 
-	public List<Partecipante> getAllPartecipante() {
-		return getDAOPartecipante().findAll();
+	public List<Partecipante> getAllPartecipanteEvento() {
+		return getDAOPartecipanteEvento().findAll();
 	}
 
-	public void addPartecipante(Partecipante partecipante) {
-		getDAOPartecipante().save(partecipante);
+	public void addPartecipanteEvento(Partecipante partecipante) {
+		getDAOPartecipanteEvento().save(partecipante);
 	}
 
-	public void deletePartecipante(Partecipante partecipante) {
-		getDAOPartecipante().delete(partecipante);
+	public void deletePartecipanteEvento(Partecipante partecipante) {
+		getDAOPartecipanteEvento().delete(partecipante);
 	}
 
-	public DAOPartecipante getDAOPartecipante() {
-		return new DAOPartecipante(dataSource);
+	public DAOPartecipanteEvento getDAOPartecipanteEvento() {
+		return new DAOPartecipanteEvento(dataSource);
+	}
+
+	// PARTECIPANTE_PROMEMORIA //
+	public Partecipante findPartecipantePromemoriaByPrimaryKey(String email, int id) {
+		return getDAOPartecipantePromemoria().findByPrimaryKey(email, id);
+	}
+
+	public List<Partecipante> findPartecipantePromemoriaByUtente(String email) {
+		return getDAOPartecipantePromemoria().findByUtente(email);
+	}
+
+	public List<Partecipante> findPartecipanteByPromemoria(int id) {
+		return getDAOPartecipantePromemoria().findByPromemoria(id);
+	}
+
+	public List<Partecipante> getAllPartecipantePromemoria() {
+		return getDAOPartecipantePromemoria().findAll();
+	}
+
+	public void addPartecipantePromemoria(Partecipante partecipante) {
+		getDAOPartecipantePromemoria().save(partecipante);
+	}
+
+	public void deletePartecipantePromemoria(Partecipante partecipante) {
+		getDAOPartecipantePromemoria().delete(partecipante);
+	}
+
+	public DAOPartecipantePromemoria getDAOPartecipantePromemoria() {
+		return new DAOPartecipantePromemoria(dataSource);
 	}
 
 }
