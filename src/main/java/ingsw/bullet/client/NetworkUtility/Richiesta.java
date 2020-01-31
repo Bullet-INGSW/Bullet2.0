@@ -13,6 +13,15 @@ public class Richiesta {
 
 
     };
+
+    public TipoRichiesta getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(TipoRichiesta tipo) {
+        this.tipo = tipo;
+    }
+
     TipoRichiesta tipo=null;
     HashMap<String,String> valori=null;
     ArrayList<String> array=null;

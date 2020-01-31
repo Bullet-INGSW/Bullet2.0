@@ -4,7 +4,7 @@ import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Server;
 import com.esotericsoftware.minlog.Log;
 
-import ingsw.bullet.server.NetworkUtility.*;
+import ingsw.bullet.client.NetworkUtility.*;
 import ingsw.bullet.server.persistence.DBManager;
 
 import java.io.IOException;
@@ -117,7 +117,7 @@ public class ServerConnectionHandler {
                               case aggiungiNotifica:
                                   aggiungiNotifica(connection,r);
                                   break;
-                                  case
+                                  //case
 
                               default:
                                   break;
