@@ -5,7 +5,7 @@
       <driver-ref>mariadb</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.mariadb.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mariadb://bullet.c9byiz6onany.us-east-1.rds.amazonaws.com:3306/</jdbc-url>
+      <jdbc-url>jdbc:mariadb://bullet.c9byiz6onany.us-east-1.rds.amazonaws.com:3306/bullet</jdbc-url>
     </data-source>
   </component>
 </project>
