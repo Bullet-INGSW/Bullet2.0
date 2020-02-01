@@ -1,6 +1,8 @@
 package ingsw.bullet.client.logic.controllerFXML;
 
 import ingsw.bullet.client.logic.DBClient;
+import ingsw.bullet.model.Gruppo;
+import ingsw.bullet.model.Membro;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -20,69 +22,73 @@ import java.util.function.Predicate;
 
 public class GestireGruppi implements Initializable {
 
-    public static ArrayList<String> getGruppi() {
+    public static ArrayList<Gruppo> getGruppi() {
         return gruppi;
     }
 
-    public static void setGruppi(ArrayList<String> gruppi) {
+    public static void setGruppi(ArrayList<Gruppo> gruppi) {
         GestireGruppi.gruppi = gruppi;
     }
 
-    public ArrayList<String> getUtenti() {
-        ArrayList<String> s = null;
+    public ArrayList<Membro> getUtenti() {
+
+        ArrayList<Membro> s = null;
         if(!elencoUtenti.getChildren().isEmpty()) {
-            s = new ArrayList<String>();
+            s = new ArrayList<Membro>();
             for (Node l:elencoUtenti.getChildren())
-                if(l instanceof Button)
-                    s.add(((Button) l).getText());
+                if(l instanceof Button) {
+                    Membro m = new Membro();
+                    m.setEmail(((Button) l).getText());
+                    s.add(m);
+                }
         }
         return s;
     }
 
-    public void setUtenti(ArrayList<String> utenti) {
+    public void setUtenti(ArrayList<Membro> utenti) {
         elencoUtenti.getChildren().clear();
-        for(String u:utenti)
+        for(Membro u:utenti)
         {
             aggiungiUtente(u);
         }
     }
 
-    protected static ArrayList<String> gruppi;
+    protected static ArrayList<Gruppo> gruppi;
 
-    public void aggiungiGruppo(String gruppo)
+    public void aggiungiGruppo(Gruppo gruppo)
     {
-        if(!gruppo.contains(gruppo))
+        if(!gruppi.contains(gruppo))
             gruppi.add(gruppo);
-        Button l = new Button(gruppo);
+        Button l = new Button(gruppo.getNome());
         l.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                ArrayList<String> membri = DBClient.getIstance().getElencoMembri(gruppo);
-
+                ArrayList<Membro> membri = (ArrayList<Membro>) DBClient.getIstance().findGruppoById(gruppo.getIdGruppo()).getMembri();
                 elencoGruppi.getChildren().clear();
 
-                for(String s:membri)
+                for(Membro s:membri)
                 {
                     aggiungiUtente(s);
                 }
 
-                nomeGruppo.setText(gruppo);
+                nomeGruppo.setText(gruppo.getNome());
             }
         });
         elencoGruppi.getChildren().add(l);
     }
 
-    public void rimuoviGruppo(String gruppo)
+    public void rimuoviGruppo(Gruppo gruppo)
     {
         gruppi.remove(gruppo);
         elencoGruppi.getChildren().removeIf(new Predicate<Node>() {
             @Override
             public boolean test(Node node) {
                 if(node instanceof Button)
-                   return ((Button) node).getText().equals(gruppo);
+                   return ((Button) node).getText().equals(gruppo.getIdGruppo());
                 return false;
             }
         });
+        DBClient.getIstance().removeGruppo(gruppo.getIdGruppo());
     }
 
     @FXML
@@ -94,14 +100,15 @@ public class GestireGruppi implements Initializable {
     @FXML
     private Label nomeGruppo;
 
-    public void aggiungiUtente(String utente)
+    public void aggiungiUtente(Membro utente)
     {
-        Button l = new Button(utente);
+        Button l = new Button(utente.getEmail());
         l.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                if(!DBClient.getIstance().rimuoviMembro(nomeGruppo.getText(), utente, Profilo.email))
-                    new Alert(Alert.AlertType.ERROR, "Errore nel rimuovere membro");
+                if(!utente.isAdmin())
+                    if(!DBClient.getIstance().removeMembro(utente.getIdGruppo()))
+                        new Alert(Alert.AlertType.ERROR, "Errore nel rimuovere membro");
                 rimuoviUtente(l);
             }
         });
@@ -117,11 +124,11 @@ public class GestireGruppi implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        gruppi = DBClient.getIstance().getElencoGruppi(Profilo.email);
+       // gruppi = DBClient.getIstance().findUtenteByEmail(Profilo.email);
 
         if(gruppi!=null)
             if(!gruppi.isEmpty())
-                for(String g:gruppi)
+                for(Gruppo g:gruppi)
                 {
                     aggiungiGruppo(g);
                 }
@@ -146,9 +153,9 @@ public class GestireGruppi implements Initializable {
         Optional<String> resp = dialog.showAndWait();
         if (resp.isPresent()){
             String email = resp.get();
-            if(!DBClient.getIstance().esisteUtente(email))
+            if(DBClient.getIstance().findUtenteByEmail(email) != null)
                 new Alert(Alert.AlertType.ERROR, "Non esiste questo utente!");
-            aggiungiUtente(email);
+        //    aggiungiUtente(DBClient.getIstance().findMembroById(email);
         }
     }
 }

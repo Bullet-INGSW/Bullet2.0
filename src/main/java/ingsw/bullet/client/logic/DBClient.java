@@ -1,6 +1,6 @@
 package ingsw.bullet.client.logic;
 
-import ingsw.bullet.server.model.*;
+import ingsw.bullet.model.*;
 import javafx.scene.control.TextInputDialog;
 
 import java.util.ArrayList;
@@ -37,9 +37,9 @@ public class DBClient implements DBClientInterface {
     @Override
     public Evento findEventoById(int id) {return null;}
     @Override
-    public Evento insertEvento(Etichetta c) {return null;}
+    public Evento insertEvento(Evento c) {return null;}
     @Override
-    public Evento updateEvento(Etichetta c) {return null;}
+    public Evento updateEvento(Evento c) {return null;}
     @Override
     public boolean removeEvento(int id) {return false;}
 

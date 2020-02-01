@@ -1,16 +1,17 @@
-package ingsw.bullet.server.model;
+package ingsw.bullet.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Calendario {
 
-    private int id_calendario;
-    private int id_gruppo;
-    private String email;
-    private String nome;
+    private int id_calendario = 0;
+    private int id_gruppo = 0;
+    private String email = null;
+    private String nome = null;
 
-    private List<Evento> eventi;
-    private List<Etichetta> etichette;
+    private List<Evento> eventi = new ArrayList<>();
+    private List<Etichetta> etichette = new ArrayList<>();
 
     public Calendario() {
     }

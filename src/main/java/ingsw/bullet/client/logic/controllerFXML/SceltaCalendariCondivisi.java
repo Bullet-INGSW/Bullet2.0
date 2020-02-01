@@ -13,7 +13,7 @@ public class SceltaCalendariCondivisi extends SceltaGestoreAttivita {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        nomiGestoriAttivita = DBClient.getIstance().getElencoCalendariCondivisi(Profilo.email);
+        //nomiGestoriAttivita = DBClient.getIstance().getElencoCalendariCondivisi(Profilo.email);
         super.initialize(url, resourceBundle);
     }
 }

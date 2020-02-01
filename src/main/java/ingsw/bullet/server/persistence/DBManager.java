@@ -1,6 +1,6 @@
 package ingsw.bullet.server.persistence;
 
-import ingsw.bullet.server.model.*;
+import ingsw.bullet.model.*;
 import ingsw.bullet.server.persistence.dao.*;
 import io.github.cdimascio.dotenv.Dotenv;
 

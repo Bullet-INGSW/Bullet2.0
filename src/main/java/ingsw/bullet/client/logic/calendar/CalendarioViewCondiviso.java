@@ -1,7 +1,6 @@
 package ingsw.bullet.client.logic.calendar;
 
 import com.calendarfx.model.Calendar;
-import com.calendarfx.model.CalendarSource;
 import com.calendarfx.model.Entry;
 import com.calendarfx.view.CalendarView;
 import com.calendarfx.view.DateControl;
@@ -9,8 +8,8 @@ import com.calendarfx.view.EntryViewBase;
 import com.calendarfx.view.Messages;
 import ingsw.bullet.client.logic.controllerFXML.DialogCalendario;
 import ingsw.bullet.client.logic.controllerFXML.ElencoPartecipanti;
-import ingsw.bullet.client.logic.controllerFXML.EliminaEtichetta;
-import javafx.application.Platform;
+import ingsw.bullet.model.Calendario;
+import ingsw.bullet.model.Evento;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
@@ -20,13 +19,11 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Callback;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.Iterator;
 
-public class CalendarioCondiviso extends Calendario {
-    public CalendarioCondiviso(String nome) {
-        super(nome);
+public class CalendarioViewCondiviso extends CalendarioView {
+    public CalendarioViewCondiviso(Calendario calendario) {
+        super(calendario);
     }
 
     @Override
@@ -79,7 +76,7 @@ public class CalendarioCondiviso extends Calendario {
                 contextMenu.getItems().add(delete);
                 delete.setDisable(entryContextMenuParameter.getCalendar().isReadOnly());
                 delete.setOnAction((evt) -> {
-                    rimuoviEvento(entry);
+                    rimuoviEvento(entry, false);
                     Calendar calendar = entry.getCalendar();
                     if (!calendar.isReadOnly()) {
                         if (entry.isRecurrence()) {
@@ -97,14 +94,8 @@ public class CalendarioCondiviso extends Calendario {
                 DialogCalendario d = loadDialogCalendario("elencoPartecipanti", 400, 400);
 
                 Evento e = eventi.get(entry);
-                if(e instanceof EventoCondiviso)
-                {
-                    EventoCondiviso ec = (EventoCondiviso)e;
-                    if(d instanceof ElencoPartecipanti)
-                    {
-                        ((ElencoPartecipanti) d).setEvento(ec);
-                    }
-                }
+                    ((ElencoPartecipanti) d).setEvento(e);
+
             });
             contextMenu.getItems().add(partecipantiMenu);
 

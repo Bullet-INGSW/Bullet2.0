@@ -2,7 +2,7 @@ package ingsw.bullet.client.logic.controllerFXML;
 
 import com.calendarfx.model.Calendar;
 import com.calendarfx.model.CalendarSource;
-import ingsw.bullet.client.logic.calendar.Calendario;
+import ingsw.bullet.client.logic.calendar.CalendarioView;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -21,10 +21,10 @@ public class EliminaEtichetta extends DialogCalendario{
 
     CalendarSource calendarSource = null;
 
-    public void setCalendario(Calendario calendario)
+    public void setCalendarioView(CalendarioView calendarioView)
     {
-        super.setCalendario(calendario);
-        calendarSource = calendario.getCalendarSources().get(1);
+        super.setCalendarioView(calendarioView);
+        calendarSource = calendarioView.getCalendarSources().get(1);
         for(Calendar c:calendarSource.getCalendars())
         {
             Button b = new Button(c.getName());
@@ -40,6 +40,6 @@ public class EliminaEtichetta extends DialogCalendario{
     @FXML
     void eliminaEtichetta(ActionEvent event) {
         if(etichettaScelta!=null)
-            calendario.rimuoviEtichetta(etichettaScelta);
+            calendarioView.rimuoviEtichetta(etichettaScelta);
     }
 }

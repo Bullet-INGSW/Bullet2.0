@@ -1,4 +1,6 @@
-package ingsw.bullet.server.model;
+package ingsw.bullet.model;
+
+import java.util.List;
 
 public class TDL {
 
@@ -6,6 +8,24 @@ public class TDL {
     private int id_gruppo;
     private String email;
     private String nome;
+    private List<Promemoria> promemoria;
+    private List<Etichetta> etichette;
+
+    public List<Promemoria> getPromemoria() {
+        return promemoria;
+    }
+
+    public void setPromemoria(List<Promemoria> promemoria) {
+        this.promemoria = promemoria;
+    }
+
+    public List<Etichetta> getEtichette() {
+        return etichette;
+    }
+
+    public void setEtichette(List<Etichetta> etichette) {
+        this.etichette = etichette;
+    }
 
     public TDL() {
     }

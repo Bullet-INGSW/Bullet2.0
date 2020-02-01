@@ -7,8 +7,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import ingsw.bullet.server.model.Utente;
-import ingsw.bullet.server.model.Utente.Sesso;
+import ingsw.bullet.model.Utente;
+import ingsw.bullet.model.Utente.Sesso;
 import ingsw.bullet.server.persistence.DataSource;
 
 public class DAOUtente implements DAOInterface<Utente> {

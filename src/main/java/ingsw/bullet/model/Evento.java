@@ -1,6 +1,5 @@
-package ingsw.bullet.server.model;
+package ingsw.bullet.model;
 
-import javax.swing.event.ListDataEvent;
 import java.time.LocalDateTime;
 import java.util.List;
 

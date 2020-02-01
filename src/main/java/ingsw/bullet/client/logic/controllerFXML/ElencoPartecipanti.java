@@ -1,17 +1,17 @@
 package ingsw.bullet.client.logic.controllerFXML;
 
-import ingsw.bullet.client.logic.calendar.Evento;
-import ingsw.bullet.client.logic.calendar.EventoCondiviso;
+
+import ingsw.bullet.model.Evento;
 
 public class ElencoPartecipanti extends DialogCalendario{
 
-    public EventoCondiviso getEvento() {
+    public Evento getEvento() {
         return evento;
     }
 
-    public void setEvento(EventoCondiviso evento) {
+    public void setEvento(Evento evento) {
         this.evento = evento;
     }
 
-    EventoCondiviso evento;
+    Evento evento;
 }

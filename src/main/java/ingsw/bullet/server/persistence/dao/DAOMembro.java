@@ -1,9 +1,7 @@
 package ingsw.bullet.server.persistence.dao;
 
-import ingsw.bullet.server.model.Calendario;
-import ingsw.bullet.server.model.Membro;
+import ingsw.bullet.model.Membro;
 import ingsw.bullet.server.persistence.DataSource;
-import ingsw.bullet.server.persistence.dao.DAOInterface;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

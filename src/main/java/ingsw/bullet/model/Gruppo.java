@@ -1,4 +1,4 @@
-package ingsw.bullet.server.model;
+package ingsw.bullet.model;
 
 import java.util.List;
 

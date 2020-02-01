@@ -2,10 +2,12 @@ package ingsw.bullet.client.logic.calendar;
 
 import com.calendarfx.model.*;
 import com.calendarfx.view.*;
+import ingsw.bullet.client.logic.DBClient;
 import ingsw.bullet.client.logic.controllerFXML.DialogCalendario;
-import ingsw.bullet.client.logic.controllerFXML.EliminaEtichetta;
-import ingsw.bullet.client.logic.controllerFXML.NuoveEtichette;
 import ingsw.bullet.client.view.Main;
+import ingsw.bullet.model.Calendario;
+import ingsw.bullet.model.Etichetta;
+import ingsw.bullet.model.Evento;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -14,6 +16,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
+import org.jetbrains.annotations.NotNull;
 
 import java.text.MessageFormat;
 import java.time.*;
@@ -22,13 +25,24 @@ import java.util.HashMap;
 // gestisce la creazione di un calendario personale
 // gestisce l'evento se un evento/etichetta e' stato aggiunto/a o modificato/a
 
-public class Calendario extends CalendarView {
+public class CalendarioView extends CalendarView {
 
     protected int countEntry = 0;
 
     HashMap<Entry<?>, Evento> eventi = new HashMap<>();
     HashMap<Calendar, Etichetta> etichette = new HashMap<>();
-    String nome;
+
+    HashMap<Calendar.Style, Integer> coloriMap =new HashMap<>(){ {
+        put(Calendar.Style.STYLE1 ,0);
+        put(Calendar.Style.STYLE2, 1);
+        put(Calendar.Style.STYLE3, 2);
+        put(Calendar.Style.STYLE4, 3);
+        put(Calendar.Style.STYLE5, 4);
+        put(Calendar.Style.STYLE6, 5);
+        put(Calendar.Style.STYLE7, 6);
+    }};
+
+    Calendario calendario;
     CalendarSource myCalendarSource;
 
     {
@@ -45,9 +59,56 @@ public class Calendario extends CalendarView {
         setOnUpdateEntry();
     }
 
-    public Calendario(String nome){
+
+    public CalendarioView(Calendario calendario){
         super();
-        this.nome = nome;
+        this.calendario = calendario;
+        for(Etichetta e:calendario.getEtichette())
+        {
+            Calendar c = new Calendar(e.getNome());
+            c.setStyle(Calendar.Style.getStyle(e.getColore()));
+            myCalendarSource.getCalendars().add(c);
+            etichette.put(c, e);
+        }
+
+        for(Evento e:calendario.getEventi())
+        {
+            Entry<String> entry = createEntryByEvento(e);
+            eventi.put(entry, e);
+        }
+    }
+
+    protected Entry<String> createEntryByEvento(@NotNull Evento evento)
+    {
+        Entry<String> entry = new Entry<>(evento.getNome());
+
+        if(evento.getDescrizione() != null)
+            entry.setLocation(evento.getDescrizione());
+
+        entry.setId(""+evento.getIdEvento());
+        if(countEntry < evento.getIdEvento())
+            countEntry = evento.getIdEvento() + 1;
+
+        entry.setInterval(evento.getDataInizio(), evento.getDataFine());
+
+        Calendar c = getCalendarSources().get(0).getCalendars().get(0);
+
+        for(Etichetta etichetta:etichette.values())
+            if(etichetta.getIdEtichetta() == evento.getIdEvento()) {
+                for (Calendar calendar : etichette.keySet())
+                    c = calendar;
+                break;
+            }
+
+        entry.setCalendar(c);
+        c.addEntry(entry);
+
+        entry.setFullDay(evento.isFullDay());
+
+        if(evento.getPeriodicita()) {
+            entry.setRecurrenceRule(evento.getRecurrenceRule());
+        }
+        return entry;
     }
 
     protected void setOnUpdateEntry()
@@ -88,7 +149,7 @@ public class Calendario extends CalendarView {
             if (control instanceof AllDayView) {
                 entry.setFullDay(true);
             }
-            aggiungiEvento(entry);
+            aggiungiEvento(entry, null, false);
 
             return entry;
         });
@@ -102,8 +163,7 @@ public class Calendario extends CalendarView {
 
     protected void setOnEntryCalendar()
     {
-        Entry<String> e = new Entry<>("we");
-        Platform.runLater(() -> {
+       Platform.runLater(() -> {
             setToday(LocalDate.now());
             setTime(LocalTime.now());
             if (getSearchField().getParent() instanceof GridPane) {
@@ -128,37 +188,75 @@ public class Calendario extends CalendarView {
         FXMLLoader fxmlLoader = Main.getInstance().replaceSceneContent
                 (nome, new Stage(), width, height);
         DialogCalendario dialogCalendario = fxmlLoader.<DialogCalendario>getController();
-        dialogCalendario.setCalendario(this);
+        dialogCalendario.setCalendarioView(this);
         return dialogCalendario;
     }
 
-    public void aggiungiEvento(Entry<?> entry)
+    public void aggiungiEvento(Entry<?> entry, Calendar calendar, boolean addOnCalendar)
     {
-        System.out.println("Aggiungi Evento");
+        Evento e = new Evento();
+        e.setNome(entry.getTitle());
+        e.setDescrizione(entry.getLocation());
+        e.setDataInizio(entry.getStartAsLocalDateTime());
+        e.setDataFine(entry.getEndAsLocalDateTime());
+        e.setFullDay(entry.isFullDay());
+
+        e = DBClient.getIstance().insertEvento(e);
+        entry.setId(""+e.getIdEvento());
+
+        if(e != null)
+        {
+            if(addOnCalendar && calendar != null)
+                calendar.addEntry(entry);
+            eventi.put(entry,e);
+        }
     }
 
     public void modificaEvento(Entry<?> entry, CalendarEvent event)
     {
+        if(event.getEventType() != CalendarEvent.CALENDAR_CHANGED){
+            Evento e = eventi.get(entry);
+            e.setNome(entry.getTitle());
+            e.setDescrizione(entry.getLocation());
+            e.setDataInizio(entry.getStartAsLocalDateTime());
+            e.setDataFine(entry.getEndAsLocalDateTime());
+            e.setFullDay(entry.isFullDay());
+            DBClient.getIstance().updateEvento(e);
+        }
         System.out.println("Modifica Evento ");
     }
 
-    public void rimuoviEvento(Entry<?> entry)
+    public void rimuoviEvento(Entry<?> entry, boolean removeOnCalendar)
     {
-        System.out.println("Elimina Evento");
+        DBClient.getIstance().removeEvento(eventi.get(entry).getIdEvento());
+        eventi.remove(entry);
+
+        if(removeOnCalendar)
+            entry.getCalendar().removeEntry(entry);
     }
 
-    public void aggiungiEtichetta(String nome, int num)
+    public void aggiungiEtichetta(String nome, int styleNum)
     {
         Calendar calendar = new Calendar(nome);
-        calendar.setStyle(Calendar.Style.getStyle(num));
+        calendar.setStyle(Calendar.Style.getStyle(styleNum));
 
-        myCalendarSource.getCalendars().add(calendar);
-        // aggiungi al db
+
+        Etichetta etichetta = new Etichetta();
+        etichetta.setNome(calendar.getName());
+        etichetta.setColore(coloriMap.get(Calendar.Style.valueOf(calendar.getStyle())));
+
+        etichetta = DBClient.getIstance().insertEtichetta(etichetta);
+        if(etichetta != null)
+        {
+            myCalendarSource.getCalendars().add(calendar);
+            etichette.put(calendar,etichetta);
+        }
     }
 
     public void rimuoviEtichetta(Calendar c)
     {
+        etichette.remove(c);
         myCalendarSource.getCalendars().remove(c);
-        // rimuovi dal db
+        DBClient.getIstance().removeEtichetta(etichette.get(c).getIdEtichetta());
     }
 }

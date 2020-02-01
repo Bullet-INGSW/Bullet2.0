@@ -1,6 +1,6 @@
 package ingsw.bullet.server.persistence.dao;
 
-import ingsw.bullet.server.model.Evento;
+import ingsw.bullet.model.Evento;
 import ingsw.bullet.server.persistence.DataSource;
 
 import java.sql.Connection;

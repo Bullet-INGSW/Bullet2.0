@@ -1,6 +1,10 @@
 package ingsw.bullet.client.logic.controllerFXML;
 
 import ingsw.bullet.client.logic.DBClient;
+import ingsw.bullet.client.view.Main;
+import ingsw.bullet.model.Gruppo;
+import ingsw.bullet.model.Membro;
+import ingsw.bullet.model.Utente;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -32,7 +36,7 @@ public class CreaGruppo {
         if(event.getCode().equals(KeyCode.ENTER) && membroDaAggiungere.getText() != null)
         {
 
-            if(!DBClient.getIstance().esisteUtente(membroDaAggiungere.getText())) {
+            if(DBClient.getIstance().findUtenteByEmail(membroDaAggiungere.getText()) != null) {
                 new Alert(Alert.AlertType.ERROR, "Non è presente questo utente").showAndWait();
                 return;
             }
@@ -65,14 +69,33 @@ public class CreaGruppo {
     void conferma(ActionEvent event) {
         if(nomeGruppo.getText() != null) {
 
-            if(!DBClient.getIstance().esisteGruppo(nomeGruppo.getText()))
-            {
                 ArrayList<String> membri = getElencoMembri();
                 if(membri.isEmpty())
                     new Alert(Alert.AlertType.ERROR, "Non hai aggiunto nessun membro");
-                DBClient.getIstance().creaGruppo(Profilo.email, nomeGruppo.getText(),getElencoMembri());
-//               vai in gestire Gruppi
-            }
+
+                Gruppo g = new Gruppo();
+                g.setNome(nomeGruppo.getText());
+                g = DBClient.getIstance().insertGruppo(g); //creaGruppo(Profilo.email, nomeGruppo.getText(),getElencoMembri());
+
+
+                Utente utente = DBClient.getIstance().findUtenteByEmail(Profilo.email);
+                Membro amministratore = new Membro();
+                amministratore.setEmail(utente.getEmail());
+                amministratore.setAdmin(true);
+                amministratore.setIdGruppo(g.getIdGruppo());
+                DBClient.getIstance().insertMembro(amministratore);
+
+                for(String email:getElencoMembri())
+                {
+                    Membro membro = new Membro();
+                    membro.setEmail(email);
+                    membro.setAdmin(true);
+                    membro.setIdGruppo(g.getIdGruppo());
+                    DBClient.getIstance().insertMembro(membro);
+                }
+
+//              va in gestire gruppi
+            Main.getInstance().replaceSceneContent("gestireGruppi", Main.getInstance().stage, 600, 400);
         }
         else
             new Alert(Alert.AlertType.ERROR, "Inserire Nome Gruppo");

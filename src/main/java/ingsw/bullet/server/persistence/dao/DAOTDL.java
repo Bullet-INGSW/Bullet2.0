@@ -1,9 +1,7 @@
 package ingsw.bullet.server.persistence.dao;
 
-import ingsw.bullet.server.model.Calendario;
-import ingsw.bullet.server.model.TDL;
+import ingsw.bullet.model.*;
 import ingsw.bullet.server.persistence.DataSource;
-import ingsw.bullet.server.persistence.dao.DAOInterface;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -68,6 +66,7 @@ public class DAOTDL implements DAOInterface<TDL> {
 				tdl.setIdGruppo(result.getInt("id_gruppo"));
 				tdl.setEmail(result.getString("email"));
 				tdl.setNome(result.getString("nome"));
+				setPromemoriaAndEtichette(tdl);
 
 			}
 		} catch (SQLException e) {
@@ -101,6 +100,7 @@ public class DAOTDL implements DAOInterface<TDL> {
 				tdl.setEmail(result.getString("email"));
 				tdl.setNome(result.getString("nome"));
 				tdls.add(tdl);
+				setPromemoriaAndEtichette(tdl);
 			}
 		} catch (SQLException e) {
 			throw new RuntimeException(e.getMessage());
@@ -133,6 +133,7 @@ public class DAOTDL implements DAOInterface<TDL> {
 				tdl.setEmail(result.getString("email"));
 				tdl.setNome(result.getString("nome"));
 				tdls.add(tdl);
+				setPromemoriaAndEtichette(tdl);
 			}
 		} catch (SQLException e) {
 			throw new RuntimeException(e.getMessage());
@@ -164,6 +165,7 @@ public class DAOTDL implements DAOInterface<TDL> {
 				tdl.setEmail(result.getString("email"));
 				tdl.setNome(result.getString("nome"));
 				tdls.add(tdl);
+				setPromemoriaAndEtichette(tdl);
 			}
 		} catch (SQLException e) {
 			throw new RuntimeException(e.getMessage());
@@ -228,5 +230,22 @@ public class DAOTDL implements DAOInterface<TDL> {
 		}
 
 	}
-    
+
+	private void setPromemoriaAndEtichette(TDL tdl)
+	{
+		DAOEtichetta daoEtichetta = null;
+		List<Promemoria> promemoria = new DAOPromemoria(dataSource).findByTDL(tdl.getIdTDL());
+		List<Etichetta> etichette = new ArrayList<>();
+		for(Promemoria e:promemoria)
+		{
+			if(daoEtichetta == null)
+				daoEtichetta = new DAOEtichetta(dataSource);
+			Etichetta etichetta = daoEtichetta.findByPrimaryKey(e.getIdEtichetta());
+			if(!etichette.contains(etichetta))
+				etichette.add(etichetta);
+		}
+		tdl.setPromemoria(promemoria);
+		tdl.setEtichette(etichette);
+	}
+
 }

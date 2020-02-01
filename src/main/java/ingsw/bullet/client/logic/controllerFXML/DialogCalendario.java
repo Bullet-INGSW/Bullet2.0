@@ -1,6 +1,6 @@
 package ingsw.bullet.client.logic.controllerFXML;
 
-import ingsw.bullet.client.logic.calendar.Calendario;
+import ingsw.bullet.client.logic.calendar.CalendarioView;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -8,15 +8,15 @@ import javafx.stage.Stage;
 
 public class DialogCalendario {
 
-    public Calendario getCalendario() {
-        return calendario;
+    public CalendarioView getCalendarioView() {
+        return calendarioView;
     }
 
-    public void setCalendario(Calendario calendario) {
-        this.calendario = calendario;
+    public void setCalendarioView(CalendarioView calendarioView) {
+        this.calendarioView = calendarioView;
     }
 
-    Calendario calendario;
+    CalendarioView calendarioView;
 
     protected void chiudi(ActionEvent event)
     {

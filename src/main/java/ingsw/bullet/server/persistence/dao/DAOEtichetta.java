@@ -1,6 +1,6 @@
 package ingsw.bullet.server.persistence.dao;
 
-import ingsw.bullet.server.model.Etichetta;
+import ingsw.bullet.model.Etichetta;
 import ingsw.bullet.server.persistence.DataSource;
 
 import java.sql.Connection;

@@ -1,4 +1,4 @@
-package ingsw.bullet.server.model;
+package ingsw.bullet.model;
 
 public class Partecipante {
     private String email;

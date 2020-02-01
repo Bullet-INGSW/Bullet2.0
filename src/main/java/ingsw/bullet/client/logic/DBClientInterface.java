@@ -1,6 +1,6 @@
 package ingsw.bullet.client.logic;
 
-import ingsw.bullet.server.model.*;
+import ingsw.bullet.model.*;
 
 import java.util.ArrayList;
 
@@ -17,8 +17,8 @@ public interface DBClientInterface {
     boolean removeEtichetta(int id);
 
     Evento findEventoById(int id);
-    Evento insertEvento(Etichetta c);
-    Evento updateEvento(Etichetta c);
+    Evento insertEvento(Evento c);
+    Evento updateEvento(Evento c);
     boolean removeEvento(int id);
 
     Gruppo findGruppoById(int id);

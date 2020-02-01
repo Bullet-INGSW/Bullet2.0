@@ -1,20 +1,14 @@
 package ingsw.bullet.client.logic.controllerFXML;
 
-import ingsw.bullet.client.logic.calendar.Calendario;
-import ingsw.bullet.client.view.Main;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SplitMenuButton;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 
 import java.util.HashMap;
 
 public class NuoveEtichette extends DialogCalendario{
-
-
 
     HashMap<String, Integer> coloriMap =new HashMap<>(){ {
         put("Verde" ,0);
@@ -65,8 +59,8 @@ public class NuoveEtichette extends DialogCalendario{
         if(nomeEtichetta.getText()!=null)
             nomeScelto = nomeEtichetta.getText();
 
-        if(calendario!=null)
-            calendario.aggiungiEtichetta(nomeScelto,coloreScelto);
+        if(calendarioView !=null)
+            calendarioView.aggiungiEtichetta(nomeScelto,coloreScelto);
 
         chiudi(event);
     }

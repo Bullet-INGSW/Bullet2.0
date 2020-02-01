@@ -1,6 +1,6 @@
 package ingsw.bullet.server.persistence.dao;
 
-import ingsw.bullet.server.model.Promemoria;
+import ingsw.bullet.model.Promemoria;
 import ingsw.bullet.server.persistence.DataSource;
 
 import java.sql.Connection;
@@ -72,7 +72,7 @@ public class DAOPromemoria implements DAOInterface<Promemoria> {
 				promemoria.setScadenza((result.getTimestamp("scadenza")).toLocalDateTime());
 
 				promemoria.setPartecipanti(new DAOPartecipantePromemoria(dataSource)
-						.findBypromemoria(id_promemoria));
+						.findByPromemoria(id_promemoria));
 			}
 		} catch (SQLException e) {
 			throw new RuntimeException(e.getMessage());
@@ -109,7 +109,7 @@ public class DAOPromemoria implements DAOInterface<Promemoria> {
 				promemoria.setScadenza((result.getTimestamp("scadenza")).toLocalDateTime());
 
 				promemoria.setPartecipanti(new DAOPartecipantePromemoria(dataSource)
-						.findBypromemoria(promemoria.getIdPromemoria()));
+						.findByPromemoria(promemoria.getIdPromemoria()));
 
 				pr.add(promemoria);
 
@@ -149,7 +149,7 @@ public class DAOPromemoria implements DAOInterface<Promemoria> {
 				promemoria.setScadenza((result.getTimestamp("scadenza")).toLocalDateTime());
 
 				promemoria.setPartecipanti(new DAOPartecipantePromemoria(dataSource)
-						.findBypromemoria(promemoria.getIdPromemoria()));
+						.findByPromemoria(promemoria.getIdPromemoria()));
 
 				pr.add(promemoria);
 

@@ -1,10 +1,7 @@
 package ingsw.bullet.server.persistence.dao;
 
-import ingsw.bullet.server.model.Etichetta;
-import ingsw.bullet.server.model.Gruppo;
-import ingsw.bullet.server.model.Membro;
-import ingsw.bullet.server.model.Notifica;
-import ingsw.bullet.server.persistence.DBManager;
+import ingsw.bullet.model.Gruppo;
+import ingsw.bullet.model.Membro;
 import ingsw.bullet.server.persistence.DataSource;
 
 import java.sql.Connection;

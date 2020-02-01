@@ -1,6 +1,6 @@
 package ingsw.bullet.server.persistence.dao;
 
-import ingsw.bullet.server.model.Partecipante;
+import ingsw.bullet.model.Partecipante;
 import ingsw.bullet.server.persistence.DataSource;
 
 import java.sql.Connection;

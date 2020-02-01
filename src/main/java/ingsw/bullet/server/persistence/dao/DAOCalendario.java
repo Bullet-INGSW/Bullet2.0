@@ -1,6 +1,8 @@
 package ingsw.bullet.server.persistence.dao;
 
-import ingsw.bullet.server.model.Calendario;
+import ingsw.bullet.model.Calendario;
+import ingsw.bullet.model.Etichetta;
+import ingsw.bullet.model.Evento;
 import ingsw.bullet.server.persistence.DataSource;
 
 import java.sql.Connection;
@@ -66,6 +68,7 @@ public class DAOCalendario implements DAOInterface<Calendario> {
 				calendario.setIdGruppo(result.getInt("id_gruppo"));
 				calendario.setEmail(result.getString("email"));
 				calendario.setNome(result.getString("nome"));
+				setEventiAndEtichette(calendario);
 
 			}
 		} catch (SQLException e) {
@@ -100,6 +103,7 @@ public class DAOCalendario implements DAOInterface<Calendario> {
 				calendario.setEmail(result.getString("email"));
 				calendario.setNome(result.getString("nome"));
 				calendari.add(calendario);
+				setEventiAndEtichette(calendario);
 			}
 		} catch (SQLException e) {
 			throw new RuntimeException(e.getMessage());
@@ -133,6 +137,7 @@ public class DAOCalendario implements DAOInterface<Calendario> {
 				calendario.setEmail(result.getString("email"));
 				calendario.setNome(result.getString("nome"));
 				calendari.add(calendario);
+				setEventiAndEtichette(calendario);
 			}
 		} catch (SQLException e) {
 			throw new RuntimeException(e.getMessage());
@@ -165,6 +170,7 @@ public class DAOCalendario implements DAOInterface<Calendario> {
 				calendario.setEmail(result.getString("email"));
 				calendario.setNome(result.getString("nome"));
 				calendari.add(calendario);
+				setEventiAndEtichette(calendario);
 			}
 		} catch (SQLException e) {
 			throw new RuntimeException(e.getMessage());
@@ -228,6 +234,23 @@ public class DAOCalendario implements DAOInterface<Calendario> {
 			}
 		}
 		
+	}
+
+	private void setEventiAndEtichette(Calendario calendario)
+	{
+		DAOEtichetta daoEtichetta = null;
+		List<Evento> eventi = new DAOEvento(dataSource).findByCalendario(calendario.getIdCalendario());
+		List<Etichetta> etichette = new ArrayList<>();
+		for(Evento e:eventi)
+		{
+			if(daoEtichetta == null)
+				daoEtichetta = new DAOEtichetta(dataSource);
+			Etichetta etichetta = daoEtichetta.findByPrimaryKey(e.getIdEtichetta());
+			if(!etichette.contains(etichetta))
+				etichette.add(etichetta);
+		}
+		calendario.setEventi(eventi);
+		calendario.setEtichette(etichette);
 	}
     
 }

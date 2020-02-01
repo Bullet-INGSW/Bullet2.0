@@ -1,6 +1,7 @@
 package ingsw.bullet.client.view;
 
-import ingsw.bullet.client.logic.calendar.CalendarioCondiviso;
+import ingsw.bullet.client.logic.calendar.CalendarioViewCondiviso;
+import ingsw.bullet.model.Calendario;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -55,7 +56,7 @@ public class Main extends Application {
     {
         this.stage = stage;
 
-        Scene scene = new Scene(new CalendarioCondiviso("no"));
+        Scene scene = new Scene(new CalendarioViewCondiviso(new Calendario()));
         stage.setTitle("Calendar");
         stage.setScene(scene);
         stage.setWidth(800);
