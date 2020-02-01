@@ -224,11 +224,11 @@ public class ClientConnectionhandler {
         this.promemoria = promemoria;
     }
 
-    public ingsw.bullet.server.model.TDL getTDL() {
+    public TDL getTDL() {
         return TDL;
     }
 
-    public void setTDL(ingsw.bullet.server.model.TDL TDL) {
+    public void setTDL(TDL TDL) {
         this.TDL = TDL;
     }
 

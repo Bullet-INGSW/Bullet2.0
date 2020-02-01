@@ -9,15 +9,7 @@ import javafx.scene.control.TextInputDialog;
 import java.util.ArrayList;
 
 public class DBClient implements DBClientInterface {
-    @Override
-    public Evento insertEvento(Evento c) {
-        return null;
-    }
 
-    @Override
-    public Evento updateEvento(Evento c) {
-        return null;
-    }
 
     protected static DBClient dbClient;
 
@@ -165,35 +157,14 @@ public class DBClient implements DBClientInterface {
 
         return istanza().getEvento();
     }
-    @Override
-    public Evento insertEvento(Etichetta c) {
-        String s="insertEvento";
-        Richiesta r=new Richiesta(s);
-        r.setEtichetta(c);
 
-        setAttesa(true);
-
-        client().sendTCP(r);
-        while(inAttesa()){
-            //Lock?
-        }
-
-        return istanza().getEvento();
+    public Evento insertEvento(Evento c) {
+        return null;
     }
+
     @Override
-    public Evento updateEvento(Etichetta c) {
-        String s="insertEvento";
-        Richiesta r=new Richiesta(s);
-        r.setEtichetta(c);
-
-        setAttesa(true);
-
-        client().sendTCP(r);
-        while(inAttesa()){
-            //Lock?
-        }
-
-        return istanza().getEvento();
+    public Evento updateEvento(Evento c) {
+        return null;
     }
     @Override
     public boolean removeEvento(int id) {
