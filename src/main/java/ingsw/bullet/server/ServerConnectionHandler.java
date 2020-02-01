@@ -33,7 +33,7 @@ public class ServerConnectionHandler {
                 Etichetta etichetta;
                 Evento evento;
                 Membro membro;
-                Gruppo gruppo;
+                Gruppo gruppo = null;
                 Promemoria promemoria;
                 Partecipante partecipante;
                 Notifica notifica;
@@ -143,23 +143,23 @@ public class ServerConnectionHandler {
 
 
                         //Membro
-                        case "findMembroById":
-                            //DA FARE è SBAGLIATO
-                            membro=DBManager.getInstance().findMembroByPrimaryKey(r.getStringa(),r.get);
-                            connection.sendUDP(gruppo);
-                            break;
+//                        case "findMembroById":
+//                            //DA FARE è SBAGLIATO
+//                            membro=DBManager.getInstance().findMembroByPrimaryKey(r.getStringa(),r.get);
+//                            connection.sendUDP(gruppo);
+//                            break;
                         case "insertMembro":
                             membro =r.getMembro();
                             DBManager.getInstance().addMembro(membro);
                             //DAFare
                             connection.sendUDP(membro);
                             break;
-                        case "updateMembro":
-                            membro=r.getMembro();
-                            DBManager.getInstance().getDAOMembro().update(membro);
-                            //Pure this è errato
-                            connection.sendUDP(DBManager.getInstance().findMembroByPrimaryKey(membro.getEmail()));
-                            break;
+//                        case "updateMembro":
+//                            membro=r.getMembro();
+//                            DBManager.getInstance().getDAOMembro().update(membro);
+//                            //Pure this è errato
+//                            connection.sendUDP(DBManager.getInstance().findMembroByPrimaryKey(membro.getEmail()));
+//                            break;
                         case "removeMembro":
                             num=r.getNum();
                             //DA FARE PURE CHISSA
@@ -261,10 +261,10 @@ public class ServerConnectionHandler {
 
                             //DA FARE
                         //Partecipante
-                        case "findPartecipanteById":
-                            partecipante=DBManager.getInstance().findPartecipanteByPrimaryKey(r.getStringa());
-                            connection.sendUDP(partecipante);
-                            break;
+//                        case "findPartecipanteById":
+//                            partecipante=DBManager.getInstance().findPartecipanteByPrimaryKey(r.getStringa());
+//                            connection.sendUDP(partecipante);
+//                            break;
                         case "insertPartecipante":
                             utente =r.getUtente();
                             DBManager.getInstance().addUtente(utente);

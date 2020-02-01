@@ -22,6 +22,9 @@ import java.util.ArrayList;
 
 public class CreaGruppo {
 
+    public static int WIDTH = 800;
+    public static int HEIGHT = 600;
+
     @FXML
     private TextField nomeGruppo;
 
@@ -33,16 +36,14 @@ public class CreaGruppo {
 
     @FXML
     void inserisciMembro(KeyEvent event) {
-        if(event.getCode().equals(KeyCode.ENTER) && membroDaAggiungere.getText() != null)
-        {
-
-            if(DBClient.getIstance().findUtenteByEmail(membroDaAggiungere.getText()) != null) {
+        if (event.getCode().equals(KeyCode.ENTER) && membroDaAggiungere.getText() != null) {
+            if (DBClient.getIstance().findUtenteByEmail(membroDaAggiungere.getText()) != null) {
                 new Alert(Alert.AlertType.ERROR, "Non è presente questo utente").showAndWait();
                 return;
             }
-            for(Node n:elencoMembri.getChildren())
-                if(n instanceof Button)
-                    if(((Button) n).getText().equals(membroDaAggiungere.getText()))
+            for (Node n : elencoMembri.getChildren())
+                if (n instanceof Button)
+                    if (((Button) n).getText().equals(membroDaAggiungere.getText()))
                         return;
 
             Button l = new Button(membroDaAggiungere.getText());
@@ -53,9 +54,7 @@ public class CreaGruppo {
                     elencoMembri.getChildren().remove(l);
                 }
             });
-
         }
-
     }
 
     public TextField getNomeGruppo() {
@@ -65,54 +64,50 @@ public class CreaGruppo {
     public void setNomeGruppo(TextField nomeGruppo) {
         this.nomeGruppo = nomeGruppo;
     }
+
     @FXML
     void conferma(ActionEvent event) {
-        if(nomeGruppo.getText() != null) {
+        if (nomeGruppo.getText() != null) {
+            ArrayList<String> membri = getElencoMembri();
+            if (membri.isEmpty())
+                new Alert(Alert.AlertType.ERROR, "Non hai aggiunto nessun membro");
 
-                ArrayList<String> membri = getElencoMembri();
-                if(membri.isEmpty())
-                    new Alert(Alert.AlertType.ERROR, "Non hai aggiunto nessun membro");
+            Gruppo g = new Gruppo();
+            g.setNome(nomeGruppo.getText());
+            g = DBClient.getIstance().insertGruppo(g); //creaGruppo(Profilo.email, nomeGruppo.getText(),getElencoMembri());
 
-                Gruppo g = new Gruppo();
-                g.setNome(nomeGruppo.getText());
-                g = DBClient.getIstance().insertGruppo(g); //creaGruppo(Profilo.email, nomeGruppo.getText(),getElencoMembri());
+            Utente utente = DBClient.getIstance().findUtenteByEmail(Profilo.email);
+            Membro amministratore = new Membro();
+            amministratore.setEmail(utente.getEmail());
+            amministratore.setAdmin(true);
+            amministratore.setIdGruppo(g.getIdGruppo());
+            DBClient.getIstance().insertMembro(amministratore);
 
-
-                Utente utente = DBClient.getIstance().findUtenteByEmail(Profilo.email);
-                Membro amministratore = new Membro();
-                amministratore.setEmail(utente.getEmail());
-                amministratore.setAdmin(true);
-                amministratore.setIdGruppo(g.getIdGruppo());
-                DBClient.getIstance().insertMembro(amministratore);
-
-                for(String email:getElencoMembri())
-                {
-                    Membro membro = new Membro();
-                    membro.setEmail(email);
-                    membro.setAdmin(true);
-                    membro.setIdGruppo(g.getIdGruppo());
-                    DBClient.getIstance().insertMembro(membro);
-                }
+            for (String email : getElencoMembri()) {
+                Membro membro = new Membro();
+                membro.setEmail(email);
+                membro.setAdmin(true);
+                membro.setIdGruppo(g.getIdGruppo());
+                DBClient.getIstance().insertMembro(membro);
+            }
 
 //              va in gestire gruppi
             Main.getInstance().replaceSceneContent("gestireGruppi", Main.getInstance().stage, 600, 400);
-        }
-        else
+        } else
             new Alert(Alert.AlertType.ERROR, "Inserire Nome Gruppo");
     }
 
     @FXML
     void annulla(ActionEvent event) {
-
+// vai in gestisci gruppi
+        Main.getInstance().replaceSceneContent("gestireGruppi", Main.getInstance().stage, 600, 400);
     }
 
-    ArrayList<String> getElencoMembri()
-    {
+    ArrayList<String> getElencoMembri() {
         ArrayList<String> s = null;
-        for(Node n:elencoMembri.getChildren())
-        {
+        for (Node n : elencoMembri.getChildren()) {
             s = new ArrayList<>();
-            if(n instanceof Label)
+            if (n instanceof Label)
                 s.add(((Label) n).getText());
         }
         return s;

@@ -8,7 +8,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane maxHeight="400.0" maxWidth="400.0" minHeight="400.0" minWidth="400.0" prefHeight="400.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ingsw.bullet.client.logic.controllerFXML.ElencoPartecipanti">
    <children>
       <BorderPane layoutX="123.0" layoutY="45.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -23,15 +22,18 @@
             <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="5.0" BorderPane.alignment="CENTER">
                <children>
                   <Label text="Vuoi partecipare?" />
-                  <Button maxWidth="35.0" minWidth="35.0" mnemonicParsing="false" prefWidth="35.0" text="SÌ" />
-                  <Button mnemonicParsing="false" text="NO" />
+                  <Button maxWidth="35.0" minWidth="35.0" mnemonicParsing="false" onAction="#partecipa" prefWidth="35.0" text="SÌ" />
+                  <Button mnemonicParsing="false" onAction="#nonPartecipa" text="NO" />
                </children>
             </VBox>
          </center>
          <bottom>
             <ScrollPane prefHeight="259.0" prefWidth="400.0" BorderPane.alignment="CENTER">
               <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="379.0" prefWidth="382.0" />
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="379.0" prefWidth="382.0">
+                     <children>
+                        <VBox fx:id="elencoPartecipanti" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                     </children></AnchorPane>
               </content>
             </ScrollPane>
          </bottom>

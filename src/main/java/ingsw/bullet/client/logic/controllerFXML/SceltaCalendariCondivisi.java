@@ -8,7 +8,7 @@ import java.util.ResourceBundle;
 public class SceltaCalendariCondivisi extends SceltaGestoreAttivita {
     @Override
     public void mandaAGestoreAttivita(String nome) {
-//        manda a Calendario cond
+//        manda a CalendarioView !!! che vuole un calendario
     }
 
     @Override

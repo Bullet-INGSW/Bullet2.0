@@ -3,10 +3,7 @@ package ingsw.bullet.server.persistence.dao;
 import ingsw.bullet.model.Etichetta;
 import ingsw.bullet.server.persistence.DataSource;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,12 +22,21 @@ public class DAOEtichetta implements DAOInterface<Etichetta> {
 			connection = this.dataSource.getConnection();
 			PreparedStatement statement;
 			String query = "INSERT INTO etichetta (nome, colore) VALUES (?,?);";
-			statement = connection.prepareStatement(query);
+			statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 
 			statement.setString(1, t.getNome());
 			statement.setInt(2, t.getColore());
 
 			statement.executeUpdate();
+
+			ResultSet resultSet = statement.getGeneratedKeys();
+
+			while (resultSet.next())
+			{
+				t.setIdEtichetta(resultSet.getInt(1));
+				t.setNome(resultSet.getString(2));
+				t.setColore(resultSet.getInt(3));
+			}
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e.getMessage());

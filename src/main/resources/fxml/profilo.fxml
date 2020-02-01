@@ -20,18 +20,18 @@
                   <Circle fx:id="imageProfile" fill="#dfebf5" radius="73.0" stroke="BLACK" strokeType="INSIDE" />
                   <VBox alignment="CENTER" prefHeight="146.0" prefWidth="168.0" spacing="10.0">
                      <children>
-                        <Button mnemonicParsing="false" text="Vedi Calendario Personale" />
-                        <Button minWidth="155.0" mnemonicParsing="false" text="Vedi To Do List Personale" />
-                        <Button minWidth="155.0" mnemonicParsing="false" text="Vedi Calendari Condivisi" />
-                        <Button minWidth="155.0" mnemonicParsing="false" text="Vedi To Do List Condivise" />
-                        <Button minWidth="155.0" mnemonicParsing="false" text="Gestione Gruppi" />
+                        <Button mnemonicParsing="false" onAction="#calendarioPersonale" text="Vedi Calendario Personale" />
+                        <Button minWidth="155.0" mnemonicParsing="false" onAction="#tdlPersonale" text="Vedi To Do List Personale" />
+                        <Button minWidth="155.0" mnemonicParsing="false" onAction="#calendariCondivisi" text="Vedi Calendari Condivisi" />
+                        <Button minWidth="155.0" mnemonicParsing="false" onAction="#tdlCondivise" text="Vedi To Do List Condivise" />
+                        <Button minWidth="155.0" mnemonicParsing="false" onAction="#gestireGruppi" text="Gestione Gruppi" />
                      </children>
                   </VBox>
                </children>
             </HBox>
             <HBox prefHeight="261.0" prefWidth="600.0">
                <children>
-                  <VBox alignment="CENTER" minWidth="200.0" prefHeight="214.0" prefWidth="341.0" spacing="17.0">
+                  <VBox alignment="CENTER" minWidth="200.0" prefHeight="214.0" prefWidth="341.0" spacing="8.0">
                      <children>
                         <Label text="Dati Personali">
                            <font>
@@ -42,6 +42,11 @@
                         <Label fx:id="cognomeLabel" layoutX="146.0" layoutY="117.0" text="label" />
                         <Label fx:id="emailLabel" layoutX="134.0" layoutY="134.0" text="label" />
                         <Label fx:id="sessoLabel" layoutX="134.0" layoutY="126.0" text="label" />
+                        <Button mnemonicParsing="false" prefHeight="27.0" prefWidth="59.0" style="-fx-background-color: white; -fx-border-color: black;" text="Esci" textFill="RED">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Button>
                      </children>
                   </VBox>
                   <BorderPane minWidth="200.0" prefHeight="200.0" prefWidth="339.0">

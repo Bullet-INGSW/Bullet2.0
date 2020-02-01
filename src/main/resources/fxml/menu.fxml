@@ -50,7 +50,7 @@
                                           <Insets left="5.0" />
                                        </HBox.margin>
                                     </Text>
-                                    <TextField maxHeight="25.0" maxWidth="300.0" HBox.hgrow="ALWAYS">
+                                    <TextField fx:id="loginEmail" maxHeight="25.0" maxWidth="300.0" HBox.hgrow="ALWAYS">
                                        <HBox.margin>
                                           <Insets right="5.0" />
                                        </HBox.margin>
@@ -67,7 +67,7 @@
                                           <Insets left="5.0" />
                                        </HBox.margin>
                                     </Text>
-                                    <PasswordField maxHeight="25.0" maxWidth="300.0" HBox.hgrow="ALWAYS">
+                                    <PasswordField fx:id="loginPassword" maxHeight="25.0" maxWidth="300.0" HBox.hgrow="ALWAYS">
                                        <HBox.margin>
                                           <Insets right="5.0" />
                                        </HBox.margin>
@@ -78,7 +78,7 @@
                         </VBox>
                      </center>
                      <bottom>
-                        <Button mnemonicParsing="false" prefHeight="38.0" prefWidth="102.0" text="Conferma" textAlignment="CENTER" BorderPane.alignment="CENTER">
+                        <Button mnemonicParsing="false" onAction="#loginConferma" prefHeight="38.0" prefWidth="102.0" text="Conferma" textAlignment="CENTER" BorderPane.alignment="CENTER">
                            <BorderPane.margin>
                               <Insets bottom="20.0" />
                            </BorderPane.margin>
@@ -118,7 +118,7 @@
                                           <Insets left="5.0" />
                                        </HBox.margin>
                                     </Text>
-                                    <TextField maxHeight="25.0" maxWidth="300.0" HBox.hgrow="ALWAYS">
+                                    <TextField fx:id="regEmail" maxHeight="25.0" maxWidth="300.0" HBox.hgrow="ALWAYS">
                                        <HBox.margin>
                                           <Insets right="5.0" />
                                        </HBox.margin>
@@ -135,7 +135,7 @@
                                           <Insets left="5.0" />
                                        </HBox.margin>
                                     </Text>
-                                    <TextField maxHeight="25.0" maxWidth="300.0" HBox.hgrow="ALWAYS">
+                                    <TextField fx:id="regNome" maxHeight="25.0" maxWidth="300.0" HBox.hgrow="ALWAYS">
                                        <HBox.margin>
                                           <Insets right="5.0" />
                                        </HBox.margin>
@@ -152,7 +152,7 @@
                                           <Insets left="5.0" />
                                        </HBox.margin>
                                     </Text>
-                                    <TextField maxHeight="25.0" maxWidth="300.0" HBox.hgrow="ALWAYS">
+                                    <TextField fx:id="regCognome" maxHeight="25.0" maxWidth="300.0" HBox.hgrow="ALWAYS">
                                        <HBox.margin>
                                           <Insets right="5.0" />
                                        </HBox.margin>
@@ -169,7 +169,7 @@
                                           <Insets left="5.0" />
                                        </HBox.margin>
                                     </Text>
-                                    <MenuButton maxHeight="25.0" maxWidth="300.0" minWidth="180.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="---" HBox.hgrow="ALWAYS">
+                                    <MenuButton fx:id="regSesso" maxHeight="25.0" maxWidth="300.0" minWidth="180.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="---" HBox.hgrow="ALWAYS">
                                       <items>
                                         <MenuItem mnemonicParsing="false" text="Maschio" />
                                         <MenuItem mnemonicParsing="false" text="Femmina" />
@@ -187,7 +187,7 @@
                                           <Insets left="5.0" />
                                        </HBox.margin>
                                     </Text>
-                                    <PasswordField maxHeight="25.0" maxWidth="300.0" HBox.hgrow="ALWAYS">
+                                    <PasswordField fx:id="regPassword" maxHeight="25.0" maxWidth="300.0" HBox.hgrow="ALWAYS">
                                        <HBox.margin>
                                           <Insets right="5.0" />
                                        </HBox.margin>
@@ -198,7 +198,7 @@
                         </VBox>
                      </center>
                      <bottom>
-                        <Button mnemonicParsing="false" prefHeight="38.0" prefWidth="102.0" text="Conferma" textAlignment="CENTER" BorderPane.alignment="CENTER">
+                        <Button mnemonicParsing="false" onAction="#regConferma" prefHeight="38.0" prefWidth="102.0" text="Conferma" textAlignment="CENTER" BorderPane.alignment="CENTER">
                            <BorderPane.margin>
                               <Insets bottom="20.0" />
                            </BorderPane.margin>
