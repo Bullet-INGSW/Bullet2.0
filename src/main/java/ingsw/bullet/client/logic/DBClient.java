@@ -32,7 +32,7 @@ public class DBClient implements DBClientInterface {
 
         client().sendTCP(r);
         while(inAttesa()){
-            //Lock?
+            System.out.print("");
         }
 
         return istanza().isBool();
@@ -48,9 +48,12 @@ public class DBClient implements DBClientInterface {
 
         client().sendTCP(r);
         while(inAttesa()){
-            //Lock?
+            System.out.print("");
         }
-
+        if(istanza().ritornoVuoto){
+            istanza().ritornoVuoto=false;
+            return null;
+        }
         return istanza().getCalendario();
 
     }
@@ -65,9 +68,12 @@ public class DBClient implements DBClientInterface {
 
         client().sendTCP(r);
         while(inAttesa()){
-            //Lock?
+            System.out.print("");
         }
-
+        if(istanza().ritornoVuoto){
+            istanza().ritornoVuoto=false;
+            return null;
+        }
         return istanza().getCalendario();
     }
 
@@ -81,9 +87,12 @@ public class DBClient implements DBClientInterface {
 
         client().sendTCP(r);
         while(inAttesa()){
-            //Lock?
+            System.out.print("");
         }
-
+        if(istanza().ritornoVuoto){
+            istanza().ritornoVuoto=false;
+            return null;
+        }
         return istanza().getListCalendario();
     }
 
@@ -97,7 +106,7 @@ public class DBClient implements DBClientInterface {
 
         client().sendTCP(r);
         while(inAttesa()){
-            //Lock?
+            System.out.print("");
         }
 
         return istanza().getCalendario();
@@ -112,7 +121,7 @@ public class DBClient implements DBClientInterface {
 
         client().sendTCP(r);
         while(inAttesa()){
-            //Lock?
+            System.out.print("");
         }
 
         return istanza().getCalendario();}
@@ -126,7 +135,7 @@ public class DBClient implements DBClientInterface {
 
         client().sendTCP(r);
         while(inAttesa()){
-            //Lock?
+            System.out.print("");
         }
 
         return istanza().isBool();
@@ -142,9 +151,12 @@ public class DBClient implements DBClientInterface {
 
         client().sendTCP(r);
         while(inAttesa()){
-            //Lock?
+            System.out.print("");
         }
-
+        if(istanza().ritornoVuoto){
+            istanza().ritornoVuoto=false;
+            return null;
+        }
         return istanza().getEtichetta();
     }
     @Override
@@ -157,7 +169,7 @@ public class DBClient implements DBClientInterface {
 
         client().sendTCP(r);
         while(inAttesa()){
-            //Lock?
+            System.out.print("");
         }
 
         return istanza().getEtichetta();
@@ -172,7 +184,7 @@ public class DBClient implements DBClientInterface {
 
         client().sendTCP(r);
         while(inAttesa()){
-            //Lock?
+            System.out.print("");
         }
 
         return istanza().getEtichetta();
@@ -187,7 +199,7 @@ public class DBClient implements DBClientInterface {
 
         client().sendTCP(r);
         while(inAttesa()){
-            //Lock?
+            System.out.print("");
         }
 
         return istanza().isBool();
@@ -203,9 +215,12 @@ public class DBClient implements DBClientInterface {
 
         client().sendTCP(r);
         while(inAttesa()){
-            //Lock?
+            System.out.print("");
         }
-
+        if(istanza().ritornoVuoto){
+            istanza().ritornoVuoto=false;
+            return null;
+        }
         return istanza().getEvento();
     }
 
@@ -218,7 +233,7 @@ public class DBClient implements DBClientInterface {
 
         client().sendTCP(r);
         while(inAttesa()){
-            //Lock?
+            System.out.print("");
         }
 
         return istanza().getEvento();
@@ -235,7 +250,7 @@ public class DBClient implements DBClientInterface {
 
         client().sendTCP(r);
         while(inAttesa()){
-            //Lock?
+            System.out.print("");
         }
 
         return istanza().getEvento();
@@ -250,7 +265,7 @@ public class DBClient implements DBClientInterface {
 
         client().sendTCP(r);
         while(inAttesa()){
-            //Lock?
+            System.out.print("");
         }
 
         return istanza().isBool();
@@ -266,9 +281,12 @@ public class DBClient implements DBClientInterface {
 
         client().sendTCP(r);
         while(inAttesa()){
-            //Lock?
+            System.out.print("");
         }
-
+        if(istanza().ritornoVuoto){
+            istanza().ritornoVuoto=false;
+            return null;
+        }
         return istanza().getGruppo();
     }
     @Override
@@ -281,7 +299,7 @@ public class DBClient implements DBClientInterface {
 
         client().sendTCP(r);
         while(inAttesa()){
-            //Lock?
+            System.out.print("");
         }
 
         return istanza().getGruppo();
@@ -296,7 +314,7 @@ public class DBClient implements DBClientInterface {
 
         client().sendTCP(r);
         while(inAttesa()){
-            //Lock?
+            System.out.print("");
         }
 
         return istanza().getGruppo();
@@ -311,7 +329,7 @@ public class DBClient implements DBClientInterface {
 
         client().sendTCP(r);
         while(inAttesa()){
-            //Lock?
+            System.out.print("");
         }
 
         return istanza().isBool();
@@ -326,9 +344,12 @@ public class DBClient implements DBClientInterface {
 
         client().sendTCP(r);
         while(inAttesa()){
-            //Lock?
+            System.out.print("");
         }
-
+        if(istanza().ritornoVuoto){
+            istanza().ritornoVuoto=false;
+            return null;
+        }
         return istanza().getListGruppo();
     }
 
@@ -343,7 +364,7 @@ public class DBClient implements DBClientInterface {
 
         client().sendTCP(r);
         while(inAttesa()){
-            //Lock?
+            System.out.print("");
         }
 
         return istanza().getMembro();
@@ -358,7 +379,7 @@ public class DBClient implements DBClientInterface {
 
         client().sendTCP(r);
         while(inAttesa()){
-            //Lock?
+            System.out.print("");
         }
 
         return istanza().getMembro();
@@ -375,9 +396,12 @@ public class DBClient implements DBClientInterface {
 
         client().sendTCP(r);
         while(inAttesa()){
-            //Lock?
+            System.out.print("");
         }
-
+        if(istanza().ritornoVuoto){
+            istanza().ritornoVuoto=false;
+            return null;
+        }
         return istanza().getMembro();
     }
 
@@ -392,7 +416,7 @@ public class DBClient implements DBClientInterface {
 
         client().sendTCP(r);
         while(inAttesa()){
-            //Lock?
+            System.out.print("");
         }
 
         return istanza().isBool();
@@ -408,9 +432,12 @@ public class DBClient implements DBClientInterface {
 
         client().sendTCP(r);
         while(inAttesa()){
-            //Lock?
+            System.out.print("");
         }
-
+        if(istanza().ritornoVuoto){
+            istanza().ritornoVuoto=false;
+            return null;
+        }
         return istanza().getNotifica();
     }
     @Override
@@ -423,7 +450,7 @@ public class DBClient implements DBClientInterface {
 
         client().sendTCP(r);
         while(inAttesa()){
-            //Lock?
+            System.out.print("");
         }
 
         return istanza().getNotifica();
@@ -438,7 +465,7 @@ public class DBClient implements DBClientInterface {
 
         client().sendTCP(r);
         while(inAttesa()){
-            //Lock?
+            System.out.print("");
         }
 
         return istanza().getNotifica();
@@ -453,7 +480,7 @@ public class DBClient implements DBClientInterface {
 
         client().sendTCP(r);
         while(inAttesa()){
-            //Lock?
+            System.out.print("");
         }
 
         return istanza().isBool();
@@ -469,9 +496,12 @@ public class DBClient implements DBClientInterface {
 
         client().sendTCP(r);
         while(inAttesa()){
-            //Lock?
+            System.out.print("");
         }
-
+        if(istanza().ritornoVuoto){
+            istanza().ritornoVuoto=false;
+            return null;
+        }
         return istanza().getPromemoria();
     }
     @Override
@@ -484,7 +514,7 @@ public class DBClient implements DBClientInterface {
 
         client().sendTCP(r);
         while(inAttesa()){
-            //Lock?
+            System.out.print("");
         }
 
         return istanza().getPromemoria();
@@ -499,7 +529,7 @@ public class DBClient implements DBClientInterface {
 
         client().sendTCP(r);
         while(inAttesa()){
-            //Lock?
+            System.out.print("");
         }
 
         return istanza().getPromemoria();
@@ -514,7 +544,7 @@ public class DBClient implements DBClientInterface {
 
         client().sendTCP(r);
         while(inAttesa()){
-            //Lock?
+            System.out.print("");
         }
 
         return istanza().isBool();
@@ -530,9 +560,12 @@ public class DBClient implements DBClientInterface {
 
         client().sendTCP(r);
         while(inAttesa()){
-            //Lock?
+            System.out.print("");
         }
-
+        if(istanza().ritornoVuoto){
+            istanza().ritornoVuoto=false;
+            return null;
+        }
         return istanza().getTDL();
     }
     @Override
@@ -545,7 +578,7 @@ public class DBClient implements DBClientInterface {
 
         client().sendTCP(r);
         while(inAttesa()){
-            //Lock?
+            System.out.print("");
         }
 
         return istanza().getTDL();
@@ -560,7 +593,7 @@ public class DBClient implements DBClientInterface {
 
         client().sendTCP(r);
         while(inAttesa()){
-            //Lock?
+            System.out.print("");
         }
 
         return istanza().getTDL();
@@ -575,7 +608,7 @@ public class DBClient implements DBClientInterface {
 
         client().sendTCP(r);
         while(inAttesa()){
-            //Lock?
+            System.out.print("");
         }
 
         return istanza().isBool();
@@ -591,9 +624,12 @@ public class DBClient implements DBClientInterface {
 
         client().sendTCP(r);
         while(inAttesa()){
-            //Lock?
+            System.out.print("");
         }
-
+        if(istanza().ritornoVuoto){
+            istanza().ritornoVuoto=false;
+            return null;
+        }
         return istanza().getTDL();
     }
 
@@ -607,9 +643,12 @@ public class DBClient implements DBClientInterface {
 
         client().sendTCP(r);
         while(inAttesa()){
-            //Lock?
+            System.out.print("");
         }
-
+        if(istanza().ritornoVuoto){
+            istanza().ritornoVuoto=false;
+            return null;
+        }
         return istanza().getListTDL();
     }
 
@@ -623,9 +662,13 @@ public class DBClient implements DBClientInterface {
 
         client().sendTCP(r);
         while(inAttesa()){
-            System.out.println("in attesa");
+           System.out.print("");
         }
 
+        if(istanza().ritornoVuoto){
+            istanza().ritornoVuoto=false;
+            return null;
+        }
         return istanza().getUtente();
     }
     @Override
@@ -638,7 +681,7 @@ public class DBClient implements DBClientInterface {
 
         client().sendTCP(r);
         while(inAttesa()){
-            //Lock?
+            System.out.print("");
         }
 
         return istanza().getUtente();
@@ -653,7 +696,7 @@ public class DBClient implements DBClientInterface {
 
         client().sendTCP(r);
         while(inAttesa()){
-            //Lock?
+            System.out.print("");
         }
 
         return istanza().getUtente();
@@ -668,7 +711,7 @@ public class DBClient implements DBClientInterface {
 
         client().sendTCP(r);
         while(inAttesa()){
-            //Lock?
+            System.out.print("");
         }
 
         return istanza().isBool();
@@ -686,9 +729,12 @@ public class DBClient implements DBClientInterface {
 
         client().sendTCP(r);
         while(inAttesa()){
-            //Lock?
+            System.out.print("");
         }
-
+        if(istanza().ritornoVuoto){
+            istanza().ritornoVuoto=false;
+            return null;
+        }
         return istanza().getPartecipante();
     }
     @Override
@@ -701,7 +747,7 @@ public class DBClient implements DBClientInterface {
 
         client().sendTCP(r);
         while(inAttesa()){
-            //Lock?
+            System.out.print("");
         }
 
         return istanza().getPartecipante();
@@ -716,7 +762,7 @@ public class DBClient implements DBClientInterface {
 
         client().sendTCP(r);
         while(inAttesa()){
-            //Lock?
+            System.out.print("");
         }
 
         return istanza().getPartecipante();
@@ -732,7 +778,7 @@ public class DBClient implements DBClientInterface {
 
         client().sendTCP(r);
         while(inAttesa()){
-            //Lock?
+            System.out.print("");
         }
 
         return istanza().isBool();
@@ -750,9 +796,12 @@ public class DBClient implements DBClientInterface {
 
     client().sendTCP(r);
     while(inAttesa()){
-        //Lock?
+        System.out.print("");
     }
-
+        if(istanza().ritornoVuoto){
+            istanza().ritornoVuoto=false;
+            return null;
+        }
     return istanza().getPartecipante();
 }
     @Override
@@ -765,7 +814,7 @@ public class DBClient implements DBClientInterface {
 
         client().sendTCP(r);
         while(inAttesa()){
-            //Lock?
+            System.out.print("");
         }
 
         return istanza().getPartecipante();
@@ -780,7 +829,7 @@ public class DBClient implements DBClientInterface {
 
         client().sendTCP(r);
         while(inAttesa()){
-            //Lock?
+            System.out.print("");
         }
 
         return istanza().getPartecipante();
@@ -796,7 +845,7 @@ public class DBClient implements DBClientInterface {
 
         client().sendTCP(r);
         while(inAttesa()){
-            //Lock?
+            System.out.print("");
         }
 
         return istanza().isBool();

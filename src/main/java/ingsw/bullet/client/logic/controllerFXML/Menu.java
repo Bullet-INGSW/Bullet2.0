@@ -53,7 +53,7 @@ public class Menu {
             return;
         }
 
-        if(u.getPassword().equals(loginPassword.getText()))
+        if(!u.getPassword().equals(loginPassword.getText()))
         {
             new Alert(Alert.AlertType.ERROR, "Password errata").showAndWait();
             return;

@@ -4,6 +4,7 @@ import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.minlog.Log;
+import ingsw.bullet.server.NetworkUtility.Errore;
 import ingsw.bullet.server.NetworkUtility.KryoUtil;
 import ingsw.bullet.server.NetworkUtility.Richiesta;
 import ingsw.bullet.model.*;
@@ -106,6 +107,11 @@ public class ClientConnectionhandler {
 
                 else if(object instanceof List){
                     setListGruppo((List<Gruppo>)object);
+                }
+
+                else if(object instanceof Errore){
+                    ritornoVuoto=true;
+
                 }
 
                 else{
@@ -263,7 +269,7 @@ public class ClientConnectionhandler {
     boolean inAttesa=false;
     int num;
     boolean bool;
-
+    public boolean ritornoVuoto=false;
     Calendario calendario=null;
     Etichetta etichetta=null;
     Evento evento=null;
