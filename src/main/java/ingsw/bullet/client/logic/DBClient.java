@@ -623,7 +623,7 @@ public class DBClient implements DBClientInterface {
 
         client().sendTCP(r);
         while(inAttesa()){
-            //Lock?
+            System.out.println("in attesa");
         }
 
         return istanza().getUtente();
