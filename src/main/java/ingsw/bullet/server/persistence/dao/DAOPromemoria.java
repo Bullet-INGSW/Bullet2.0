@@ -21,14 +21,15 @@ public class DAOPromemoria implements DAOInterface<Promemoria> {
 		try {
 			connection = this.dataSource.getConnection();
 			PreparedStatement statement;
-			String query = "INSERT INTO promemoria (id_tdl, id_etichetta, descrizione, completato, scadenza) VALUES (?,?,?,?,?);";
+			String query = "INSERT INTO promemoria (id_tdl, id_etichetta, descrizione, nome, completato, scadenza) VALUES (?,?,?,?,?,?);";
 			statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 
 			statement.setInt(1, t.getIdTDL());
 			statement.setInt(2, t.getIdEtichetta());
-			statement.setString(3, t.getDescrizione());
-			statement.setBoolean(4, t.isCompletato());
-			statement.setTimestamp(5, Timestamp.valueOf(t.getScadenza()));
+			statement.setString(3, t.getNome());
+			statement.setString(4, t.getDescrizione());
+			statement.setBoolean(5, t.isCompletato());
+			statement.setTimestamp(6, Timestamp.valueOf(t.getScadenza()));
 
 			statement.executeUpdate();
 
@@ -75,6 +76,7 @@ public class DAOPromemoria implements DAOInterface<Promemoria> {
 				promemoria.setIdPromemoria(result.getInt("id_promemoria"));
 				promemoria.setIdTDL(result.getInt("id_tdl"));
 				promemoria.setIdEtichetta(result.getInt("id_etichetta"));
+				promemoria.setNome(result.getString("nome"));
 				promemoria.setDescrizione(result.getString("descrizione"));
 				promemoria.setCompletato(result.getBoolean("completato"));
 				promemoria.setScadenza((result.getTimestamp("scadenza")).toLocalDateTime());
@@ -112,6 +114,7 @@ public class DAOPromemoria implements DAOInterface<Promemoria> {
 				promemoria.setIdPromemoria(result.getInt("id_promemoria"));
 				promemoria.setIdTDL(result.getInt("id_tdl"));
 				promemoria.setIdEtichetta(result.getInt("id_etichetta"));
+				promemoria.setNome(result.getString("nome"));
 				promemoria.setDescrizione(result.getString("descrizione"));
 				promemoria.setCompletato(result.getBoolean("completato"));
 				promemoria.setScadenza((result.getTimestamp("scadenza")).toLocalDateTime());
@@ -152,6 +155,7 @@ public class DAOPromemoria implements DAOInterface<Promemoria> {
 				promemoria.setIdPromemoria(result.getInt("id_promemoria"));
 				promemoria.setIdTDL(result.getInt("id_tdl"));
 				promemoria.setIdEtichetta(result.getInt("id_etichetta"));
+				promemoria.setNome(result.getString("nome"));
 				promemoria.setDescrizione(result.getString("descrizione"));
 				promemoria.setCompletato(result.getBoolean("completato"));
 				promemoria.setScadenza((result.getTimestamp("scadenza")).toLocalDateTime());
@@ -191,6 +195,7 @@ public class DAOPromemoria implements DAOInterface<Promemoria> {
 				promemoria.setIdPromemoria(result.getInt("id_promemoria"));
 				promemoria.setIdTDL(result.getInt("id_tdl"));
 				promemoria.setIdEtichetta(result.getInt("id_etichetta"));
+				promemoria.setNome(result.getString("nome"));
 				promemoria.setDescrizione(result.getString("descrizione"));
 				promemoria.setCompletato(result.getBoolean("completato"));
 				promemoria.setScadenza((result.getTimestamp("scadenza")).toLocalDateTime());
@@ -218,6 +223,7 @@ public class DAOPromemoria implements DAOInterface<Promemoria> {
 			String query = "UPDATE promemoria SET" +
 					"promemoria.id_tdl = ?, " +
 					"promemoria.id_etichetta = ?, " +
+					"promemoria.nome = ?, " +
 					"promemoria.descrizione = ?, " +
 					"promemoria.completato = ?, " +
 					"promemoria.scadenza = ? " +
@@ -226,9 +232,10 @@ public class DAOPromemoria implements DAOInterface<Promemoria> {
 
 			statement.setInt(1, t.getIdTDL());
 			statement.setInt(2, t.getIdEtichetta());
-			statement.setString(3, t.getDescrizione());
-			statement.setBoolean(4, t.isCompletato());
-			statement.setTimestamp(5, Timestamp.valueOf(t.getScadenza()));
+			statement.setString(3, t.getNome());
+			statement.setString(4, t.getDescrizione());
+			statement.setBoolean(5, t.isCompletato());
+			statement.setTimestamp(6, Timestamp.valueOf(t.getScadenza()));
 
 			statement.executeUpdate();
 
