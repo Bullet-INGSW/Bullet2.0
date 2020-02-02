@@ -3,10 +3,7 @@ package ingsw.bullet.server.persistence.dao;
 import ingsw.bullet.model.Notifica;
 import ingsw.bullet.server.persistence.DataSource;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,12 +22,21 @@ public class DAONotifica implements DAOInterface<Notifica> {
 			connection = this.dataSource.getConnection();
 			PreparedStatement statement;
 			String query = "INSERT INTO notifica (email, descrizione) VALUES (?,?);";
-			statement = connection.prepareStatement(query);
+			statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 
 			statement.setString(1, t.getEmail());
 			statement.setString(2, t.getDescrizione());
 
 			statement.executeUpdate();
+
+			ResultSet resultSet = statement.getGeneratedKeys();
+
+			while (resultSet.next())
+			{
+				t.setIdNotifica(resultSet.getInt(1));
+				t.setEmail(resultSet.getString(2));
+				t.setDescrizione(resultSet.getString(3));
+			}
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e.getMessage());

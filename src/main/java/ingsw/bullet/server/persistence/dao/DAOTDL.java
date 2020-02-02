@@ -3,10 +3,7 @@ package ingsw.bullet.server.persistence.dao;
 import ingsw.bullet.model.*;
 import ingsw.bullet.server.persistence.DataSource;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,13 +22,23 @@ public class DAOTDL implements DAOInterface<TDL> {
 			connection = this.dataSource.getConnection();
 			PreparedStatement statement;
 			String query = "INSERT INTO calendario (id_gruppo, email, nome) VALUES (?,?,?);";
-			statement = connection.prepareStatement(query);
+			statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 
 			statement.setInt(1, t.getIdGruppo());
 			statement.setString(2, t.getEmail());
 			statement.setString(3, t.getNome());
 
 			statement.executeUpdate();
+
+			ResultSet resultSet = statement.getGeneratedKeys();
+
+			while (resultSet.next())
+			{
+				t.setIdTDL(resultSet.getInt(1));
+				t.setIdGruppo(resultSet.getInt(2));
+				t.setEmail(resultSet.getString(3));
+				t.setNome(resultSet.getString(4));
+			}
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e.getMessage());

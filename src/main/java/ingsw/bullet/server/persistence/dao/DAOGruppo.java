@@ -4,10 +4,7 @@ import ingsw.bullet.model.Gruppo;
 import ingsw.bullet.model.Membro;
 import ingsw.bullet.server.persistence.DataSource;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,9 +23,19 @@ public class DAOGruppo implements DAOInterface<Gruppo> {
 			connection = this.dataSource.getConnection();
 			PreparedStatement statement;
 			String query = "INSERT INTO gruppo (nome) VALUES (?);";
-			statement = connection.prepareStatement(query);
+			statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+
 			statement.setString(1, t.getNome());
+
 			statement.executeUpdate();
+
+			ResultSet resultSet = statement.getGeneratedKeys();
+
+			while (resultSet.next())
+			{
+				t.setIdGruppo(resultSet.getInt(1));
+				t.setNome(resultSet.getString(2));
+			}
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e.getMessage());

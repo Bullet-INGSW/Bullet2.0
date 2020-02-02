@@ -5,10 +5,7 @@ import ingsw.bullet.model.Etichetta;
 import ingsw.bullet.model.Evento;
 import ingsw.bullet.server.persistence.DataSource;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,13 +24,22 @@ public class DAOCalendario implements DAOInterface<Calendario> {
 			connection = this.dataSource.getConnection();
 			PreparedStatement statement;
 			String query = "INSERT INTO calendario (id_gruppo, email, nome) VALUES (?,?,?);";
-			statement = connection.prepareStatement(query);
+			statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 
 			statement.setInt(1, t.getIdGruppo());
 			statement.setString(2, t.getEmail());
 			statement.setString(3, t.getNome());
 
 			statement.executeUpdate();
+
+			ResultSet resultSet = statement.getGeneratedKeys();
+
+			while (resultSet.next())
+			{
+				t.setIdCalendario(resultSet.getInt(1));
+				t.setEmail(resultSet.getString(2));
+				t.setNome(resultSet.getString(3));
+			}
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e.getMessage());

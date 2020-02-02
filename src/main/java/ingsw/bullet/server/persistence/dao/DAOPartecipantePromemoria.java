@@ -3,10 +3,7 @@ package ingsw.bullet.server.persistence.dao;
 import ingsw.bullet.model.Partecipante;
 import ingsw.bullet.server.persistence.DataSource;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,7 +22,7 @@ public class DAOPartecipantePromemoria implements DAOInterface<Partecipante> {
             connection = this.dataSource.getConnection();
             PreparedStatement statement;
             String query = "INSERT INTO partecipante_promemoria (email, id_promemoria, presente) VALUES (?,?,?);";
-            statement = connection.prepareStatement(query);
+            statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 
             statement.setString(1, t.getEmail());
             statement.setInt(2, t.getId());
@@ -33,6 +30,14 @@ public class DAOPartecipantePromemoria implements DAOInterface<Partecipante> {
 
             statement.executeUpdate();
 
+            ResultSet resultSet = statement.getGeneratedKeys();
+
+            while (resultSet.next())
+            {
+                t.setEmail(resultSet.getString(1));
+                t.setId(resultSet.getInt(2));
+                t.setPresente(resultSet.getBoolean(3));
+            }
         } catch (SQLException e) {
             throw new RuntimeException(e.getMessage());
         } finally {

@@ -3,10 +3,7 @@ package ingsw.bullet.server.persistence.dao;
 import ingsw.bullet.model.Membro;
 import ingsw.bullet.server.persistence.DataSource;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,13 +22,20 @@ public class DAOMembro implements DAOInterface<Membro> {
 			connection = this.dataSource.getConnection();
 			PreparedStatement statement;
 			String query = "INSERT INTO membro (email, id_gruppo, admin) VALUES (?,?,?);";
-			statement = connection.prepareStatement(query);
+			statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 
 			statement.setString(1, t.getEmail());
 			statement.setInt(2, t.getIdGruppo());
 			statement.setBoolean(3, t.isAdmin());
 
-			statement.executeUpdate();
+			ResultSet resultSet = statement.getGeneratedKeys();
+
+			while (resultSet.next())
+			{
+				t.setEmail(resultSet.getString(1));
+				t.setIdGruppo(resultSet.getInt(2));
+				t.setAdmin(resultSet.getBoolean(3));
+			}
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e.getMessage());

@@ -3,11 +3,7 @@ package ingsw.bullet.server.persistence.dao;
 import ingsw.bullet.model.Evento;
 import ingsw.bullet.server.persistence.DataSource;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Timestamp;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,7 +33,7 @@ public class DAOEvento implements DAOInterface<Evento> {
 					"id_recurrence," +
 					"recurrence_rule, " +
 					") VALUES (?,?,?,?,?,?,?,?,?,?);";
-			statement = connection.prepareStatement(query);
+			statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 
 			statement.setInt(1, t.getIdCalendario());
 			statement.setInt(2, t.getIdEtichetta());
@@ -51,6 +47,23 @@ public class DAOEvento implements DAOInterface<Evento> {
 			statement.setString(10, t.getRecurrenceRule());
 
 			statement.executeUpdate();
+
+			ResultSet resultSet = statement.getGeneratedKeys();
+
+			while (resultSet.next())
+			{
+				t.setIdEvento(resultSet.getInt(1));
+				t.setIdCalendario(resultSet.getInt(2));
+				t.setIdEtichetta(resultSet.getInt(3));
+				t.setNome(resultSet.getString(4));
+				t.setDescrizione(resultSet.getString(5));
+				t.setDataInizio((resultSet.getTimestamp(6)).toLocalDateTime());
+				t.setDataFine((resultSet.getTimestamp(7)).toLocalDateTime());
+				t.setPeriodicita(resultSet.getBoolean(8));
+				t.setFullDay(resultSet.getBoolean(9));
+				t.setIdRecurrence(resultSet.getInt(10));
+				t.setRecurrenceRule(resultSet.getString(11));
+			}
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e.getMessage());

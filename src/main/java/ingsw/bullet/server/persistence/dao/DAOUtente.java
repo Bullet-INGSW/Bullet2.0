@@ -1,9 +1,6 @@
 package ingsw.bullet.server.persistence.dao;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,7 +23,7 @@ public class DAOUtente implements DAOInterface<Utente> {
 			connection = this.dataSource.getConnection();
 			PreparedStatement statement;
 			String query = "INSERT INTO utente (email, password, nome, cognome, sesso) VALUES (?,?,?,?,?);";
-			statement = connection.prepareStatement(query);
+			statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 
 			statement.setString(1, t.getEmail());
 			statement.setString(2, t.getPassword());
@@ -35,6 +32,17 @@ public class DAOUtente implements DAOInterface<Utente> {
 			statement.setString(5, t.getSesso().name());
 
 			statement.executeUpdate();
+
+			ResultSet resultSet = statement.getGeneratedKeys();
+
+			while (resultSet.next())
+			{
+				t.setEmail(resultSet.getString(1));
+				t.setPassword(resultSet.getString(2));
+				t.setNome(resultSet.getString(3));
+				t.setCognome(resultSet.getString(4));
+				t.setSesso(Sesso.valueOf(resultSet.getString(5)));
+			}
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e.getMessage());
@@ -65,11 +73,11 @@ public class DAOUtente implements DAOInterface<Utente> {
 
 			if (result.next()) {
 				utente = new Utente();
+				utente.setEmail(result.getString("email"));
+				utente.setPassword(result.getString("password"));
 				utente.setNome(result.getString("nome"));
 				utente.setCognome(result.getString("cognome"));
 				utente.setSesso(Sesso.valueOf(result.getString("sesso")));
-				utente.setEmail(result.getString("email"));
-				utente.setPassword(result.getString("password"));
 
 			}
 		} catch (SQLException e) {
@@ -97,11 +105,11 @@ public class DAOUtente implements DAOInterface<Utente> {
 			ResultSet result = statement.executeQuery();
 			while (result.next()) {
 				utente = new Utente();
+				utente.setEmail(result.getString("email"));
+				utente.setPassword(result.getString("password"));
 				utente.setNome(result.getString("nome"));
 				utente.setCognome(result.getString("cognome"));
 				utente.setSesso(Sesso.valueOf(result.getString("sesso")));
-				utente.setEmail(result.getString("email"));
-				utente.setPassword(result.getString("password"));
 				utenti.add(utente);
 			}
 		} catch (SQLException e) {
