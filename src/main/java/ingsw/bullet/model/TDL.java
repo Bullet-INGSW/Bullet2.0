@@ -2,7 +2,7 @@ package ingsw.bullet.model;
 
 import java.util.List;
 
-public class TDL {
+public class TDL implements GestoreAttivita{
 
     private int id_tdl;
     private int id_gruppo;

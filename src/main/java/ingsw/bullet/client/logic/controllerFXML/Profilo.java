@@ -1,10 +1,16 @@
 package ingsw.bullet.client.logic.controllerFXML;
 
 import ingsw.bullet.client.logic.DBClient;
+import ingsw.bullet.client.logic.calendar.CalendarioView;
+import ingsw.bullet.client.view.Main;
+import ingsw.bullet.model.Calendario;
+import ingsw.bullet.model.Membro;
 import ingsw.bullet.model.Notifica;
+import ingsw.bullet.model.TDL;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.effect.DropShadow;
@@ -73,26 +79,58 @@ public class Profilo extends ProfiloBase {
 
     @FXML
     void calendariCondivisi(ActionEvent event) {
-
+        Main.getInstance().replaceSceneContent("sceltaCalendariCondivisi", Main.getInstance().stage, 600, 400);
     }
 
     @FXML
     void calendarioPersonale(ActionEvent event) {
-
+        Main.getInstance().stage.close();
+        Scene scene = new Scene(new CalendarioView(ottieniCalendarioPersonale()));
+        Main.getInstance().stage.setScene(scene);
+        Main.getInstance().stage.show();
     }
 
     @FXML
     void gestireGruppi(ActionEvent event) {
-
+        Main.getInstance().replaceSceneContent("gestireGruppi", Main.getInstance().stage, 600, 400);
     }
 
     @FXML
     void tdlCondivise(ActionEvent event) {
-
+        Main.getInstance().replaceSceneContent("sceltaToDoListCondivise", Main.getInstance().stage, 600, 400);
     }
 
     @FXML
     void tdlPersonale(ActionEvent event) {
+//        Main.getInstance().stage.close();
+//        Scene scene = new Scene(new TDLView(ottieniTDLPersonale()));
+//        Main.getInstance().stage.setScene(scene);
+//        Main.getInstance().stage.show();
+    }
 
+    Calendario ottieniCalendarioPersonale()
+    {
+        Calendario calendario = DBClient.getIstance().findCalendarioPersonaleByEmail(Profilo.email);
+        if(calendario == null)
+        {
+            calendario = new Calendario();
+            calendario.setNome("Calendario Personale");
+            calendario.setEmail(email);
+            DBClient.getIstance().insertCalendario(calendario);
+        }
+        return calendario;
+    }
+
+    TDL ottieniTDLPersonale()
+    {
+        TDL tdl = DBClient.getIstance().findTDLPersonaleByEmail(Profilo.email);
+        if(tdl == null)
+        {
+            tdl = new TDL();
+            tdl.setNome("TDL Personale");
+            tdl.setEmail(email);
+            DBClient.getIstance().insertTDL(tdl);
+        }
+        return tdl;
     }
 }

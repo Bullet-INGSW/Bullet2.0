@@ -3,7 +3,7 @@ package ingsw.bullet.model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Calendario {
+public class Calendario implements GestoreAttivita{
 
     private int id_calendario = 0;
     private int id_gruppo = 0;

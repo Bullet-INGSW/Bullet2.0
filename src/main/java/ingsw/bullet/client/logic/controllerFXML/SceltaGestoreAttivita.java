@@ -1,5 +1,7 @@
 package ingsw.bullet.client.logic.controllerFXML;
 
+import ingsw.bullet.client.view.Main;
+import ingsw.bullet.model.GestoreAttivita;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -14,50 +16,45 @@ import java.util.ResourceBundle;
 public abstract class SceltaGestoreAttivita implements Initializable {
 
     @FXML
-    void indietro(ActionEvent event) {
-//      torna a profilo
-    }
+    protected FlowPane gestoreAttivitaCondivise;
 
-    public static void setNomeGestoriCondivisi(ArrayList<String> nomeGestoriCondivisi) {
-        SceltaGestoreAttivita.nomiGestoriAttivita = nomeGestoriCondivisi;
-    }
+    protected static ArrayList<GestoreAttivita> nomiGestoriAttivita = null;
 
 
     @FXML
-    protected FlowPane gestoreAttivitaCondivise;
-
-    public static ArrayList<String> getNomeGestoriCondivisi() {
-        return nomiGestoriAttivita;
+    void indietro(ActionEvent event) {
+        Main.getInstance().replaceSceneContent("profilo", Main.getInstance().stage, 600, 400);
     }
 
-    protected static ArrayList<String> nomiGestoriAttivita = null;
-
-    public static void aggiungiGestoreAttivita(String gestoreAttivita)
-    {
-        if(nomiGestoriAttivita == null)
-            nomiGestoriAttivita = new ArrayList<String>();
-
-        nomiGestoriAttivita.add(gestoreAttivita);
-    }
+    @FXML
+    public abstract void nuovoGestoreAttivita(ActionEvent event);
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         if(nomiGestoriAttivita != null)
-            for(String n:nomiGestoriAttivita)
+            for(GestoreAttivita n:nomiGestoriAttivita)
             {
-                Button b = new Button(n);
+                Button b = new Button(n.getNome());
                 b.setPrefSize(90,90);
                 gestoreAttivitaCondivise.getChildren().add(b);
                 b.setOnAction(new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent actionEvent) {
-                        System.out.println(n);
+                        System.out.println(n.getNome());
                         mandaAGestoreAttivita(n);
                     }
                 });
             }
     }
 
-    public abstract void mandaAGestoreAttivita(String nome);
+    public void aggiungiGestoreAttivita(GestoreAttivita gestoreAttivita)
+    {
+        if(nomiGestoriAttivita == null)
+            nomiGestoriAttivita = new ArrayList<GestoreAttivita>();
+
+        nomiGestoriAttivita.add(gestoreAttivita);
+    }
+
+    public abstract void mandaAGestoreAttivita(GestoreAttivita gestoreAttivita);
 }

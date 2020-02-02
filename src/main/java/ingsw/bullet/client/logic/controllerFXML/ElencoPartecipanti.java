@@ -24,7 +24,7 @@ public class ElencoPartecipanti extends DialogCalendario{
     void nonPartecipa(ActionEvent event) {
         Partecipante p = new Partecipante();
         p.setPresente(false);
-        DBClient.getIstance().updatePartecipante(p);
+        DBClient.getIstance().updatePartecipanteEvento(p);
     }
 
     @FXML
@@ -32,7 +32,7 @@ public class ElencoPartecipanti extends DialogCalendario{
 // get partecipante by mail e evento id
         Partecipante p = new Partecipante();
         p.setPresente(true);
-        DBClient.getIstance().updatePartecipante(p);
+        DBClient.getIstance().updatePartecipanteEvento(p);
     }
 
     public void aggiungiPartecipante(Partecipante partecipante)

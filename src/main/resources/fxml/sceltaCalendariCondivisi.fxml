@@ -7,6 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane minHeight="400.0" minWidth="600.0" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ingsw.bullet.client.logic.controllerFXML.SceltaCalendariCondivisi">
@@ -14,16 +15,6 @@
       <BorderPane layoutX="208.0" layoutY="55.0" minHeight="400.0" minWidth="600.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
             <BorderPane minHeight="40.0" minWidth="600.0" prefHeight="8.0" prefWidth="600.0" BorderPane.alignment="CENTER">
-               <left>
-                  <Button mnemonicParsing="false" onAction="#indietro" prefHeight="37.0" prefWidth="63.0" text="Torna indietro" wrapText="true" BorderPane.alignment="CENTER">
-                     <font>
-                        <Font size="9.0" />
-                     </font>
-                     <BorderPane.margin>
-                        <Insets left="20.0" />
-                     </BorderPane.margin>
-                  </Button>
-               </left>
                <center>
                   <Label fx:id="cosaScegli" text="Scegli Calendario Condiviso" BorderPane.alignment="CENTER">
                      <font>
@@ -31,6 +22,25 @@
                      </font>
                   </Label>
                </center>
+               <left>
+                  <HBox prefHeight="40.0" prefWidth="159.0" spacing="10.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#indietro" prefHeight="30.0" prefWidth="55.0" text="Indietro" wrapText="true">
+                           <font>
+                              <Font size="9.0" />
+                           </font>
+                        </Button>
+                        <Button layoutX="15.0" layoutY="15.0" mnemonicParsing="false" onAction="#nuovoGestoreAttivita" prefHeight="30.0" prefWidth="86.0" text="Nuovo Calendario" wrapText="true">
+                           <font>
+                              <Font size="9.0" />
+                           </font>
+                        </Button>
+                     </children>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </HBox>
+               </left>
             </BorderPane>
          </top>
          <center>
