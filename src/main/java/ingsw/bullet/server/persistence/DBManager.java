@@ -69,6 +69,10 @@ public class DBManager {
 		return getDAOCalendario().findByUtente(email);
 	}
 
+	public List<Calendario> findCalendarioByMembro(String email) {
+		return getDAOCalendario().findByMembro(email);
+	}
+
 	public List<Calendario> findCalendarioByGruppo(int id) {
 		return getDAOCalendario().findByGruppo(id);
 	}
