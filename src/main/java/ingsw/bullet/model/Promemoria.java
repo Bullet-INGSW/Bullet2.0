@@ -8,6 +8,7 @@ public class Promemoria {
     private int id_promemoria;
     private int id_tdl;
     private int id_etichetta;
+    private String nome;
     private String descrizione;
     private boolean completato;
     private LocalDateTime scadenza;
@@ -17,10 +18,11 @@ public class Promemoria {
     public Promemoria() {
     }
 
-    public Promemoria(int id_promemoria, int id_tdl, int id_etichetta, String descrizione, boolean completato, LocalDateTime scadenza) {
+    public Promemoria(int id_promemoria, int id_tdl, int id_etichetta, String nome, String descrizione, boolean completato, LocalDateTime scadenza) {
         this.id_promemoria = id_promemoria;
         this.id_tdl = id_tdl;
         this.id_etichetta = id_etichetta;
+        this.nome = nome;
         this.descrizione = descrizione;
         this.completato = completato;
         this.scadenza = scadenza;
@@ -32,6 +34,7 @@ public class Promemoria {
     			"id_promemoria: " + this.id_promemoria + "\n" +
     			"id_tdl: " + this.id_tdl + "\n" +
     			"id_etichetta: " + this.id_etichetta + "\n" +
+                "nome: " + this.nome + "\n" +
     			"descrizione: " + this.descrizione + "\n" +
     			"completato: " + this.completato + "\n" +
     			"scadenza: " + this.scadenza + "\n}\n";
@@ -48,6 +51,10 @@ public class Promemoria {
     public int getIdEtichetta() {return id_etichetta;}
 
     public void setIdEtichetta(int id_etichetta) {this.id_etichetta = id_etichetta;}
+
+    public String getNome() {return nome;}
+
+    public void setNome(String nome) {this.nome = nome;}
 
     public String getDescrizione() {return descrizione;}
 

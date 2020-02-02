@@ -4,12 +4,16 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
 public class AggiungiPromemoria {
 
     @FXML
-    private TextField descrizionePromemoria;
+    private TextField nomePromemoria;
+
+    @FXML
+    private TextArea descrizionePromemoria;
 
     @FXML
     private RadioButton scadenzaPromemoria;
@@ -40,7 +44,8 @@ public class AggiungiPromemoria {
 
     @FXML
     void tornaIndietro(ActionEvent event) {
-
+        //torno alla TDL personale
     }
 
 }
+

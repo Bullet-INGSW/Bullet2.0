@@ -4,6 +4,7 @@ import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Server;
 import com.esotericsoftware.minlog.Log;
+import ingsw.bullet.server.NetworkUtility.Errore;
 import ingsw.bullet.server.NetworkUtility.KryoUtil;
 import ingsw.bullet.server.NetworkUtility.Richiesta;
 import ingsw.bullet.model.*;
@@ -51,13 +52,15 @@ public class ServerConnectionHandler {
                 if(object instanceof Richiesta){
                     Richiesta r=(Richiesta)object;
                     String tipo=r.getTipoRichiesta();
-
+                    System.out.println("Richiesta: "+tipo);
                     switch (tipo){
 
 
                             //calendario
                         case "findCalendarioById":
                             calendario=DBManager.getInstance().findCalendarioByPrimaryKey(r.getNum());
+                            if(calendario==null) connection.sendUDP(new Errore());
+                            else
                             connection.sendUDP(calendario);
                             break;
                         case "insertCalendario":
@@ -69,10 +72,14 @@ public class ServerConnectionHandler {
                             stringa=r.getStringa();
                             List<Calendario> cal=DBManager.getInstance().findCalendarioByUtente(stringa);
                             calendario=cal.get(0);
+                            if(calendario==null) connection.sendUDP(new Errore());
+                            else
                             connection.sendUDP(cal);
                         case "findCalendariCondivisiByEmail":
                             stringa=r.getStringa();
                             listCalendario=DBManager.getInstance().findCalendarioByMembro(stringa);
+                            if(calendario==null) connection.sendUDP(new Errore());
+                            else
                             connection.sendUDP(listCalendario);
                         case "updateCalendario":
                             calendario=r.getCalendario();
@@ -89,6 +96,8 @@ public class ServerConnectionHandler {
                         //ETICHETTA
                         case "findEtichettaById":
                             etichetta=DBManager.getInstance().findEtichettaByPrimaryKey(r.getNum());
+                            if(etichetta==null) connection.sendUDP(new Errore());
+                            else
                             connection.sendUDP(etichetta);
                             break;
                         case "insertEtichetta":
@@ -111,6 +120,8 @@ public class ServerConnectionHandler {
                         //EVENTO
                         case "findEventoById":
                             evento=DBManager.getInstance().findEventoByPrimaryKey(r.getNum());
+                            if(evento==null) connection.sendUDP(new Errore());
+                            else
                             connection.sendUDP(evento);
                             break;
                         case "insertEvento":
@@ -134,6 +145,8 @@ public class ServerConnectionHandler {
                         //Gruppo
                         case "findGruppoById":
                             gruppo=DBManager.getInstance().findGruppoByPrimaryKey(r.getNum());
+                            if(gruppo==null) connection.sendUDP(new Errore());
+                            else
                             connection.sendUDP(gruppo);
                             break;
                         case "insertGruppo":
@@ -158,7 +171,9 @@ public class ServerConnectionHandler {
                         case "findMembroById":
                             //DA FARE è SBAGLIATO
                             membro=DBManager.getInstance().findMembroByPrimaryKey(r.getStringa(),Integer.parseInt(r.getStringa2()));
-                            connection.sendUDP(gruppo);
+                            if(membro==null) connection.sendUDP(new Errore());
+                            else
+                            connection.sendUDP(membro);
                             break;
                         case "insertMembro":
                             membro =r.getMembro();
@@ -180,6 +195,8 @@ public class ServerConnectionHandler {
                         //Notifica
                         case "findNotificaById":
                             notifica=DBManager.getInstance().findNotificaByPrimaryKey(r.getNum());
+                            if(notifica==null) connection.sendUDP(new Errore());
+                            else
                             connection.sendUDP(notifica);
                             break;
                         case "insertNotifica":
@@ -202,6 +219,8 @@ public class ServerConnectionHandler {
                         //Promemoria
                         case "findPromemoriaById":
                             promemoria=DBManager.getInstance().findPromemoriaByPrimaryKey(r.getNum());
+                            if(promemoria==null) connection.sendUDP(new Errore());
+                            else
                             connection.sendUDP(promemoria);
                             break;
                         case "insertPromemoria":
@@ -225,6 +244,8 @@ public class ServerConnectionHandler {
                         //TDL
                         case "findTDLById":
                             tdl=DBManager.getInstance().findTDLByPrimaryKey(r.getNum());
+                            if(tdl==null) connection.sendUDP(new Errore());
+                            else
                             connection.sendUDP(tdl);
                             break;
                         case "insertTDL":
@@ -255,6 +276,8 @@ public class ServerConnectionHandler {
                         case "findTDLCondiviseByEmail":
                             stringa=r.getStringa();
                             listTDL=DBManager.getInstance().findTDLByUtente(stringa);
+                            if(listTDL==null) connection.sendUDP(new Errore());
+                            else
                             connection.sendUDP(tdl);
                             break;
 
@@ -262,9 +285,9 @@ public class ServerConnectionHandler {
                         case "findUtenteByEmail":
                             utente=DBManager.getInstance().findUtenteByPrimaryKey(r.getStringa());
                             if(utente!=null)
-                            connection.sendUDP(utente);
+                                connection.sendUDP(utente);
                             else
-                                System.out.println("Utente nullo");
+                                connection.sendUDP(new Errore());
                             break;
                         case "insertUtente":
                             utente =r.getUtente();
@@ -288,6 +311,8 @@ public class ServerConnectionHandler {
                             num=r.getNum();
                             stringa=r.getStringa();
                             partecipante=DBManager.getInstance().findPartecipantePromemoriaByPrimaryKey(stringa,num);
+                            if(partecipante==null) connection.sendUDP(new Errore());
+                            else
                             connection.sendUDP(partecipante);
                             break;
                         case "insertPartecipantePromemoria":
@@ -314,6 +339,8 @@ public class ServerConnectionHandler {
                             num=r.getNum();
                             stringa=r.getStringa();
                             partecipante=DBManager.getInstance().findPartecipanteEventoByPrimaryKey(stringa,num);
+                            if(partecipante==null) connection.sendUDP(new Errore());
+                            else
                             connection.sendUDP(partecipante);
                             break;
                         case "insertPartecipanteEvento":

@@ -7,7 +7,6 @@ import ingsw.bullet.model.*;
 import javafx.event.Event;
 
 import java.util.ArrayList;
-import java.util.List;
 
 
 public class KryoUtil {
@@ -28,7 +27,6 @@ public class KryoUtil {
 
     private  static  void register(Kryo kryo){
 
-        kryo.register(java.util.ArrayList.class);
         //kryo.register(int.class);
         //kryo.register(String.class);
        kryo.register(Boolean.class);
@@ -46,8 +44,7 @@ public class KryoUtil {
         kryo.register(Utente.class);
         kryo.register(Richiesta.class);
         kryo.register(Partecipante.class);
-        kryo.register(ingsw.bullet.server.NetworkUtility.Richiesta.class);
-        kryo.register(List.class);
+        kryo.register(Errore.class);
         //FINIRE THIS
 
     }

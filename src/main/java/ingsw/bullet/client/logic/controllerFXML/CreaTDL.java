@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.VBox;
 
 public class CreaTDL {
 
@@ -15,6 +16,9 @@ public class CreaTDL {
 
     @FXML
     private Button nuovoPromemoria;
+
+    @FXML
+    private VBox promemoriaAggiunti;
 
     @FXML
     private TextField nomeTDL;
@@ -31,8 +35,11 @@ public class CreaTDL {
 
     @FXML
     void tornaIndietro(ActionEvent event) {
+        //torno al mio profilo
 
     }
 
 }
+
+
 
