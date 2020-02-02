@@ -9,30 +9,30 @@ import javafx.scene.layout.VBox;
 import ingsw.bullet.model.Evento;
 
 
-// set di evento prima
 public class ElencoPartecipanti extends DialogCalendario{
 
     public static int WIDTH = 800;
     public static int HEIGHT = 600;
-
+    Partecipante partecipante;
     Evento evento;
 
     @FXML
     private VBox elencoPartecipanti;
 
-    @FXML
-    void nonPartecipa(ActionEvent event) {
-        Partecipante p = new Partecipante();
-        p.setPresente(false);
+    protected void setPartecipazione(Partecipante p, boolean partecipa)
+    {
+        p.setPresente(partecipa);
         DBClient.getIstance().updatePartecipanteEvento(p);
     }
 
     @FXML
+    void nonPartecipa(ActionEvent event) {
+        setPartecipazione(partecipante, false);
+    }
+
+    @FXML
     void partecipa(ActionEvent event) {
-// get partecipante by mail e evento id
-        Partecipante p = new Partecipante();
-        p.setPresente(true);
-        DBClient.getIstance().updatePartecipanteEvento(p);
+        setPartecipazione(partecipante,true);
     }
 
     public void aggiungiPartecipante(Partecipante partecipante)
@@ -54,5 +54,11 @@ public class ElencoPartecipanti extends DialogCalendario{
     public void setEvento(Evento evento)
     {
         this.evento = evento;
+        for(Partecipante p: evento.getPartecipanti())
+        {
+            aggiungiPartecipante(p);
+            if(p.getEmail().equals(Profilo.email))
+                partecipante = p;
+        }
     }
 }

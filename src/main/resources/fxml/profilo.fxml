@@ -42,7 +42,7 @@
                         <Label fx:id="cognomeLabel" layoutX="146.0" layoutY="117.0" text="label" />
                         <Label fx:id="emailLabel" layoutX="134.0" layoutY="134.0" text="label" />
                         <Label fx:id="sessoLabel" layoutX="134.0" layoutY="126.0" text="label" />
-                        <Button mnemonicParsing="false" prefHeight="27.0" prefWidth="59.0" style="-fx-background-color: white; -fx-border-color: black;" text="Esci" textFill="RED">
+                        <Button mnemonicParsing="false" onAction="#esci" prefHeight="27.0" prefWidth="59.0" style="-fx-background-color: white; -fx-border-color: black;" text="Esci" textFill="RED">
                            <font>
                               <Font size="15.0" />
                            </font>

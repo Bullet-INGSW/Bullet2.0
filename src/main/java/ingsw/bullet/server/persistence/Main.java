@@ -1,8 +1,10 @@
 package ingsw.bullet.server.persistence;
 
+import ingsw.bullet.server.ServerConnectionHandler;
+
 public class Main {
 
     public static void main(String[] args) {
-        System.out.println(DBManager.getInstance().findUtenteByPrimaryKey("a@a.a").toString());
+        ServerConnectionHandler s = new ServerConnectionHandler();
     }
 }

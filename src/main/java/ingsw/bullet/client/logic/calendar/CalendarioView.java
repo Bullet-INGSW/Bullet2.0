@@ -131,6 +131,8 @@ public class CalendarioView extends CalendarView {
     protected void setOnActionNewEntry()
     {
         setEntryFactory((param) -> {
+            if(!controlliPermessi())
+                return null;
             DateControl control = param.getDateControl();
             VirtualGrid grid = control.getVirtualGrid();
             ZonedDateTime time = param.getZonedDateTime();
@@ -177,6 +179,10 @@ public class CalendarioView extends CalendarView {
                         Button delete = new Button("-");
                         ((HBox)c).getChildren().add(1,delete);
                         delete.setOnAction(evt ->loadDialogCalendario("eliminaEtichetta", 400, 200));
+
+                        Button indietro = new Button("Indietro");
+                        ((HBox)c).getChildren().add(2,indietro);
+                        indietro.setOnAction(evt -> Main.getInstance().replaceSceneContent("profilo", Main.getInstance().stage, 600, 400));
                     }
 
             }
@@ -214,6 +220,8 @@ public class CalendarioView extends CalendarView {
 
     public void modificaEvento(Entry<?> entry, CalendarEvent event)
     {
+        if(!controlliPermessi())
+            return;
         if(event.getEventType() != CalendarEvent.CALENDAR_CHANGED){
             Evento e = eventi.get(entry);
             e.setNome(entry.getTitle());
@@ -228,6 +236,8 @@ public class CalendarioView extends CalendarView {
 
     public void rimuoviEvento(Entry<?> entry, boolean removeOnCalendar)
     {
+        if(!controlliPermessi())
+            return;
         DBClient.getIstance().removeEvento(eventi.get(entry).getIdEvento());
         eventi.remove(entry);
 
@@ -237,6 +247,8 @@ public class CalendarioView extends CalendarView {
 
     public void aggiungiEtichetta(String nome, int styleNum)
     {
+        if(!controlliPermessi())
+            return;
         Calendar calendar = new Calendar(nome);
         calendar.setStyle(Calendar.Style.getStyle(styleNum));
 
@@ -255,8 +267,16 @@ public class CalendarioView extends CalendarView {
 
     public void rimuoviEtichetta(Calendar c)
     {
-        etichette.remove(c);
+        if(!controlliPermessi())
+            return;
+
         myCalendarSource.getCalendars().remove(c);
         DBClient.getIstance().removeEtichetta(etichette.get(c).getIdEtichetta());
+        etichette.remove(c);
+    }
+
+    public boolean controlliPermessi()
+    {
+        return true;
     }
 }

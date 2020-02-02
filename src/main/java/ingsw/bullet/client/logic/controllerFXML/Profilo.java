@@ -108,6 +108,21 @@ public class Profilo extends ProfiloBase {
 //        Main.getInstance().stage.show();
     }
 
+
+    @FXML
+    void esci(ActionEvent event) {
+        logout();
+        Main.getInstance().replaceSceneContent("menu", Main.getInstance().stage, 600, 400);
+    }
+
+    public void logout()
+    {
+        nome = "Nome";
+        cognome = "Cognome";
+        email = "Email";
+        sesso = true;
+    }
+
     Calendario ottieniCalendarioPersonale()
     {
         Calendario calendario = DBClient.getIstance().findCalendarioPersonaleByEmail(Profilo.email);

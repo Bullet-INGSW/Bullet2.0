@@ -75,9 +75,9 @@ public class GestireGruppi implements Initializable {
         l.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                if (!utente.isAdmin())
-                    if (!DBClient.getIstance().removeMembro(utente.getIdGruppo()))
-                        new Alert(Alert.AlertType.ERROR, "Errore nel rimuovere membro");
+//                if (!utente.isAdmin())
+//                    if (DBClient.getIstance().removeMembro(utente.getIdGruppo()) == null)
+//                        new Alert(Alert.AlertType.ERROR, "Errore nel rimuovere membro");
                 rimuoviMembro(l);
             }
         });
