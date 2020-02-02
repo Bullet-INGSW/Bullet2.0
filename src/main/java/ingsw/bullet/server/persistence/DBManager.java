@@ -135,6 +135,10 @@ public class DBManager {
 		return getDAOTDL().findByUtente(email);
 	}
 
+	public List<TDL> findTDLByMembro(String email) {
+		return getDAOTDL().findByMembro(email);
+	}
+
 	public List<TDL> getAllTDL() {
 		return getDAOTDL().findAll();
 	}

@@ -154,6 +154,46 @@ public class DAOTDL implements DAOInterface<TDL> {
 		return tdls;
 	}
 
+	public List<TDL> findByMembro(String email) {
+		Connection connection = null;
+		List<TDL> tdls = new ArrayList<TDL>();
+
+		try {
+			connection = this.dataSource.getConnection();
+			TDL tdl;
+			PreparedStatement statement;
+			String query = "SELECT DISTINCT " +
+					"tdl.id_tdl, " +
+					"tdl.id_gruppo, " +
+					"tdl.email, " +
+					"tdl.nome " +
+					"FROM tdl " +
+					"JOIN membro m on tdl.id_gruppo = m.id_gruppo " +
+					"WHERE m.email = ?";
+			statement = connection.prepareStatement(query);
+			statement.setString(1, email);
+			ResultSet result = statement.executeQuery();
+			while (result.next()) {
+				tdl = new TDL();
+				tdl.setIdTDL(result.getInt("id_tdl"));
+				tdl.setIdGruppo(result.getInt("id_gruppo"));
+				tdl.setEmail(result.getString("email"));
+				tdl.setNome(result.getString("nome"));
+				tdls.add(tdl);
+				setPromemoriaAndEtichette(tdl);
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException(e.getMessage());
+		} finally {
+			try {
+				connection.close();
+			} catch (SQLException e) {
+				throw new RuntimeException(e.getMessage());
+			}
+		}
+		return tdls;
+	}
+
 	public List<TDL> findAll() {
 		Connection connection = null;
 		List<TDL> tdls = new ArrayList<TDL>();
