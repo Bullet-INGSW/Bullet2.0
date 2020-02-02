@@ -32,7 +32,7 @@
             </VBox>
          </left>
          <center>
-            <VBox fx:id="elencoUtenti" prefHeight="338.0" prefWidth="254.0" spacing="10.0" BorderPane.alignment="CENTER">
+            <VBox fx:id="elencoMembri" prefHeight="338.0" prefWidth="254.0" spacing="10.0" BorderPane.alignment="CENTER">
                <children>
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Dettagli Gruppo Selezionato">
                      <font>

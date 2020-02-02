@@ -1,7 +1,11 @@
 package ingsw.bullet.client.logic.controllerFXML;
 
+import ingsw.bullet.client.logic.DBClient;
+import ingsw.bullet.model.Notifica;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.input.MouseEvent;
@@ -46,17 +50,49 @@ public class Profilo extends ProfiloBase {
             sessoLabel.setText("Femmina");
 
         if(notifiche != null)
-            for(String notifica:notifiche) {
-                Label label = new Label(notifica);
-                label.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            for(Notifica notifica:notifiche) {
+                Button button = new Button(notifica.getDescrizione());
+                button.setOnAction(new EventHandler<ActionEvent>() {
                     @Override
-                    public void handle(MouseEvent mouseEvent) {
-                        centroNotifiche.getChildren().remove(label);
+                    public void handle(ActionEvent event) {
+                        centroNotifiche.getChildren().remove(button);
+                        removeNotifica(notifica);
                     }
                 });
-                centroNotifiche.getChildren().add(label);
+                centroNotifiche.getChildren().add(button);
             }
         imageProfile.setFill(image);
         imageProfile.setEffect(new DropShadow(+25d, 0d, +2d, Color.DARKSEAGREEN));
+    }
+
+    protected void removeNotifica(Notifica notifica)
+    {
+        DBClient.getIstance().removeNotifica(notifica.getIdNotifica());
+        notifiche.remove(notifica);
+    }
+
+    @FXML
+    void calendariCondivisi(ActionEvent event) {
+
+    }
+
+    @FXML
+    void calendarioPersonale(ActionEvent event) {
+
+    }
+
+    @FXML
+    void gestireGruppi(ActionEvent event) {
+
+    }
+
+    @FXML
+    void tdlCondivise(ActionEvent event) {
+
+    }
+
+    @FXML
+    void tdlPersonale(ActionEvent event) {
+
     }
 }

@@ -52,26 +52,25 @@ public class Main extends Application {
     }
 
 
-    public void start(Stage stage)
-    {
-        this.stage = stage;
+//    public void start(Stage stage)
+//    {
+//        this.stage = stage;
+//
+//        Scene scene = new Scene(new CalendarioViewCondiviso(new Calendario()));
+//        stage.setTitle("Calendar");
+//        stage.setScene(scene);
+//        stage.setWidth(800);
+//        stage.setHeight(800);
+//        stage.centerOnScreen();
+//        stage.show();
+//    }
 
-        Scene scene = new Scene(new CalendarioViewCondiviso(new Calendario()));
-        stage.setTitle("Calendar");
-        stage.setScene(scene);
-        stage.setWidth(800);
-        stage.setHeight(800);
-        stage.centerOnScreen();
-        stage.show();
-    }
-
-    public void start2(Stage stage) {
+    public void start(Stage stage) {
         this.stage = stage;
         stage.setResizable(false);
 
         try {
-            replaceSceneContent("aggiungiEtichette",new Stage(), 200, 200);
-
+            replaceSceneContent("menu",new Stage(), 800, 600);
         } catch (Exception e) {
             e.printStackTrace();
         }

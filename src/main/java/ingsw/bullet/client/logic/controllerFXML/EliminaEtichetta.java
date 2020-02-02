@@ -11,6 +11,9 @@ import javafx.scene.layout.FlowPane;
 
 public class EliminaEtichetta extends DialogCalendario{
 
+    public static int WIDTH = 400;
+    public static int HEIGHT = 200;
+
     Calendar etichettaScelta = null;
 
     @FXML
