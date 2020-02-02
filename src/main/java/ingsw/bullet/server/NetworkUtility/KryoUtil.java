@@ -4,8 +4,14 @@ import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Server;
 import ingsw.bullet.model.*;
+import ingsw.bullet.server.NetworkUtility.serializer.LocalDateSerializer;
+import ingsw.bullet.server.NetworkUtility.serializer.LocalDateTimeSerializer;
+import ingsw.bullet.server.NetworkUtility.serializer.LocalTimeSerializer;
 import javafx.event.Event;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 
 
@@ -45,6 +51,10 @@ public class KryoUtil {
         kryo.register(Richiesta.class);
         kryo.register(Partecipante.class);
         kryo.register(Errore.class);
+
+        kryo.register(LocalDate.class, new LocalDateSerializer());
+        kryo.register(LocalTime.class, new LocalTimeSerializer());
+        kryo.register(LocalDateTime.class, new LocalDateTimeSerializer());
         //FINIRE THIS
 
     }
