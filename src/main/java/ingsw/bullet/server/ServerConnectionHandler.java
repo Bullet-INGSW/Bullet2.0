@@ -84,11 +84,12 @@ public class ServerConnectionHandler {
                             break;
                         case "findCalendarioPersonalebyEmail":
                             stringa=r.getStringa();
-                            calendario=DBManager.getInstance().findCalendarioPersonaleByEmail(stringa);
-                            connection.sendUDP(calendario);
+                            List<Calendario> cal=DBManager.getInstance().findCalendarioByUtente(stringa);
+                            calendario=cal.get(0);
+                            connection.sendUDP(cal);
                         case "findCalendariCondivisiByEmail":
                             stringa=r.getStringa();
-                            listCalendario=DBManager.getInstance().findCalendariCondivisiByEmail(stringa);
+                            listCalendario=DBManager.getInstance().findCalendarioByMembro(stringa);
                             connection.sendUDP(listCalendario);
                         case "updateCalendario":
                             calendario=r.getCalendario();
@@ -215,7 +216,6 @@ public class ServerConnectionHandler {
                             connection.sendUDP(true);
                             break;
 
-  //-----------------------COMPLETARE DA QUA IN POI
                         //Promemoria
                         case "findPromemoriaById":
                             promemoria=DBManager.getInstance().findPromemoriaByPrimaryKey(r.getNum());
@@ -224,13 +224,12 @@ public class ServerConnectionHandler {
                         case "insertPromemoria":
                             promemoria =r.getPromemoria();
                             DBManager.getInstance().addPromemoria(promemoria);
-                            //DAFare
                             connection.sendUDP(promemoria);
                             break;
                         case "updatePromemoria":
                             promemoria=r.getPromemoria();
                             DBManager.getInstance().getDAOPromemoria().update(promemoria);
-                            connection.sendUDP(DBManager.getInstance().findNotificaByPrimaryKey(promemoria.getIdPromemoria()));
+                            connection.sendUDP(promemoria);
                             break;
                         case "removePromemoria":
                             num=r.getNum();
@@ -258,9 +257,22 @@ public class ServerConnectionHandler {
                             break;
                         case "removeTDL":
                             num=r.getNum();
-                           tdl=DBManager.getInstance().findTDLByPrimaryKey(num);
+                            tdl=DBManager.getInstance().findTDLByPrimaryKey(num);
                             DBManager.getInstance().deleteTDL(tdl);
                             connection.sendUDP(true);
+                            break;
+
+                        case "findTDLPersonaleByEmail":
+                            stringa=r.getStringa();
+
+                            //DAIMPLEMENTARE
+                            connection.sendUDP(false);
+                            break;
+
+                        case "findTDLCondiviseByEmail":
+                            stringa=r.getStringa();
+                            listTDL=DBManager.getInstance().findTDLByUtente(stringa);
+                            connection.sendUDP(tdl);
                             break;
 
                         //Utente
@@ -271,13 +283,12 @@ public class ServerConnectionHandler {
                         case "insertUtente":
                             utente =r.getUtente();
                             DBManager.getInstance().addUtente(utente);
-                            //DAFare
                             connection.sendUDP(utente);
                             break;
                         case "updateUtente":
                             utente=r.getUtente();
                             DBManager.getInstance().getDAOUtente().update(utente);
-                            connection.sendUDP(DBManager.getInstance().findUtenteByPrimaryKey(utente.getEmail()));
+                            connection.sendUDP(utente);
                             break;
                         case "removeUtente":
                             stringa=r.getStringa();
@@ -286,44 +297,55 @@ public class ServerConnectionHandler {
                             connection.sendUDP(true);
                             break;
 
-                            //DA FARE
-                        //Partecipante
-                        case "findPartecipanteById":
-                            partecipante=DBManager.getInstance().findPartecipanteByPrimaryKey(r.getStringa());
+                        //PartecipantePromemoria
+                        case "findPartecipantePromemoriaById":
+                            num=r.getNum();
+                            stringa=r.getStringa();
+                            partecipante=DBManager.getInstance().findPartecipantePromemoriaByPrimaryKey(stringa,num);
                             connection.sendUDP(partecipante);
                             break;
-                        case "insertPartecipante":
-                            partecipante =r.getPartecipante();
-                            DBManager.getInstance().addPartecipante
-                            //DAFare
-                            connection.sendUDP(utente);
+                        case "insertPartecipantePromemoria":
+                            partecipante=r.getPartecipante();
+                            DBManager.getInstance().addPartecipantePromemoria(partecipante);
+                            connection.sendUDP(partecipante);
                             break;
-                        case "updatePartecipante":
-                            utente=r.getUtente();
-                            DBManager.getInstance().getDAOUtente().update(utente);
-                            connection.sendUDP(DBManager.getInstance().findUtenteByPrimaryKey(utente.getEmail()));
+                        case "updatePartecipantePromemoria":
+                            partecipante=r.getPartecipante();
+                            DBManager.getInstance().getDAOPartecipantePromemoria().update(partecipante);
+                            connection.sendUDP(partecipante);
                             break;
-                        case "removePartecipante":
+                        case "removePartecipantePromemoria":
+                            num=r.getNum();
                             stringa=r.getStringa();
-                            utente=DBManager.getInstance().findUtenteByPrimaryKey(stringa);
-                            DBManager.getInstance().deleteUtente(utente);
+                            partecipante=DBManager.getInstance().findPartecipantePromemoriaByPrimaryKey(stringa,num);
+                            DBManager.getInstance().deletePartecipantePromemoria(partecipante);
                             connection.sendUDP(true);
                             break;
 
-                        case "findGroupByEmail":
-                            stringa=r.getStringa();
-                            List<Gruppo> list=new ArrayList<>();
-                            List<Membro> m=DBManager.getInstance().findMembroByUtente(stringa);
-                            if(m.isEmpty()){
-                             connection.sendUDP(list);
-                             break;
-                            }
-                            for(int i=0;i<m.size();i++){
-                                Membro mem=m.get(i);
-                                list.add(DBManager.getInstance().findGruppoByPrimaryKey(mem.getIdGruppo()));
-                            }
 
-                            connection.sendUDP(list);
+                            //PartecipanteEvento
+                        case "findPartecipanteEventoById":
+                            num=r.getNum();
+                            stringa=r.getStringa();
+                            partecipante=DBManager.getInstance().findPartecipanteEventoByPrimaryKey(stringa,num);
+                            connection.sendUDP(partecipante);
+                            break;
+                        case "insertPartecipanteEvento":
+                            partecipante=r.getPartecipante();
+                            DBManager.getInstance().addPartecipanteEvento(partecipante);
+                            connection.sendUDP(partecipante);
+                            break;
+                        case "updatePartecipanteEvento":
+                            partecipante=r.getPartecipante();
+                            DBManager.getInstance().getDAOPartecipanteEvento().update(partecipante);
+                            connection.sendUDP(partecipante);
+                            break;
+                        case "removePartecipanteEvento":
+                            num=r.getNum();
+                            stringa=r.getStringa();
+                            partecipante=DBManager.getInstance().findPartecipanteEventoByPrimaryKey(stringa,num);
+                            DBManager.getInstance().deletePartecipanteEvento(partecipante);
+                            connection.sendUDP(true);
                             break;
                     }
 
@@ -351,6 +373,7 @@ public class ServerConnectionHandler {
     boolean bool;
     String stringa;
     List<Calendario> listCalendario=null;
+    List<TDL>  listTDL=null;
     List<Connection> connessioniNonLoggate;
     HashMap<Connection,String> connessioniLoggate;
 }

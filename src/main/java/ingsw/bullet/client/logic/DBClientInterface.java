@@ -58,15 +58,15 @@ public interface DBClientInterface {
     Utente updateUtente(Utente c);
     boolean removeUtente(String email);
 
-    Partecipante findPartecipantePromemoriaByEmail(String email);
+    Partecipante findPartecipantePromemoriaById(int id, String email);
     Partecipante insertPartecipantePromemoria(Partecipante c);
     Partecipante updatePartecipantePromemoria(Partecipante c);
-    boolean removePartecipantePromemoria(String email);
+    boolean removePartecipantePromemoria(int id, String email);
 
-    Partecipante findPartecipanteEventoByEmail(String email);
+    Partecipante findPartecipanteEventoById(int id, String email);
     Partecipante insertPartecipanteEvento(Partecipante c);
     Partecipante updatePartecipanteEvento(Partecipante c);
-    boolean removePartecipanteEvento(String email);
+    boolean removePartecipanteEvento(int id, String email);
 
     List<Gruppo> findGroupByEmail(String email);
 }

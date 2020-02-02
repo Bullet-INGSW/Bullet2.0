@@ -676,11 +676,12 @@ public class DBClient implements DBClientInterface {
 
 //Partecipante promemoria
     @Override
-    public Partecipante findPartecipantePromemoriaByEmail(String email) {
+    public Partecipante findPartecipantePromemoriaById(int id,String email) {
         String s="findPartecipantePromemoriaByEmail";
+
         Richiesta r=new Richiesta(s);
         r.setStringa(email);
-
+        r.setNum(id);
         setAttesa(true);
 
         client().sendTCP(r);
@@ -721,10 +722,11 @@ public class DBClient implements DBClientInterface {
         return istanza().getPartecipante();
     }
     @Override
-    public boolean removePartecipantePromemoria(String email) {
+    public boolean removePartecipantePromemoria(int id,String email) {
         String s="removePartecipantePromemoria";
         Richiesta r=new Richiesta(s);
         r.setStringa(email);
+        r.setNum(id);
 
         setAttesa(true);
 
@@ -738,10 +740,11 @@ public class DBClient implements DBClientInterface {
 
 //Partecipante evento
     @Override
-    public Partecipante findPartecipanteEventoByEmail(String email) {
-    String s="findPartecipanteEventoByEmail";
+    public Partecipante findPartecipanteEventoById(int id,String email) {
+    String s="findPartecipanteEventoById";
     Richiesta r=new Richiesta(s);
     r.setStringa(email);
+    r.setNum(id);
 
     setAttesa(true);
 
@@ -783,10 +786,11 @@ public class DBClient implements DBClientInterface {
         return istanza().getPartecipante();
     }
     @Override
-    public boolean removePartecipanteEvento(String email) {
+    public boolean removePartecipanteEvento(int id,String email) {
         String s="removePartecipanteEvento";
         Richiesta r=new Richiesta(s);
         r.setStringa(email);
+        r.setNum(id);
 
         setAttesa(true);
 
