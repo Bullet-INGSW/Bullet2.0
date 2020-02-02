@@ -20,7 +20,7 @@ public class DettagliPromemoria {
 
     @FXML
     void tornaIndietro(ActionEvent event) {
-
+        //torno alla TDL personale
     }
 
 }
