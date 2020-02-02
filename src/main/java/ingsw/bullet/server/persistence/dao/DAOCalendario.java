@@ -123,6 +123,47 @@ public class DAOCalendario implements DAOInterface<Calendario> {
 		return calendari;
 	}
 
+	public List<Calendario> findByMembro(String email) {
+		Connection connection = null;
+		List<Calendario> calendari = new ArrayList<Calendario>();
+
+		try {
+			connection = this.dataSource.getConnection();
+			Calendario calendario;
+			PreparedStatement statement;
+			String query = "SELECT DISTINCT " +
+					"calendario.id_calendario, " +
+					"calendario.id_gruppo, " +
+					"calendario.email, " +
+					"calendario.nome " +
+					"FROM calendario " +
+						"JOIN membro m on calendario.id_gruppo = m.id_gruppo " +
+						"WHERE m.email = ?";
+			statement = connection.prepareStatement(query);
+			statement.setString(1, email);
+			ResultSet result = statement.executeQuery();
+
+			while (result.next()) {
+				calendario = new Calendario();
+				calendario.setIdCalendario(result.getInt("id_calendario"));
+				calendario.setIdGruppo(result.getInt("id_gruppo"));
+				calendario.setEmail(result.getString("email"));
+				calendario.setNome(result.getString("nome"));
+				calendari.add(calendario);
+				setEventiAndEtichette(calendario);
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException(e.getMessage());
+		} finally {
+			try {
+				connection.close();
+			} catch (SQLException e) {
+				throw new RuntimeException(e.getMessage());
+			}
+		}
+		return calendari;
+	}
+
 	public List<Calendario> findByGruppo(int id_gruppo) {
 		Connection connection = null;
 		List<Calendario> calendari = new ArrayList<Calendario>();
