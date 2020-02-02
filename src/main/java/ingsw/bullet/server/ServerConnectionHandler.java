@@ -9,6 +9,7 @@ import ingsw.bullet.server.NetworkUtility.Richiesta;
 import ingsw.bullet.model.*;
 import ingsw.bullet.server.persistence.DBManager;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -17,8 +18,15 @@ public class ServerConnectionHandler {
     public ServerConnectionHandler() {
         Log.set(Log.LEVEL_DEBUG);
 
-        Server server=new Server();
+        server=new Server();
         KryoUtil.registerServerClasses(server);
+        try {
+            server.bind(KryoUtil.TCP_PORT,KryoUtil.UDP_PORT);
+            server.start();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
 
         server.addListener(new Listener(){
             @Override
@@ -359,6 +367,7 @@ public class ServerConnectionHandler {
 
 
     //VARAIBILI
+    Server server;
     Calendario calendario;
     Etichetta etichetta;
     Evento evento;
