@@ -9,6 +9,10 @@ import ingsw.bullet.server.NetworkUtility.Richiesta;
 import ingsw.bullet.model.*;
 import ingsw.bullet.server.persistence.DBManager;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 public class ServerConnectionHandler {
     public ServerConnectionHandler() {
         Log.set(Log.LEVEL_DEBUG);
@@ -19,30 +23,51 @@ public class ServerConnectionHandler {
         server.addListener(new Listener(){
             @Override
             public void connected(Connection connection) {
-                //super.connected(connection);
+                connessioniNonLoggate.add(connection);
             }
 
             @Override
             public void disconnected(Connection connection) {
-                //super.disconnected(connection);
+                if(connessioniNonLoggate.contains(connection))
+                    connessioniNonLoggate.remove(connection);
             }
 
             @Override
             public void received(Connection connection, Object object) {
-                Calendario calendario;
-                Etichetta etichetta;
-                Evento evento;
-                Membro membro;
-                Gruppo gruppo;
-                Promemoria promemoria;
-                Partecipante partecipante;
-                Notifica notifica;
-                Utente utente;
-                TDL tdl;
-                int num;
-                boolean bool;
-                String stringa;
-                if(object instanceof Richiesta){
+
+                if(connessioniNonLoggate.contains(connection)){
+                    if(object instanceof  Richiesta){
+                        Richiesta r=(Richiesta)object;
+                        String tipo=r.getTipoRichiesta();
+
+
+                        switch (tipo){
+                            case "login":
+                                utente=DBManager.getInstance().findUtenteByPrimaryKey(r.getStringa());
+                                if(utente.getPassword().equals(r.getStringa2())){
+                                    connessioniNonLoggate.remove(connection);
+                                    connessioniLoggate.put(connection,r.getStringa());
+                                    connection.sendUDP(true);
+                                }
+                                else{
+                                    connection.sendUDP(false);
+                                }
+                                break;
+
+                            case "insertUtente":
+                                utente=r.getUtente();
+                                DBManager.getInstance().addUtente(utente);
+                                connection.sendUDP(utente);
+
+                            default:
+                                System.out.println("Non handled");
+                                break;
+                        }
+                    }
+
+                }
+
+               else{ if(object instanceof Richiesta){
                     Richiesta r=(Richiesta)object;
                     String tipo=r.getTipoRichiesta();
 
@@ -52,17 +77,23 @@ public class ServerConnectionHandler {
                             calendario=DBManager.getInstance().findCalendarioByPrimaryKey(r.getNum());
                             connection.sendUDP(calendario);
                             break;
-
                         case "insertCalendario":
                             calendario =r.getCalendario();
                             DBManager.getInstance().addCalendario(calendario);
-                            //DAFAre
                             connection.sendUDP(calendario);
                             break;
+                        case "findCalendarioPersonalebyEmail":
+                            stringa=r.getStringa();
+                            calendario=DBManager.getInstance().findCalendarioPersonaleByEmail(stringa);
+                            connection.sendUDP(calendario);
+                        case "findCalendariCondivisiByEmail":
+                            stringa=r.getStringa();
+                            listCalendario=DBManager.getInstance().findCalendariCondivisiByEmail(stringa);
+                            connection.sendUDP(listCalendario);
                         case "updateCalendario":
                             calendario=r.getCalendario();
                             DBManager.getInstance().getDAOCalendario().update(calendario);
-                            connection.sendUDP(DBManager.getInstance().findCalendarioByPrimaryKey(calendario.getIdCalendario()));
+                            connection.sendUDP(calendario);
                             break;
                         case "removeCalendario":
                             num=r.getNum();
@@ -79,13 +110,12 @@ public class ServerConnectionHandler {
                         case "insertEtichetta":
                             etichetta =r.getEtichetta();
                             DBManager.getInstance().addEtichetta(etichetta);
-                            //DAFAre
                             connection.sendUDP(etichetta);
                             break;
                         case "updateEtichetta":
                             etichetta=r.getEtichetta();
                             DBManager.getInstance().getDAOEtichetta().update(etichetta);
-                            connection.sendUDP(DBManager.getInstance().findEtichettaByPrimaryKey(etichetta.getIdEtichetta()));
+                            connection.sendUDP(etichetta);
                             break;
                         case "removeEtichetta":
                             num=r.getNum();
@@ -102,13 +132,12 @@ public class ServerConnectionHandler {
                         case "insertEvento":
                             evento =r.getEvento();
                             DBManager.getInstance().addEvento(evento);
-                            //DAFare
                             connection.sendUDP(evento);
                             break;
                         case "updateEvento":
                             evento=r.getEvento();
                             DBManager.getInstance().getDAOEvento().update(evento);
-                            connection.sendUDP(DBManager.getInstance().findEventoByPrimaryKey(evento.getIdEvento()));
+                            connection.sendUDP(evento);
                             break;
                         case "removeEvento":
                             num=r.getNum();
@@ -126,13 +155,12 @@ public class ServerConnectionHandler {
                         case "insertGruppo":
                             gruppo =r.getGruppo();
                             DBManager.getInstance().addGruppo(gruppo);
-                            //DAFare
                             connection.sendUDP(gruppo);
                             break;
                         case "updateGruppo":
                             gruppo=r.getGruppo();
                             DBManager.getInstance().getDAOGruppo().update(gruppo);
-                            connection.sendUDP(DBManager.getInstance().findGruppoByPrimaryKey(gruppo.getIdGruppo()));
+                            connection.sendUDP(gruppo);
                             break;
                         case "removeGruppo":
                             num=r.getNum();
@@ -145,24 +173,23 @@ public class ServerConnectionHandler {
                         //Membro
                         case "findMembroById":
                             //DA FARE è SBAGLIATO
-                            membro=DBManager.getInstance().findMembroByPrimaryKey(r.getStringa(),r.get);
+                            membro=DBManager.getInstance().findMembroByPrimaryKey(r.getStringa(),Integer.parseInt(r.getStringa2()));
                             connection.sendUDP(gruppo);
                             break;
                         case "insertMembro":
                             membro =r.getMembro();
                             DBManager.getInstance().addMembro(membro);
-                            //DAFare
                             connection.sendUDP(membro);
                             break;
                         case "updateMembro":
                             membro=r.getMembro();
                             DBManager.getInstance().getDAOMembro().update(membro);
-                            //Pure this è errato
-                            connection.sendUDP(DBManager.getInstance().findMembroByPrimaryKey(membro.getEmail()));
+                            connection.sendUDP(membro);
                             break;
                         case "removeMembro":
-                            num=r.getNum();
-                            //DA FARE PURE CHISSA
+                            membro=DBManager.getInstance().findMembroByPrimaryKey(r.getStringa(),Integer.parseInt(r.getStringa2()));
+                            DBManager.getInstance().deleteMembro(membro);
+                            connection.sendUDP(true);
                             break;
 
 
@@ -174,13 +201,12 @@ public class ServerConnectionHandler {
                         case "insertNotifica":
                             notifica =r.getNotifica();
                             DBManager.getInstance().addNotifica(notifica);
-                            //DAFare
                             connection.sendUDP(notifica);
                             break;
                         case "updateNotifica":
                             notifica=r.getNotifica();
                             DBManager.getInstance().getDAONotifica().update(notifica);
-                            connection.sendUDP(DBManager.getInstance().findNotificaByPrimaryKey(notifica.getIdNotifica()));
+                            connection.sendUDP(notifica);
                             break;
                         case "removeNotifica":
                             num=r.getNum();
@@ -189,6 +215,7 @@ public class ServerConnectionHandler {
                             connection.sendUDP(true);
                             break;
 
+  //-----------------------COMPLETARE DA QUA IN POI
                         //Promemoria
                         case "findPromemoriaById":
                             promemoria=DBManager.getInstance().findPromemoriaByPrimaryKey(r.getNum());
@@ -266,8 +293,8 @@ public class ServerConnectionHandler {
                             connection.sendUDP(partecipante);
                             break;
                         case "insertPartecipante":
-                            utente =r.getUtente();
-                            DBManager.getInstance().addUtente(utente);
+                            partecipante =r.getPartecipante();
+                            DBManager.getInstance().addPartecipante
                             //DAFare
                             connection.sendUDP(utente);
                             break;
@@ -282,14 +309,48 @@ public class ServerConnectionHandler {
                             DBManager.getInstance().deleteUtente(utente);
                             connection.sendUDP(true);
                             break;
+
+                        case "findGroupByEmail":
+                            stringa=r.getStringa();
+                            List<Gruppo> list=new ArrayList<>();
+                            List<Membro> m=DBManager.getInstance().findMembroByUtente(stringa);
+                            if(m.isEmpty()){
+                             connection.sendUDP(list);
+                             break;
+                            }
+                            for(int i=0;i<m.size();i++){
+                                Membro mem=m.get(i);
+                                list.add(DBManager.getInstance().findGruppoByPrimaryKey(mem.getIdGruppo()));
+                            }
+
+                            connection.sendUDP(list);
+                            break;
                     }
 
 
-                }
+                }}
             }
         });
 
     }
 
 
+
+    //VARAIBILI
+    Calendario calendario;
+    Etichetta etichetta;
+    Evento evento;
+    Membro membro;
+    Gruppo gruppo;
+    Promemoria promemoria;
+    Partecipante partecipante;
+    Notifica notifica;
+    Utente utente;
+    TDL tdl;
+    int num;
+    boolean bool;
+    String stringa;
+    List<Calendario> listCalendario=null;
+    List<Connection> connessioniNonLoggate;
+    HashMap<Connection,String> connessioniLoggate;
 }

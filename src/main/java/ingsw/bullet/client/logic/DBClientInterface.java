@@ -3,10 +3,15 @@ package ingsw.bullet.client.logic;
 import ingsw.bullet.model.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public interface DBClientInterface {
 
+    boolean login(String email,String password);
+
     Calendario findCalendarioById(int id);
+    Calendario findCalendarioPersonaleByEmail(String email);
+    List<Calendario> findCalendariCondivisiByEmail(String email);
     Calendario insertCalendario(Calendario c);
     Calendario updateCalendario(Calendario c);
     boolean removeCalendario(int id);
@@ -26,10 +31,10 @@ public interface DBClientInterface {
     Gruppo updateGruppo(Gruppo c);
     boolean removeGruppo(int id);
 
-    Membro findMembroById(String email);
+    Membro findMembro(String email,String idGruppo);
     Membro insertMembro(Membro c);
     Membro updateMembro(Membro c);
-    boolean removeMembro(int id);
+    boolean removeMembro(String email,String idGruppo);
 
     Notifica findNotificaById(int id);
     Notifica insertNotifica(Notifica c);
@@ -42,6 +47,8 @@ public interface DBClientInterface {
     boolean removePromemoria(int id);
 
     TDL findTDLById(int id);
+    TDL findTDLPersonaleByEmail(String email);
+    List<TDL> findTDLCondiviseByEmail(String email);
     TDL insertTDL(TDL c);
     TDL updateTDL(TDL c);
     boolean removeTDL(int id);
@@ -51,8 +58,15 @@ public interface DBClientInterface {
     Utente updateUtente(Utente c);
     boolean removeUtente(String email);
 
-    Partecipante findPartecipanteByEmail(String email);
-    Partecipante insertPartecipante(Partecipante c);
-    Partecipante updatePartecipante(Partecipante c);
-    boolean removePartecipante(String email);
+    Partecipante findPartecipantePromemoriaByEmail(String email);
+    Partecipante insertPartecipantePromemoria(Partecipante c);
+    Partecipante updatePartecipantePromemoria(Partecipante c);
+    boolean removePartecipantePromemoria(String email);
+
+    Partecipante findPartecipanteEventoByEmail(String email);
+    Partecipante insertPartecipanteEvento(Partecipante c);
+    Partecipante updatePartecipanteEvento(Partecipante c);
+    boolean removePartecipanteEvento(String email);
+
+    List<Gruppo> findGroupByEmail(String email);
 }

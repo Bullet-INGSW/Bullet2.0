@@ -47,8 +47,15 @@ public class Richiesta {
 
     private int num;
     private String stringa;
+    private String stringa2;
 
+    public String getStringa2() {
+        return stringa2;
+    }
 
+    public void setStringa2(String stringa2) {
+        this.stringa2 = stringa2;
+    }
 
     private Calendario calendario=null;
     private Etichetta etichetta=null;

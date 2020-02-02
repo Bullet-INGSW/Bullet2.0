@@ -7,6 +7,7 @@ import ingsw.bullet.model.*;
 import javafx.scene.control.TextInputDialog;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class DBClient implements DBClientInterface {
 
@@ -18,6 +19,23 @@ public class DBClient implements DBClientInterface {
         if(dbClient == null)
             dbClient = new DBClient();
         return dbClient;
+    }
+
+    @Override
+    public boolean login(String email, String password) {
+        String s="login";
+        Richiesta r=new Richiesta(s);
+        r.setStringa(email);
+        r.setStringa2(password);
+
+        setAttesa(true);
+
+        client().sendTCP(r);
+        while(inAttesa()){
+            //Lock?
+        }
+
+        return istanza().isBool();
     }
 
     @Override
@@ -36,6 +54,39 @@ public class DBClient implements DBClientInterface {
         return istanza().getCalendario();
 
     }
+
+    @Override
+    public Calendario findCalendarioPersonaleByEmail(String email) {
+        String s="findCalendarioPersonaleByEmail";
+        Richiesta r=new Richiesta(s);
+        r.setStringa(email);
+
+        setAttesa(true);
+
+        client().sendTCP(r);
+        while(inAttesa()){
+            //Lock?
+        }
+
+        return istanza().getCalendario();
+    }
+
+    @Override
+    public List<Calendario> findCalendariCondivisiByEmail(String email) {
+        String s="findCalendariCondivisiByEmail";
+        Richiesta r=new Richiesta(s);
+        r.setStringa(email);
+
+        setAttesa(true);
+
+        client().sendTCP(r);
+        while(inAttesa()){
+            //Lock?
+        }
+
+        return istanza().getListCalendario();
+    }
+
     @Override
     public Calendario insertCalendario(Calendario c) {
         String s="insertCalendario";
@@ -159,12 +210,35 @@ public class DBClient implements DBClientInterface {
     }
 
     public Evento insertEvento(Evento c) {
-        return null;
+        String s="insertEvento";
+        Richiesta r=new Richiesta(s);
+        r.setEvento(c);
+
+        setAttesa(true);
+
+        client().sendTCP(r);
+        while(inAttesa()){
+            //Lock?
+        }
+
+        return istanza().getEvento();
+
     }
 
     @Override
     public Evento updateEvento(Evento c) {
-        return null;
+        String s="updateEvento";
+        Richiesta r=new Richiesta(s);
+        r.setEvento(c);
+
+        setAttesa(true);
+
+        client().sendTCP(r);
+        while(inAttesa()){
+            //Lock?
+        }
+
+        return istanza().getEvento();
     }
     @Override
     public boolean removeEvento(int id) {
@@ -242,10 +316,9 @@ public class DBClient implements DBClientInterface {
 
         return istanza().isBool();
     }
-
     @Override
-    public Membro findMembroById(String email) {
-        String s="findMembroById";
+    public List<Gruppo> findGroupByEmail(String email) {
+        String s="findGroupByEmail";
         Richiesta r=new Richiesta(s);
         r.setStringa(email);
 
@@ -256,8 +329,10 @@ public class DBClient implements DBClientInterface {
             //Lock?
         }
 
-        return istanza().getMembro();
+        return istanza().getListGruppo();
     }
+
+
     @Override
     public Membro insertMembro(Membro c) {
         String s="insertMembro";
@@ -288,11 +363,30 @@ public class DBClient implements DBClientInterface {
 
         return istanza().getMembro();
     }
+
     @Override
-    public boolean removeMembro(int id) {
+    public Membro findMembro(String email, String idGruppo) {
+        String s="findMembro";
+        Richiesta r=new Richiesta(s);
+        r.setStringa(email);
+        r.setStringa2(idGruppo);
+
+        setAttesa(true);
+
+        client().sendTCP(r);
+        while(inAttesa()){
+            //Lock?
+        }
+
+        return istanza().getMembro();
+    }
+
+    @Override
+    public boolean removeMembro(String email, String idGruppo) {
         String s="removeMembro";
         Richiesta r=new Richiesta(s);
-        r.setNum(id);
+        r.setStringa(email);
+        r.setStringa2(idGruppo);
 
         setAttesa(true);
 
@@ -488,6 +582,38 @@ public class DBClient implements DBClientInterface {
     }
 
     @Override
+    public TDL findTDLPersonaleByEmail(String email) {
+        String s="findTDLPersonaleByEmail";
+        Richiesta r=new Richiesta(s);
+        r.setStringa(email);
+
+        setAttesa(true);
+
+        client().sendTCP(r);
+        while(inAttesa()){
+            //Lock?
+        }
+
+        return istanza().getTDL();
+    }
+
+    @Override
+    public List<TDL> findTDLCondiviseByEmail(String email) {
+        String s="findTDLCondiviseByEmail";
+        Richiesta r=new Richiesta(s);
+        r.setStringa(email);
+
+        setAttesa(true);
+
+        client().sendTCP(r);
+        while(inAttesa()){
+            //Lock?
+        }
+
+        return istanza().getListTDL();
+    }
+
+    @Override
     public Utente findUtenteByEmail(String email) {
         String s="findUtenteByEmail";
         Richiesta r=new Richiesta(s);
@@ -548,9 +674,10 @@ public class DBClient implements DBClientInterface {
         return istanza().isBool();
     }
 
+//Partecipante promemoria
     @Override
-    public Partecipante findPartecipanteByEmail(String email) {
-        String s="findPartecipanteByEmail";
+    public Partecipante findPartecipantePromemoriaByEmail(String email) {
+        String s="findPartecipantePromemoriaByEmail";
         Richiesta r=new Richiesta(s);
         r.setStringa(email);
 
@@ -564,12 +691,38 @@ public class DBClient implements DBClientInterface {
         return istanza().getPartecipante();
     }
     @Override
-    public Partecipante insertPartecipante(Partecipante c) {return null;}
+    public Partecipante insertPartecipantePromemoria(Partecipante c) {
+        String s="insertPartecipantePromemoria";
+        Richiesta r=new Richiesta(s);
+        r.setPartecipante(c);
+
+        setAttesa(true);
+
+        client().sendTCP(r);
+        while(inAttesa()){
+            //Lock?
+        }
+
+        return istanza().getPartecipante();
+    }
     @Override
-    public Partecipante updatePartecipante(Partecipante c) {return null;}
+    public Partecipante updatePartecipantePromemoria(Partecipante c) {
+        String s="updatePartecipantePromemoria";
+        Richiesta r=new Richiesta(s);
+        r.setPartecipante(c);
+
+        setAttesa(true);
+
+        client().sendTCP(r);
+        while(inAttesa()){
+            //Lock?
+        }
+
+        return istanza().getPartecipante();
+    }
     @Override
-    public boolean removePartecipante(String email) {
-        String s="removePartecipante";
+    public boolean removePartecipantePromemoria(String email) {
+        String s="removePartecipantePromemoria";
         Richiesta r=new Richiesta(s);
         r.setStringa(email);
 
@@ -583,8 +736,67 @@ public class DBClient implements DBClientInterface {
         return istanza().isBool();
     }
 
+//Partecipante evento
+    @Override
+    public Partecipante findPartecipanteEventoByEmail(String email) {
+    String s="findPartecipanteEventoByEmail";
+    Richiesta r=new Richiesta(s);
+    r.setStringa(email);
 
+    setAttesa(true);
 
+    client().sendTCP(r);
+    while(inAttesa()){
+        //Lock?
+    }
+
+    return istanza().getPartecipante();
+}
+    @Override
+    public Partecipante insertPartecipanteEvento(Partecipante c) {
+        String s="insertPartecipanteEvento";
+        Richiesta r=new Richiesta(s);
+        r.setPartecipante(c);
+
+        setAttesa(true);
+
+        client().sendTCP(r);
+        while(inAttesa()){
+            //Lock?
+        }
+
+        return istanza().getPartecipante();
+    }
+    @Override
+    public Partecipante updatePartecipanteEvento(Partecipante c) {
+        String s="updatePartecipanteEvento";
+        Richiesta r=new Richiesta(s);
+        r.setPartecipante(c);
+
+        setAttesa(true);
+
+        client().sendTCP(r);
+        while(inAttesa()){
+            //Lock?
+        }
+
+        return istanza().getPartecipante();
+    }
+    @Override
+    public boolean removePartecipanteEvento(String email) {
+        String s="removePartecipanteEvento";
+        Richiesta r=new Richiesta(s);
+        r.setStringa(email);
+
+        setAttesa(true);
+
+        client().sendTCP(r);
+        while(inAttesa()){
+            //Lock?
+        }
+
+        return istanza().isBool();
+    }
 
     //---------Altri metodi----------
     private Client client(){

@@ -13,26 +13,11 @@ import ingsw.bullet.model.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class ClientConnectionhandler {
 
-     boolean inAttesa=false;
-     int num;
-    boolean bool;
 
-     Calendario calendario=null;
-     Etichetta etichetta=null;
-     Evento evento=null;
-     Gruppo gruppo=null;
-     Membro membro=null;
-      Notifica notifica=null;
-     Promemoria promemoria=null;
-     TDL TDL=null;
-     Utente utente=null;
-     Partecipante partecipante=null;
-
-
-    private static ClientConnectionhandler instance=null;
 
     public static ClientConnectionhandler getInstance(){
         if(instance==null){
@@ -75,51 +60,57 @@ public class ClientConnectionhandler {
                      setBool((Boolean)object);
                     }//se boolean
 
-                if(object instanceof  Integer){
+                else if(object instanceof  Integer){
                       setNum((Integer)object);
                     }
 
-                if(object instanceof  Calendario){
+                else if(object instanceof  Calendario){
                         setCalendario((Calendario)object);
                     }
 
-                if(object instanceof  Etichetta){
+                else if(object instanceof  Etichetta){
                     setEtichetta((Etichetta)object);
                 }
 
-                if(object instanceof  Evento){
+                else if(object instanceof  Evento){
                     setEvento((Evento) object);
                 }
 
-                if(object instanceof  Gruppo){
+                else if(object instanceof  Gruppo){
                     setGruppo((Gruppo)object);
                 }
 
-                if(object instanceof  Membro){
+                else if(object instanceof  Membro){
                     setMembro((Membro) object);
                 }
 
-                if(object instanceof  Notifica){
+                else if(object instanceof  Notifica){
                     setNotifica((Notifica) object);
                 }
 
-                if(object instanceof  Promemoria){
+                else if(object instanceof  Promemoria){
                     setPromemoria((Promemoria) object);
                 }
 
-                if(object instanceof  TDL){
+                else if(object instanceof  TDL){
                     setTDL((TDL) object);
                 }
 
-                if(object instanceof  Utente){
+                else if(object instanceof  Utente){
                     setUtente((Utente) object);
                 }
 
-                if(object instanceof  Partecipante){
+                else if(object instanceof  Partecipante){
                     setPartecipante((Partecipante) object);
                 }
 
+                else if(object instanceof List){
+                    setListGruppo((List<Gruppo>)object);
+                }
 
+                else{
+                        System.out.println("Impossibile gestire il tipo");
+                }
 
                   inAttesa=false;
               }// se sto aspettando la risposta da una richiesta
@@ -249,4 +240,50 @@ public class ClientConnectionhandler {
     }
 
 
+    public List<Gruppo> getListGruppo() {
+        return listGruppo;
+    }
+
+    public void setListGruppo(List<Gruppo> listGruppo) {
+        this.listGruppo = listGruppo;
+    }
+
+    public List<Calendario> getListCalendario() {
+        return listCalendario;
+    }
+
+    public void setListCalendario(List<Calendario> listCalendario) {
+        this.listCalendario = listCalendario;
+    }
+
+
+
+
+    //Attributi
+    boolean inAttesa=false;
+    int num;
+    boolean bool;
+
+    Calendario calendario=null;
+    Etichetta etichetta=null;
+    Evento evento=null;
+    Gruppo gruppo=null;
+    Membro membro=null;
+    Notifica notifica=null;
+    Promemoria promemoria=null;
+    TDL TDL=null;
+    Utente utente=null;
+    Partecipante partecipante=null;
+    List<Gruppo> listGruppo=null;
+    List<Calendario> listCalendario=null;
+    List<TDL> listTDL=null;
+    private static ClientConnectionhandler instance=null;
+
+    public List<TDL> getListTDL() {
+        return listTDL;
+    }
+
+    public void setListTDL(List<TDL> listTDL) {
+        this.listTDL = listTDL;
+    }
 }
