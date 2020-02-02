@@ -44,6 +44,7 @@ public class KryoUtil {
         kryo.register(Utente.class);
         kryo.register(Richiesta.class);
         kryo.register(Partecipante.class);
+        kryo.register(Errore.class);
         //FINIRE THIS
 
     }
