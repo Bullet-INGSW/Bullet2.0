@@ -31,13 +31,10 @@ public class DAOPartecipantePromemoria implements DAOInterface<Partecipante> {
             statement.executeUpdate();
 
             ResultSet resultSet = statement.getGeneratedKeys();
-
-            while (resultSet.next())
-            {
-                t.setEmail(resultSet.getString(1));
-                t.setId(resultSet.getInt(2));
-                t.setPresente(resultSet.getBoolean(3));
-            }
+            resultSet.next();
+            int id = resultSet.getInt(1);
+            String email=resultSet.getString(2);
+            t = findByPrimaryKey(email,id);
         } catch (SQLException e) {
             throw new RuntimeException(e.getMessage());
         } finally {
@@ -195,13 +192,18 @@ public class DAOPartecipantePromemoria implements DAOInterface<Partecipante> {
                     "partecipante_promemoria.presente = ? " +
                     "WHERE partecipante_promemoria.email = ? " +
                     "AND partecipante_promemoria.id_promemoria = ? ";
-            statement = connection.prepareStatement(query);
+            statement = connection.prepareStatement(query,Statement.RETURN_GENERATED_KEYS);
 
             statement.setBoolean(1, t.isPresente());
             statement.setString(2, t.getEmail());
             statement.setInt(3, t.getId());
 
             statement.executeUpdate();
+            ResultSet resultSet = statement.getGeneratedKeys();
+            resultSet.next();
+            int id = resultSet.getInt(1);
+            String email=resultSet.getString(2);
+            t = findByPrimaryKey(email,id);
 
         } catch (SQLException e) {
             throw new RuntimeException(e.getMessage());

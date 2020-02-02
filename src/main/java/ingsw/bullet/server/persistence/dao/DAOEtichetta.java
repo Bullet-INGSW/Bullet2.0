@@ -30,13 +30,9 @@ public class DAOEtichetta implements DAOInterface<Etichetta> {
 			statement.executeUpdate();
 
 			ResultSet resultSet = statement.getGeneratedKeys();
-
-			while (resultSet.next())
-			{
-				t.setIdEtichetta(resultSet.getInt(1));
-				t.setNome(resultSet.getString(2));
-				t.setColore(resultSet.getInt(3));
-			}
+			resultSet.next();
+			int id = resultSet.getInt(1);
+			t = findByPrimaryKey(id);
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e.getMessage());
@@ -124,13 +120,17 @@ public class DAOEtichetta implements DAOInterface<Etichetta> {
 					"etichetta.nome = ?, " +
 					"etichetta.colore = ? " +
 					"WHERE etichetta.id_etichetta = ?";
-			statement = connection.prepareStatement(query);
+			statement = connection.prepareStatement(query,Statement.RETURN_GENERATED_KEYS);
 
 			statement.setInt(1, t.getColore());
 			statement.setInt(2, t.getIdEtichetta());
 			statement.setString(3, t.getNome());
 
 			statement.executeUpdate();
+			ResultSet resultSet = statement.getGeneratedKeys();
+			resultSet.next();
+			int id = resultSet.getInt(1);
+			t = findByPrimaryKey(id);
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e.getMessage());

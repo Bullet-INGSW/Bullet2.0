@@ -241,7 +241,7 @@ public class DAOCalendario implements DAOInterface<Calendario> {
                     "calendario.email = ?, " +
                     "calendario.nome = ? " +
                     "WHERE calendario.id_calendario = ? ";
-            statement = connection.prepareStatement(query);
+            statement = connection.prepareStatement(query,Statement.RETURN_GENERATED_KEYS);
 
             statement.setInt(1, t.getIdGruppo());
             statement.setString(2, t.getEmail());
@@ -249,6 +249,10 @@ public class DAOCalendario implements DAOInterface<Calendario> {
             statement.setInt(4, t.getIdCalendario());
 
             statement.executeUpdate();
+            ResultSet resultSet = statement.getGeneratedKeys();
+            resultSet.next();
+            int id = resultSet.getInt(1);
+            t = findByPrimaryKey(id);
 
         } catch (SQLException e) {
             throw new RuntimeException(e.getMessage());

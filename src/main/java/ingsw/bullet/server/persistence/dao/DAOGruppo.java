@@ -30,12 +30,9 @@ public class DAOGruppo implements DAOInterface<Gruppo> {
 			statement.executeUpdate();
 
 			ResultSet resultSet = statement.getGeneratedKeys();
-
-			while (resultSet.next())
-			{
-				t.setIdGruppo(resultSet.getInt(1));
-				t.setNome(resultSet.getString(2));
-			}
+			resultSet.next();
+			int id = resultSet.getInt(1);
+			t = findByPrimaryKey(id);
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e.getMessage());
@@ -140,11 +137,15 @@ public class DAOGruppo implements DAOInterface<Gruppo> {
 			String query = "UPDATE gruppo SET " +
 					"gruppo.nome = ? " +
 					"WHERE gruppo.id_gruppo = ?";
-			statement = connection.prepareStatement(query);
+			statement = connection.prepareStatement(query,Statement.RETURN_GENERATED_KEYS);
 			statement.setString(1, t.getNome());
 			statement.setInt(2, t.getIdGruppo());
 
 			statement.executeUpdate();
+			ResultSet resultSet = statement.getGeneratedKeys();
+			resultSet.next();
+			int id = resultSet.getInt(1);
+			t = findByPrimaryKey(id);
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e.getMessage());

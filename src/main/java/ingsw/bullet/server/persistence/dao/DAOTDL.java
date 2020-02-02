@@ -31,15 +31,9 @@ public class DAOTDL implements DAOInterface<TDL> {
 			statement.executeUpdate();
 
 			ResultSet resultSet = statement.getGeneratedKeys();
-
-			while (resultSet.next())
-			{
-				t.setIdTDL(resultSet.getInt(1));
-				t.setIdGruppo(resultSet.getInt(2));
-				t.setEmail(resultSet.getString(3));
-				t.setNome(resultSet.getString(4));
-			}
-
+			resultSet.next();
+			int id = resultSet.getInt(1);
+			t = findByPrimaryKey(id);
 		} catch (SQLException e) {
 			throw new RuntimeException(e.getMessage());
 		} finally {
@@ -237,7 +231,7 @@ public class DAOTDL implements DAOInterface<TDL> {
 					"tdl.email = ?, " +
 					"tdl.nome = ? " +
 					"WHERE tdl.id_tdl = ? ";
-			statement = connection.prepareStatement(query);
+			statement = connection.prepareStatement(query,Statement.RETURN_GENERATED_KEYS);
 
 			statement.setInt(1, t.getIdGruppo());
 			statement.setString(2, t.getEmail());
@@ -245,6 +239,11 @@ public class DAOTDL implements DAOInterface<TDL> {
 			statement.setInt(4, t.getIdTDL());
 
 			statement.executeUpdate();
+			ResultSet resultSet = statement.getGeneratedKeys();
+			resultSet.next();
+			int id = resultSet.getInt(1);
+
+			t = findByPrimaryKey(id);
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e.getMessage());

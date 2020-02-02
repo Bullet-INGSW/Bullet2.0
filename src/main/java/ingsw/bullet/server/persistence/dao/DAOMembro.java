@@ -29,13 +29,10 @@ public class DAOMembro implements DAOInterface<Membro> {
 			statement.setBoolean(3, t.isAdmin());
 
 			ResultSet resultSet = statement.getGeneratedKeys();
-
-			while (resultSet.next())
-			{
-				t.setEmail(resultSet.getString(1));
-				t.setIdGruppo(resultSet.getInt(2));
-				t.setAdmin(resultSet.getBoolean(3));
-			}
+			resultSet.next();
+			int id = resultSet.getInt(1);
+			String email=resultSet.getString(2);
+			t = findByPrimaryKey(email,id);
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e.getMessage());
@@ -192,13 +189,22 @@ public class DAOMembro implements DAOInterface<Membro> {
 					"membro.admin = ? " +
 					"WHERE membro.email = ? " +
 					"AND membro.id_gruppo = ? ";
-			statement = connection.prepareStatement(query);
+			statement = connection.prepareStatement(query,Statement.RETURN_GENERATED_KEYS);
 
 			statement.setBoolean(1, t.isAdmin());
 			statement.setString(2, t.getEmail());
 			statement.setInt(3, t.getIdGruppo());
 
 			statement.executeUpdate();
+
+			ResultSet resultSet = statement.getGeneratedKeys();
+			resultSet.next();
+			int id = resultSet.getInt(1);
+			String email=resultSet.getString(2);
+			t = findByPrimaryKey(email,id);
+
+
+
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e.getMessage());

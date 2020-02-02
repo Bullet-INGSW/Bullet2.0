@@ -49,21 +49,9 @@ public class DAOEvento implements DAOInterface<Evento> {
 			statement.executeUpdate();
 
 			ResultSet resultSet = statement.getGeneratedKeys();
-
-			while (resultSet.next())
-			{
-				t.setIdEvento(resultSet.getInt(1));
-				t.setIdCalendario(resultSet.getInt(2));
-				t.setIdEtichetta(resultSet.getInt(3));
-				t.setNome(resultSet.getString(4));
-				t.setDescrizione(resultSet.getString(5));
-				t.setDataInizio((resultSet.getTimestamp(6)).toLocalDateTime());
-				t.setDataFine((resultSet.getTimestamp(7)).toLocalDateTime());
-				t.setPeriodicita(resultSet.getBoolean(8));
-				t.setFullDay(resultSet.getBoolean(9));
-				t.setIdRecurrence(resultSet.getInt(10));
-				t.setRecurrenceRule(resultSet.getString(11));
-			}
+			resultSet.next();
+			int id = resultSet.getInt(1);
+			t = findByPrimaryKey(id);
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e.getMessage());
@@ -269,7 +257,7 @@ public class DAOEvento implements DAOInterface<Evento> {
 					"evento.recurrence_rule = ? " +
 					"WHERE evento.id_evento = ?";
 
-			statement = connection.prepareStatement(query);
+			statement = connection.prepareStatement(query,Statement.RETURN_GENERATED_KEYS);
 
 			statement.setInt(1, t.getIdCalendario());
 			statement.setInt(2, t.getIdEtichetta());
@@ -284,6 +272,12 @@ public class DAOEvento implements DAOInterface<Evento> {
 			statement.setInt(11, t.getIdEvento());
 
 			statement.executeUpdate();
+
+
+			ResultSet resultSet = statement.getGeneratedKeys();
+			resultSet.next();
+			int id = resultSet.getInt(1); //id_evento
+			t = findByPrimaryKey(id);
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e.getMessage());

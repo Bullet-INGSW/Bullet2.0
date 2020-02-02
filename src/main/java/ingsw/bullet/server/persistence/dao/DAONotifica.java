@@ -30,13 +30,9 @@ public class DAONotifica implements DAOInterface<Notifica> {
 			statement.executeUpdate();
 
 			ResultSet resultSet = statement.getGeneratedKeys();
-
-			while (resultSet.next())
-			{
-				t.setIdNotifica(resultSet.getInt(1));
-				t.setEmail(resultSet.getString(2));
-				t.setDescrizione(resultSet.getString(3));
-			}
+			resultSet.next();
+			int id = resultSet.getInt(1);
+			t = findByPrimaryKey(id);
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e.getMessage());
@@ -159,13 +155,17 @@ public class DAONotifica implements DAOInterface<Notifica> {
 					"notifica.email = ?, " +
 					"notifica.descrizione = ? " +
 					"WHERE notifica.id_notifica = ?";
-			statement = connection.prepareStatement(query);
+			statement = connection.prepareStatement(query,Statement.RETURN_GENERATED_KEYS);
 
 			statement.setString(1, t.getEmail());
 			statement.setString(2, t.getDescrizione());
 			statement.setInt(3, t.getIdNotifica());
 
 			statement.executeUpdate();
+			ResultSet resultSet = statement.getGeneratedKeys();
+			resultSet.next();
+			int id = resultSet.getInt(1);
+			t = findByPrimaryKey(id);
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e.getMessage());

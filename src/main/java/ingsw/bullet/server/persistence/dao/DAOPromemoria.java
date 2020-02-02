@@ -3,6 +3,7 @@ package ingsw.bullet.server.persistence.dao;
 import ingsw.bullet.model.Promemoria;
 import ingsw.bullet.server.persistence.DataSource;
 
+import javax.swing.plaf.nimbus.State;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,18 +33,11 @@ public class DAOPromemoria implements DAOInterface<Promemoria> {
 			statement.setTimestamp(6, Timestamp.valueOf(t.getScadenza()));
 
 			statement.executeUpdate();
-
 			ResultSet resultSet = statement.getGeneratedKeys();
+			resultSet.next();
+			int id = resultSet.getInt(1);
 
-			while (resultSet.next())
-			{
-				t.setIdPromemoria(resultSet.getInt(1));
-				t.setIdTDL(resultSet.getInt(2));
-				t.setIdEtichetta(resultSet.getInt(3));
-				t.setDescrizione(resultSet.getString(4));
-				t.setCompletato(resultSet.getBoolean(5));
-				t.setScadenza((resultSet.getTimestamp(6)).toLocalDateTime());
-			}
+			t = findByPrimaryKey(id);
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e.getMessage());
@@ -228,7 +222,7 @@ public class DAOPromemoria implements DAOInterface<Promemoria> {
 					"promemoria.completato = ?, " +
 					"promemoria.scadenza = ? " +
 					"WHERE promemoria.id_promemoria = ?";
-			statement = connection.prepareStatement(query);
+			statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 
 			statement.setInt(1, t.getIdTDL());
 			statement.setInt(2, t.getIdEtichetta());
@@ -238,6 +232,11 @@ public class DAOPromemoria implements DAOInterface<Promemoria> {
 			statement.setTimestamp(6, Timestamp.valueOf(t.getScadenza()));
 
 			statement.executeUpdate();
+			ResultSet resultSet = statement.getGeneratedKeys();
+			resultSet.next();
+			int id = resultSet.getInt(1);
+
+			t = findByPrimaryKey(id);
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e.getMessage());

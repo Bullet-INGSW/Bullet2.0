@@ -34,16 +34,10 @@ public class DAOUtente implements DAOInterface<Utente> {
 			statement.executeUpdate();
 
 			ResultSet resultSet = statement.getGeneratedKeys();
+			resultSet.next();
 
-			while (resultSet.next())
-			{
-				t.setEmail(resultSet.getString(1));
-				t.setPassword(resultSet.getString(2));
-				t.setNome(resultSet.getString(3));
-				t.setCognome(resultSet.getString(4));
-				t.setSesso(Sesso.valueOf(resultSet.getString(5)));
-			}
-
+			String email=resultSet.getString(1);
+			t = findByPrimaryKey(email);
 		} catch (SQLException e) {
 			throw new RuntimeException(e.getMessage());
 		} finally {
@@ -136,7 +130,7 @@ public class DAOUtente implements DAOInterface<Utente> {
 					"utente.cognome = ?, " +
 					"utente.sesso = ? " +
 					"WHERE utente.email = ?";
-			statement = connection.prepareStatement(query);
+			statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 
 			statement.setString(1, t.getPassword());
 			statement.setString(2, t.getNome());
@@ -145,6 +139,11 @@ public class DAOUtente implements DAOInterface<Utente> {
 			statement.setString(5, t.getEmail());
 
 			statement.executeUpdate();
+			ResultSet resultSet = statement.getGeneratedKeys();
+			resultSet.next();
+
+			String email=resultSet.getString(1);
+			t = findByPrimaryKey(email);
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e.getMessage());
