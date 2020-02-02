@@ -46,7 +46,7 @@ public class Calendario implements GestoreAttivita{
 
     public String getNome() {return nome;}
 
-    public void setNome(String descrizione) {this.nome = nome;}
+    public void setNome(String descrizione) {this.nome = descrizione;}
 
     public List<Evento> getEventi() { return eventi; }
 

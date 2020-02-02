@@ -171,8 +171,8 @@
                                     </Text>
                                     <MenuButton fx:id="regSesso" maxHeight="25.0" maxWidth="300.0" minWidth="180.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="---" HBox.hgrow="ALWAYS">
                                       <items>
-                                        <MenuItem mnemonicParsing="false" text="Maschio" />
-                                        <MenuItem mnemonicParsing="false" text="Femmina" />
+                                        <MenuItem mnemonicParsing="false" onAction="#maschio" text="Maschio" />
+                                        <MenuItem mnemonicParsing="false" onAction="#femmina" text="Femmina" />
                                       </items>
                                     </MenuButton>
                                  </children>

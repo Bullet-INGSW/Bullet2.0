@@ -125,14 +125,15 @@ public class Profilo extends ProfiloBase {
 
     Calendario ottieniCalendarioPersonale()
     {
-        Calendario calendario = DBClient.getIstance().findCalendarioPersonaleByEmail(Profilo.email);
-        if(calendario == null)
-        {
-            calendario = new Calendario();
+//        Calendario calendario = DBClient.getIstance().findCalendarioPersonaleByEmail(Profilo.email);
+//        if(calendario == null)
+//        {
+            Calendario calendario = new Calendario();
             calendario.setNome("Calendario Personale");
             calendario.setEmail(email);
             DBClient.getIstance().insertCalendario(calendario);
-        }
+//        }
+        System.exit(0);
         return calendario;
     }
 

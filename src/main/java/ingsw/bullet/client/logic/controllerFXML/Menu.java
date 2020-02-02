@@ -38,7 +38,7 @@ public class Menu {
 
     @FXML
     void loginConferma(ActionEvent event) {
-        System.out.print(loginEmail.getText());
+
         if((loginEmail.getText()==null || loginEmail.getText().equals("")) ||
                 (loginPassword.getText()==null || loginPassword.getText().equals("")) )
         {
@@ -46,14 +46,17 @@ public class Menu {
             return;
         }
 
+        System.out.println("Sto cercando " + loginEmail.getText());
         Utente u = DBClient.getIstance().findUtenteByEmail(loginEmail.getText());
+        System.out.println("UTENTE: " + u);
+
         if(u == null)
         {
             new Alert(Alert.AlertType.ERROR, "Non sei iscritto con questa email").showAndWait();
             return;
         }
 
-        if(u.getPassword().equals(loginPassword.getText()))
+        if(!u.getPassword().equals(loginPassword.getText()))
         {
             new Alert(Alert.AlertType.ERROR, "Password errata").showAndWait();
             return;
@@ -67,6 +70,7 @@ public class Menu {
         else
             Profilo.sesso = false;
         Profilo.notifiche = (ArrayList<Notifica>)u.getNotifiche();
+
         Main.getInstance().replaceSceneContent("profilo", Main.getInstance().stage, 600, 400);
     }
 
@@ -107,6 +111,18 @@ public class Menu {
         DBClient.getIstance().insertUtente(u);
 
         Main.getInstance().replaceSceneContent("profilo", Main.getInstance().stage, 600, 400);
+    }
+
+
+    @FXML
+    void maschio(ActionEvent event) {
+        regSesso.setText("Maschio");
+    }
+
+
+    @FXML
+    void femmina(ActionEvent event) {
+        regSesso.setText("Femmina");
     }
 
 }

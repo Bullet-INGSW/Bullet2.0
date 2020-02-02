@@ -109,7 +109,7 @@ public class ClientConnectionhandler {
                 }
 
                 else{
-                        System.out.println("Impossibile gestire il tipo");
+                        System.out.println("Impossibile gestire il tipo: " + object.getClass());
                 }
 
                   inAttesa=false;

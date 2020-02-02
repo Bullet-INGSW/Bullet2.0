@@ -31,6 +31,7 @@ public class Main extends Application {
 
     public FXMLLoader replaceSceneContent(String name, Stage stage, int width, int height)
     {
+        stage.close();
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/fxml/"+  name + ".fxml"));
         Parent root = null;
