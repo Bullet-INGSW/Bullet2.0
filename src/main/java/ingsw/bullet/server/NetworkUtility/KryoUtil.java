@@ -32,7 +32,7 @@ public class KryoUtil {
        kryo.register(Boolean.class);
         kryo.register(boolean.class);
         //kryo.register(ArrayList.class);
-
+        kryo.register(Utente.Sesso.class);
         kryo.register(Calendario.class);
         kryo.register(Etichetta.class);
         kryo.register(Evento.class);
@@ -42,6 +42,7 @@ public class KryoUtil {
         kryo.register(Promemoria.class);
         kryo.register(TDL.class);
         kryo.register(Utente.class);
+        kryo.register(Richiesta.class);
         kryo.register(Partecipante.class);
         //FINIRE THIS
 

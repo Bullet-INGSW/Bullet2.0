@@ -49,6 +49,9 @@ public class Richiesta {
     private String stringa;
     private String stringa2;
 
+    public Richiesta(){
+
+    }
     public String getStringa2() {
         return stringa2;
     }

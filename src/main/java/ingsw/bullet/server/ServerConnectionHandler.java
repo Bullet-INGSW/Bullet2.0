@@ -17,6 +17,8 @@ import java.util.List;
 public class ServerConnectionHandler {
     public ServerConnectionHandler() {
         Log.set(Log.LEVEL_DEBUG);
+        connessioniLoggate=new HashMap<>();
+        connessioniNonLoggate=new ArrayList<>();
 
         server=new Server();
         KryoUtil.registerServerClasses(server);
@@ -43,44 +45,17 @@ public class ServerConnectionHandler {
             @Override
             public void received(Connection connection, Object object) {
 
-                if(connessioniNonLoggate.contains(connection)){
-                    if(object instanceof  Richiesta){
-                        Richiesta r=(Richiesta)object;
-                        String tipo=r.getTipoRichiesta();
 
 
-                        switch (tipo){
-                            case "login":
-                                utente=DBManager.getInstance().findUtenteByPrimaryKey(r.getStringa());
-                                if(utente.getPassword().equals(r.getStringa2())){
-                                    connessioniNonLoggate.remove(connection);
-                                    connessioniLoggate.put(connection,r.getStringa());
-                                    connection.sendUDP(true);
-                                }
-                                else{
-                                    connection.sendUDP(false);
-                                }
-                                break;
 
-                            case "insertUtente":
-                                utente=r.getUtente();
-                                DBManager.getInstance().addUtente(utente);
-                                connection.sendUDP(utente);
-
-                            default:
-                                System.out.println("Non handled");
-                                break;
-                        }
-                    }
-
-                }
-
-               else{ if(object instanceof Richiesta){
+                if(object instanceof Richiesta){
                     Richiesta r=(Richiesta)object;
                     String tipo=r.getTipoRichiesta();
 
                     switch (tipo){
-                        //calendario
+
+
+                            //calendario
                         case "findCalendarioById":
                             calendario=DBManager.getInstance().findCalendarioByPrimaryKey(r.getNum());
                             connection.sendUDP(calendario);
@@ -284,9 +259,12 @@ public class ServerConnectionHandler {
                             break;
 
                         //Utente
-                        case "findUtenteById":
+                        case "findUtenteByEmail":
                             utente=DBManager.getInstance().findUtenteByPrimaryKey(r.getStringa());
+                            if(utente!=null)
                             connection.sendUDP(utente);
+                            else
+                                System.out.println("Utente nullo");
                             break;
                         case "insertUtente":
                             utente =r.getUtente();
@@ -355,11 +333,15 @@ public class ServerConnectionHandler {
                             DBManager.getInstance().deletePartecipanteEvento(partecipante);
                             connection.sendUDP(true);
                             break;
+
+                        default:
+                            System.out.println("Caso non handeled "+tipo);
+                            break;
                     }
 
 
                 }}
-            }
+
         });
 
     }
