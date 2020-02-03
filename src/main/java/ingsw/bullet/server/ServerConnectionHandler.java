@@ -83,11 +83,26 @@ public class ServerConnectionHandler {
                                 connection.sendTCP(calendario);
                             break;
                         case "findCalendariCondivisiByEmail":
-                            stringa = r.getStringa();
+                           /* stringa = r.getStringa();
                             listCalendario = DBManager.getInstance().findCalendarioByMembro(stringa);
                             if (listCalendario == null || listCalendario.isEmpty()) connection.sendUDP(new Errore());
                             else
                                 connection.sendUDP(listCalendario);
+
+                            */
+                            stringa = r.getStringa();
+                            List<Calendario> cale = DBManager.getInstance().findCalendarioByMembro(stringa);
+                            if(cale==null || cale.isEmpty()){
+                                listCalendario=new ArrayList<>();
+                                connection.sendUDP(listCalendario);
+                            }
+                            else {
+                                for(int i=0;i<cale.size();i++){
+                                    cale.get(i).setEventi(DBManager.getInstance().findEventoByCalendario(cale.get(i).getIdCalendario()));
+                                }
+                                connection.sendUDP(cale);
+                            }
+
                             break;
                         case "updateCalendario":
                             calendario = r.getCalendario();

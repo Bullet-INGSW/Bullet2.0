@@ -187,6 +187,7 @@ public class DBManager {
     // ETICHETTA //
 	public Etichetta findEtichettaByPrimaryKey(int id) {
 		return getDAOEtichetta().findByPrimaryKey(id);
+
 	}
 
 	public List<Etichetta> getAllEtichetta() {
@@ -195,6 +196,7 @@ public class DBManager {
 
 	public void addEtichetta(Etichetta etichetta) {
 		getDAOEtichetta().save(etichetta);
+		System.out.println("id etichetta"+etichetta.getIdEtichetta());
 	}
 
 	public void deleteEtichetta(Etichetta etichetta) {

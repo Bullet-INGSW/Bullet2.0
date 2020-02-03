@@ -32,7 +32,7 @@ public class DAOEtichetta implements DAOInterface<Etichetta> {
 			ResultSet resultSet = statement.getGeneratedKeys();
 			resultSet.next();
 			int id = resultSet.getInt(1);
-			t = findByPrimaryKey(id);
+			t.setIdEtichetta(id);
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e.getMessage());
@@ -130,7 +130,7 @@ public class DAOEtichetta implements DAOInterface<Etichetta> {
 			ResultSet resultSet = statement.getGeneratedKeys();
 			resultSet.next();
 			int id = resultSet.getInt(1);
-			t = findByPrimaryKey(id);
+			t.setIdEtichetta(id);
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e.getMessage());

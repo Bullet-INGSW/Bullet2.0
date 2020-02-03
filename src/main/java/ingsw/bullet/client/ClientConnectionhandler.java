@@ -107,7 +107,7 @@ public class ClientConnectionhandler {
                 }
 
                 else if(object instanceof List){
-                    System.out.println("DImensione lista");
+                    System.out.println("Dimensione lista");
                     if( ((List)object).size()>0 && ((List) object).get(0) instanceof Gruppo)
                     setListGruppo((List<Gruppo>)object);
 
