@@ -38,7 +38,11 @@ public class DAOCalendario implements DAOInterface<Calendario> {
             ResultSet resultSet = statement.getGeneratedKeys();
             resultSet.next();
             int id = resultSet.getInt(1);
+
             t = findByPrimaryKey(id);
+            t.setIdCalendario(id);
+            System.out.println("ID 1: " + id);
+            System.out.println("ID 2: " + t.getIdCalendario());
 
         } catch (SQLException e) {
             throw new RuntimeException(e.getMessage());

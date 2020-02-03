@@ -55,6 +55,7 @@ public class KryoUtil {
         kryo.register(LocalDate.class, new LocalDateSerializer());
         kryo.register(LocalTime.class, new LocalTimeSerializer());
         kryo.register(LocalDateTime.class, new LocalDateTimeSerializer());
+        kryo.register(java.util.ArrayList.class);
         //FINIRE THIS
 
     }

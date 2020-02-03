@@ -5,17 +5,17 @@ import java.util.List;
 
 public class Evento {
 
-    private int id_evento;
-    private int id_calendario;
-    private int id_etichetta;
-    private String nome;
-    private String descrizione;
+    private int id_evento = 0;
+    private int id_calendario = 0;
+    private int id_etichetta = 0;
+    private String nome = "";
+    private String descrizione = "";
     private LocalDateTime data_inizio;
     private LocalDateTime data_fine;
-    private boolean periodicita;
-    private boolean full_day;
-    private int id_recurrence;
-    private String recurrence_rule;
+    private boolean periodicita = false;
+    private boolean full_day = false;
+    private int id_recurrence = 0;
+    private String recurrence_rule = "";
 
     private List<Partecipante> partecipanti;
 

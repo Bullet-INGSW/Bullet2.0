@@ -10,6 +10,7 @@ import ingsw.bullet.model.TDL;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -18,6 +19,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -86,8 +88,7 @@ public class Profilo extends ProfiloBase {
     void calendarioPersonale(ActionEvent event) {
         Main.getInstance().stage.close();
         Scene scene = new Scene(new CalendarioView(ottieniCalendarioPersonale()));
-        Main.getInstance().stage.setScene(scene);
-        Main.getInstance().stage.show();
+        ((Stage)emailLabel.getScene().getWindow()).setScene(scene);
     }
 
     @FXML
@@ -112,7 +113,7 @@ public class Profilo extends ProfiloBase {
     @FXML
     void esci(ActionEvent event) {
         logout();
-        Main.getInstance().replaceSceneContent("menu", Main.getInstance().stage, 600, 400);
+        Main.getInstance().replaceSceneContent("menu",(Stage)emailLabel.getScene().getWindow(), 600, 400);
     }
 
     public void logout()
@@ -125,15 +126,15 @@ public class Profilo extends ProfiloBase {
 
     Calendario ottieniCalendarioPersonale()
     {
-//        Calendario calendario = DBClient.getIstance().findCalendarioPersonaleByEmail(Profilo.email);
-//        if(calendario == null)
-//        {
-            Calendario calendario = new Calendario();
+        Calendario calendario = DBClient.getIstance().findCalendarioPersonaleByEmail(Profilo.email);
+        if(calendario == null)
+        {
+            calendario = new Calendario();
             calendario.setNome("Calendario Personale");
             calendario.setEmail(email);
             DBClient.getIstance().insertCalendario(calendario);
-//        }
-        System.exit(0);
+            System.out.println("CALENDARIO MA IN PROFILO: " + calendario);
+        }
         return calendario;
     }
 

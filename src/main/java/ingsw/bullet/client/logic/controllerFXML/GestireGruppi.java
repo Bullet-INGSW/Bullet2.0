@@ -75,10 +75,9 @@ public class GestireGruppi implements Initializable {
         l.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-//                if (!utente.isAdmin())
-//                    if (DBClient.getIstance().removeMembro(utente.getIdGruppo()) == null)
-//                        new Alert(Alert.AlertType.ERROR, "Errore nel rimuovere membro");
-                rimuoviMembro(l);
+                if (!utente.isAdmin()){
+                    DBClient.getIstance().removeMembro(utente.getEmail(),""+utente.getIdGruppo());
+                    rimuoviMembro(l);}
             }
         });
         elencoMembri.getChildren().add(l);
@@ -92,7 +91,7 @@ public class GestireGruppi implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        // gruppi = DBClient.getIstance().findUtenteByEmail(Profilo.email);
+         gruppi = (ArrayList<Gruppo>) DBClient.getIstance().findGroupByEmail(Profilo.email);
 
         if (gruppi != null)
             if (!gruppi.isEmpty())

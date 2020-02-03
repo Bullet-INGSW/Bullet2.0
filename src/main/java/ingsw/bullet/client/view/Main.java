@@ -71,7 +71,7 @@ public class Main extends Application {
         stage.setResizable(false);
 
         try {
-            replaceSceneContent("menu",new Stage(), 800, 600);
+            replaceSceneContent("menu",new Stage(), 600, 400);
         } catch (Exception e) {
             e.printStackTrace();
         }

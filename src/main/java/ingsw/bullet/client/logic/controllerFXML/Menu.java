@@ -10,6 +10,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 import java.util.ArrayList;
 
@@ -71,7 +72,7 @@ public class Menu {
             Profilo.sesso = false;
         Profilo.notifiche = (ArrayList<Notifica>)u.getNotifiche();
 
-        Main.getInstance().replaceSceneContent("profilo", Main.getInstance().stage, 600, 400);
+        Main.getInstance().replaceSceneContent("profilo", (Stage)loginEmail.getScene().getWindow(), 600, 400);
     }
 
     @FXML
@@ -110,7 +111,16 @@ public class Menu {
 
         DBClient.getIstance().insertUtente(u);
 
-        Main.getInstance().replaceSceneContent("profilo", Main.getInstance().stage, 600, 400);
+        Profilo.email = u.getEmail();
+        Profilo.nome = u.getNome();
+        Profilo.cognome = u.getCognome();
+        if(u.getSesso() == Utente.Sesso.M)
+            Profilo.sesso = true;
+        else
+            Profilo.sesso = false;
+        Profilo.notifiche = (ArrayList<Notifica>)u.getNotifiche();
+
+        Main.getInstance().replaceSceneContent("profilo", (Stage)loginEmail.getScene().getWindow(), 600, 400);
     }
 
 

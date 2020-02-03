@@ -63,6 +63,13 @@ public class CalendarioView extends CalendarView {
     public CalendarioView(Calendario calendario){
         super();
         this.calendario = calendario;
+
+        Etichetta calendario1 = new Etichetta();
+        calendario1.setNome(getCalendarSources().get(0).getCalendars().get(0).getName());
+        calendario1.setColore(coloriMap.get(Calendar.Style.STYLE1));
+        calendario1.setIdEtichetta(1);
+        etichette.put(getCalendarSources().get(0).getCalendars().get(0),calendario1);
+
         for(Etichetta e:calendario.getEtichette())
         {
             Calendar c = new Calendar(e.getNome());
@@ -151,7 +158,8 @@ public class CalendarioView extends CalendarView {
             if (control instanceof AllDayView) {
                 entry.setFullDay(true);
             }
-            aggiungiEvento(entry, null, false);
+            System.out.println(getCalendarSources().get(0).getCalendars().get(0));
+            aggiungiEvento(entry, getCalendarSources().get(0).getCalendars().get(0), false);
 
             return entry;
         });
@@ -201,6 +209,9 @@ public class CalendarioView extends CalendarView {
     public void aggiungiEvento(Entry<?> entry, Calendar calendar, boolean addOnCalendar)
     {
         Evento e = new Evento();
+        e.setIdEtichetta(etichette.get(calendar).getIdEtichetta());
+        System.out.println("CALENDARIO ID: " + calendario.getIdCalendario());
+        e.setIdCalendario(calendario.getIdCalendario());
         e.setNome(entry.getTitle());
         e.setDescrizione(entry.getLocation());
         e.setDataInizio(entry.getStartAsLocalDateTime());
@@ -222,7 +233,9 @@ public class CalendarioView extends CalendarView {
     {
         if(!controlliPermessi())
             return;
-        if(event.getEventType() != CalendarEvent.CALENDAR_CHANGED){
+
+        System.out.println(event);
+        if(event.getEventType() != CalendarEvent.ENTRY_CALENDAR_CHANGED){
             Evento e = eventi.get(entry);
             e.setNome(entry.getTitle());
             e.setDescrizione(entry.getLocation());
