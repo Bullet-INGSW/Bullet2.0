@@ -268,8 +268,8 @@ public class DAOEvento implements DAOInterface<Evento> {
 
 			statement.setInt(1, t.getIdCalendario());
 			statement.setInt(2, t.getIdEtichetta());
-			statement.setString(3, t.getNome());
-			statement.setString(4, t.getDescrizione());
+			statement.setString(3, t.getDescrizione());
+			statement.setString(4, t.getNome());
 			statement.setTimestamp(5, Timestamp.valueOf(t.getDataInizio()));
 			statement.setTimestamp(6, Timestamp.valueOf(t.getDataFine()));
 			statement.setBoolean(7, t.getPeriodicita());
