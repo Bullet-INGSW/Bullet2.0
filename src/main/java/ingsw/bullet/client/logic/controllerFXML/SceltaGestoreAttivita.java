@@ -18,7 +18,7 @@ public abstract class SceltaGestoreAttivita implements Initializable {
     @FXML
     protected FlowPane gestoreAttivitaCondivise;
 
-    protected static ArrayList<GestoreAttivita> nomiGestoriAttivita = null;
+    protected ArrayList<GestoreAttivita> nomiGestoriAttivita = null;
 
 
     @FXML

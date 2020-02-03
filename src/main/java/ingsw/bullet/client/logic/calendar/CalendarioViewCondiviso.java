@@ -11,6 +11,7 @@ import ingsw.bullet.client.logic.controllerFXML.DialogCalendario;
 import ingsw.bullet.client.logic.controllerFXML.ElencoPartecipanti;
 import ingsw.bullet.client.logic.controllerFXML.Profilo;
 import ingsw.bullet.model.*;
+import javafx.application.Platform;
 import javafx.scene.control.*;
 import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.layout.StackPane;
@@ -26,12 +27,19 @@ public class CalendarioViewCondiviso extends CalendarioView {
     private Gruppo gruppo = null;
     private Membro membro = null;
 
+
     public boolean amministratoreControllo() {
+        System.out.println(inutile);
+
+        if(inutile)
+            return true;
+
+
         if (gruppo == null || membro == null) {
+            System.out.println("NOOOOOO");
             membro = DBClient.getIstance().findMembro(Profilo.getEmail(), calendario.getIdGruppo());
-            gruppo = DBClient.getIstance().findGruppoById(calendario.getIdGruppo());
         }
-        if (!gruppo.getAmministratori().contains(membro)) {
+        if (!membro.isAdmin()) {
             new Alert(Alert.AlertType.ERROR, "Non sei amministratore").showAndWait();
             return false;
         }
@@ -40,6 +48,8 @@ public class CalendarioViewCondiviso extends CalendarioView {
 
     public CalendarioViewCondiviso(Calendario calendario) {
         super(calendario);
+        inutile = false;
+        gruppo = DBClient.getIstance().findGruppoById(calendario.getIdGruppo());
     }
 
     protected void generaPartecipanti(Gruppo gruppo, Evento evento){
@@ -52,6 +62,12 @@ public class CalendarioViewCondiviso extends CalendarioView {
             partecipanti.add(p);
         }
         evento.setPartecipanti(partecipanti);
+    }
+
+    @Override
+    public void aggiungiEvento(Entry<?> entry, Calendar calendar, boolean addOnCalendar) {
+        super.aggiungiEvento(entry, calendar, addOnCalendar);
+        generaPartecipanti(gruppo, eventi.get(entry.getId()));
     }
 
     protected void generaPartecipanti(Gruppo gruppo, Promemoria promemoria){
@@ -141,7 +157,7 @@ public class CalendarioViewCondiviso extends CalendarioView {
             partecipantiMenu.setOnAction(actionEvent -> {
                 DialogCalendario d = loadDialogCalendario("elencoPartecipanti", 400, 400);
 
-                Evento e = eventi.get(entry);
+                Evento e = eventi.get(entry.getId());
                 ((ElencoPartecipanti) d).setEvento(e);
 
             });

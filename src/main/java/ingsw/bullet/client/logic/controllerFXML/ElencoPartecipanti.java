@@ -17,12 +17,24 @@ public class ElencoPartecipanti extends DialogCalendario{
     Evento evento;
 
     @FXML
+    private Label labelPartecipa;
+
+    @FXML
     private VBox elencoPartecipanti;
+
+    protected void presenteLabel()
+    {
+        if(partecipante.isPresente())
+            labelPartecipa.setText("SEI PRESENTE");
+        else
+            labelPartecipa.setText("NON SEI PRESENTE");
+    }
 
     protected void setPartecipazione(Partecipante p, boolean partecipa)
     {
         p.setPresente(partecipa);
         DBClient.getIstance().updatePartecipanteEvento(p);
+        presenteLabel();
     }
 
     @FXML

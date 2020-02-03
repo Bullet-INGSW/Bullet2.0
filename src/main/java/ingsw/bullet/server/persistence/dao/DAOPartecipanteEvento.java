@@ -22,19 +22,13 @@ public class DAOPartecipanteEvento implements DAOInterface<Partecipante> {
             connection = this.dataSource.getConnection();
             PreparedStatement statement;
             String query = "INSERT INTO partecipante_evento (email, id_evento, presente) VALUES (?,?,?);";
-            statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+            statement = connection.prepareStatement(query);
 
             statement.setString(1, t.getEmail());
             statement.setInt(2, t.getId());
             statement.setBoolean(3, t.isPresente());
 
             statement.executeUpdate();
-
-            ResultSet resultSet = statement.getGeneratedKeys();
-            resultSet.next();
-            int id = resultSet.getInt(1);
-            String email=resultSet.getString(2);
-            t = findByPrimaryKey(email,id);
 
         } catch (SQLException e) {
             throw new RuntimeException(e.getMessage());
@@ -193,18 +187,13 @@ public class DAOPartecipanteEvento implements DAOInterface<Partecipante> {
                     "partecipante_evento.presente = ? " +
                     "WHERE partecipante_evento.email = ? " +
                     "AND partecipante_evento.id_evento = ? ";
-            statement = connection.prepareStatement(query,Statement.RETURN_GENERATED_KEYS);
+            statement = connection.prepareStatement(query);
 
             statement.setBoolean(1, t.isPresente());
             statement.setString(2, t.getEmail());
             statement.setInt(3, t.getId());
 
             statement.executeUpdate();
-            ResultSet resultSet = statement.getGeneratedKeys();
-            resultSet.next();
-            int id = resultSet.getInt(1);
-            String email=resultSet.getString(2);
-            t = findByPrimaryKey(email,id);
 
         } catch (SQLException e) {
             throw new RuntimeException(e.getMessage());

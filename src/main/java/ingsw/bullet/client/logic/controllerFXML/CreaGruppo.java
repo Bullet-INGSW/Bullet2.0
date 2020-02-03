@@ -72,7 +72,7 @@ public class CreaGruppo {
         if (nomeGruppo.getText() != null) {
             ArrayList<String> membri = getElencoMembri();
             if (membri==null || membri.isEmpty())
-            {    new Alert(Alert.AlertType.ERROR, "Non hai aggiunto nessun membro");
+            {    new Alert(Alert.AlertType.ERROR, "Non hai aggiunto nessun membro").showAndWait();
                 return;
             }
             Gruppo g = new Gruppo();

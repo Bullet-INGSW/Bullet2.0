@@ -47,7 +47,12 @@ public class CalendarioView extends CalendarView {
     Calendario calendario;
     CalendarSource myCalendarSource;
 
-    {
+    protected boolean inutile = true;
+
+    public CalendarioView(Calendario calendario) {
+        super();
+        inutile = true;
+        this.calendario = calendario;
         setOnEntryCalendar();
         setOnEntryEvent();
         myCalendarSource = new CalendarSource("Etichette");
@@ -59,14 +64,6 @@ public class CalendarioView extends CalendarView {
         });
         setOnActionNewEntry();
         setOnUpdateEntry();
-    }
-
-
-    public CalendarioView(Calendario calendario) {
-        super();
-        this.calendario = calendario;
-
-        System.out.println("\nCALENDARIO:\n" + calendario);
 
 
         for (Etichetta e : calendario.getEtichette()) {
@@ -78,7 +75,17 @@ public class CalendarioView extends CalendarView {
                     c.addEventHandler(new EventHandler<CalendarEvent>() {
                         @Override
                         public void handle(CalendarEvent event) {
-                            System.out.println(event.getEntry());
+                            if(!controlliPermessi())
+                            {
+                                System.out.println("modifica evento");
+                                Entry<?> entry = event.getEntry();
+                                entry.setTitle(event.getOldText());
+                                entry.setInterval(event.getOldInterval());
+                                entry.setFullDay(event.getOldFullDay());
+                                entry.setCalendar(event.getOldCalendar());
+                                return;
+                            }
+                            System.out.println(event.getEntry() + " DTKUKUFKKUYFKU");
                             modificaEvento(event.getEntry(), event);
                         }
                     });
@@ -273,6 +280,17 @@ public class CalendarioView extends CalendarView {
         calendar.addEventHandler(new EventHandler<CalendarEvent>() {
             @Override
             public void handle(CalendarEvent event) {
+
+                if(!controlliPermessi())
+                {
+                    System.out.println("modifica evento");
+                    Entry<?> entry = event.getEntry();
+                    entry.setTitle(event.getOldText());
+                    entry.setInterval(event.getOldInterval());
+                    entry.setFullDay(event.getOldFullDay());
+                    entry.setCalendar(event.getOldCalendar());
+                    return;
+                }
                 System.out.println(event.getEntry());
                 modificaEvento(event.getEntry(), event);
             }

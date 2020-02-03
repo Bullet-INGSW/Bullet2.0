@@ -122,9 +122,9 @@ public class GestireGruppi implements Initializable {
                     membro.setEmail(email);
                     membro.setIdGruppo(gruppoScelto.getIdGruppo());
                     membro = DBClient.getIstance().insertMembro(membro);
-                    System.out.println(membro);
+                    if(membro != null)
+                        aggiungiBottoneMembro(membro);
                 }
-                //    aggiungiUtente(DBClient.getIstance().findMembroById(email);
             }
         }
     }
