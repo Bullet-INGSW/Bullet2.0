@@ -24,6 +24,11 @@ public class DBClient implements DBClientInterface {
     }
 
     @Override
+    public void chiudi() {
+        client().close();
+    }
+
+    @Override
     public boolean login(String email, String password) {
         String s="login";
         Richiesta r=new Richiesta(s);
@@ -394,13 +399,14 @@ public class DBClient implements DBClientInterface {
 
     @Override
     public Membro insertMembro(Membro c) {
+        System.out.println("AFONISANFIOPSANFIOPDSAOPNF");
         String s="insertMembro";
         Richiesta r=new Richiesta(s);
         r.setMembro(c);
 
         setAttesa(true);
 
-        client().sendTCP(r);
+        client().sendUDP(r);
         while(inAttesa()){
             System.out.print("");
         }

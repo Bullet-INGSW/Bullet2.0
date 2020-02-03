@@ -10,17 +10,16 @@ import ingsw.bullet.client.logic.DBClient;
 import ingsw.bullet.client.logic.controllerFXML.DialogCalendario;
 import ingsw.bullet.client.logic.controllerFXML.ElencoPartecipanti;
 import ingsw.bullet.client.logic.controllerFXML.Profilo;
-import ingsw.bullet.model.Calendario;
-import ingsw.bullet.model.Evento;
-import ingsw.bullet.model.Gruppo;
-import ingsw.bullet.model.Membro;
+import ingsw.bullet.model.*;
 import javafx.scene.control.*;
 import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Callback;
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 public class CalendarioViewCondiviso extends CalendarioView {
 
@@ -43,6 +42,29 @@ public class CalendarioViewCondiviso extends CalendarioView {
         super(calendario);
     }
 
+    protected void generaPartecipanti(Gruppo gruppo, Evento evento){
+        List<Membro> membri=gruppo.getMembri();
+        if(membri.isEmpty()){return;}
+        List<Partecipante> partecipanti=new ArrayList<>();
+        for(int i=0;i<membri.size();i++){
+            Partecipante p=new Partecipante(membri.get(i).getEmail(),evento.getIdEvento(),true);
+            DBClient.getIstance().insertPartecipanteEvento(p);
+            partecipanti.add(p);
+        }
+        evento.setPartecipanti(partecipanti);
+    }
+
+    protected void generaPartecipanti(Gruppo gruppo, Promemoria promemoria){
+        List<Membro> membri=gruppo.getMembri();
+        if(membri.isEmpty()) return;
+        List<Partecipante> partecipanti=new ArrayList<>();
+        for(int i=0;i<membri.size();i++){
+            Partecipante p=new Partecipante(membri.get(i).getEmail(),promemoria.getIdPromemoria(),true);
+            DBClient.getIstance().insertPartecipantePromemoria(p);
+            partecipanti.add(p);
+        }
+        promemoria.setPartecipanti(partecipanti);
+    }
     @Override
     public boolean controlliPermessi() {
         return amministratoreControllo();
@@ -128,4 +150,5 @@ public class CalendarioViewCondiviso extends CalendarioView {
             return contextMenu;
         });
     }
+
 }

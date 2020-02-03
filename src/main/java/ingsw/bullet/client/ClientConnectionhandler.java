@@ -58,7 +58,10 @@ public class ClientConnectionhandler {
 
                 if(inAttesa){
 
-                if(object instanceof Boolean){
+                if(object instanceof FrameworkMessage.KeepAlive){
+
+                }
+                else if(object instanceof Boolean){
                      setBool((Boolean)object);
                     }//se boolean
 

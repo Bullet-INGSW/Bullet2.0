@@ -1,5 +1,6 @@
 package ingsw.bullet.client.view;
 
+import ingsw.bullet.client.logic.DBClient;
 import ingsw.bullet.client.logic.calendar.CalendarioViewCondiviso;
 import ingsw.bullet.model.Calendario;
 import javafx.application.Application;
@@ -31,7 +32,7 @@ public class Main extends Application {
 
     public FXMLLoader replaceSceneContent(String name, Stage stage, int width, int height)
     {
-        stage.close();
+        //stage.close();
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/fxml/"+  name + ".fxml"));
         Parent root = null;
@@ -85,5 +86,6 @@ public class Main extends Application {
     @Override
     public void stop(){
         System.exit(0);
+        DBClient.getIstance().chiudi();
     }
 }

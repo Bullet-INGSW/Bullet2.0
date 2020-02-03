@@ -19,6 +19,7 @@ public class DAOMembro implements DAOInterface<Membro> {
 		Connection connection = null;
 
 		try {
+			System.out.println(t.getEmail()+" "+t.getIdGruppo()+" "+t.isAdmin());
 			connection = this.dataSource.getConnection();
 			PreparedStatement statement;
 			String query = "INSERT INTO membro (email, id_gruppo, admin) VALUES (?,?,?);";
@@ -27,9 +28,7 @@ public class DAOMembro implements DAOInterface<Membro> {
 			statement.setString(1, t.getEmail());
 			statement.setInt(2, t.getIdGruppo());
 			statement.setBoolean(3, t.isAdmin());
-
-			t = findByPrimaryKey(t.getEmail(),t.getIdGruppo());
-
+			statement.executeUpdate();
 		} catch (SQLException e) {
 			throw new RuntimeException(e.getMessage());
 		} finally {

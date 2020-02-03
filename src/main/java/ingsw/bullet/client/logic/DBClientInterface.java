@@ -8,7 +8,7 @@ import java.util.List;
 public interface DBClientInterface {
 
     boolean login(String email,String password);
-
+    void chiudi();
     Calendario findCalendarioById(int id);
     Calendario findCalendarioPersonaleByEmail(String email);
     List<Calendario> findCalendariCondivisiByEmail(String email);

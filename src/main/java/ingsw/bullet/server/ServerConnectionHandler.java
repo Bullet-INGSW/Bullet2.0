@@ -240,6 +240,7 @@ public class ServerConnectionHandler {
                             break;
                         case "insertMembro":
                             membro = r.getMembro();
+                            System.out.println(membro.getEmail()+membro.getIdGruppo());
                             DBManager.getInstance().addMembro(membro);
                             connection.sendUDP(membro);
                             break;
