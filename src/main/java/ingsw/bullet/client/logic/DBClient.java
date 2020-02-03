@@ -76,9 +76,9 @@ public class DBClient implements DBClientInterface {
             return null;
         }
         Calendario c=istanza().getCalendario();
-        c.setEventi(DBClient.getIstance().findEventoByCalendario(c.getIdCalendario()));
-        if(c.getEventi()==null)
-            c.setEventi(new ArrayList<>());
+        //c.setEventi(DBClient.getIstance().findEventoByCalendario(c.getIdCalendario()));
+        //if(c.getEventi()==null)
+            //c.setEventi(new ArrayList<>());
         System.out.println("Il calendario ha eventi: "+c.getEventi().size());
         return c;
     }
@@ -100,6 +100,7 @@ public class DBClient implements DBClientInterface {
             return null;
         }
         return istanza().getListCalendario();
+
     }
 
     @Override

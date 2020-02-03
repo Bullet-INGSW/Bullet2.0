@@ -17,7 +17,7 @@ import java.util.List;
 
 public class ServerConnectionHandler {
     public ServerConnectionHandler() {
-        Log.set(Log.LEVEL_INFO);
+        Log.set(Log.LEVEL_DEBUG);
         connessioniLoggate = new HashMap<>();
         connessioniNonLoggate = new ArrayList<>();
 
@@ -68,14 +68,19 @@ public class ServerConnectionHandler {
                             break;
                         case "findCalendarioPersonaleByEmail":
                             stringa = r.getStringa();
+
                             List<Calendario> cal = DBManager.getInstance().findCalendarioByUtente(stringa);
-                            System.out.println("Lunghezza cal="+ cal.size());
+
                             calendario=cal.get(0);
-                            System.out.println("Eventi nel calendario "+calendario.getEventi().size());
-                            if (!cal.isEmpty())
-                                connection.sendUDP(cal.get(0));
+
+                            listEvento=DBManager.getInstance().findEventoByCalendario(calendario.getIdCalendario());
+                            if(listEvento==null)
+                                calendario.setEventi(new ArrayList<>());
                             else
-                                connection.sendUDP(new Errore());
+                            calendario.setEventi(listEvento);
+
+                            System.out.println("il calendario ha eventi "+calendario.getEventi().size());
+                                connection.sendTCP(calendario);
                             break;
                         case "findCalendariCondivisiByEmail":
                             stringa = r.getStringa();

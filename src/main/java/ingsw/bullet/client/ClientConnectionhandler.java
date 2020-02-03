@@ -2,6 +2,7 @@ package ingsw.bullet.client;
 
 import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
+import com.esotericsoftware.kryonet.FrameworkMessage;
 import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.minlog.Log;
 import ingsw.bullet.server.NetworkUtility.Errore;
@@ -32,11 +33,11 @@ public class ClientConnectionhandler {
     public Client client;
 
     private ClientConnectionhandler() {
-        Log.set(Log.LEVEL_INFO);
+        Log.set(Log.LEVEL_DEBUG);
 
         client=new Client();
-
         KryoUtil.registerClientClasses(client);
+        client.setTimeout(500000);
         new Thread(client).start();
 
         client.addListener(new Listener(){
@@ -128,6 +129,7 @@ public class ClientConnectionhandler {
                         System.out.println("Impossibile gestire il tipo: " + object.getClass());
                 }
 
+                if(!(object instanceof FrameworkMessage.KeepAlive))
                   inAttesa=false;
               }// se sto aspettando la risposta da una richiesta
 
@@ -141,7 +143,7 @@ public class ClientConnectionhandler {
         });
 
         try {
-            client.connect(5000,"127.0.0.1",KryoUtil.TCP_PORT, KryoUtil.UDP_PORT);
+            client.connect(1000000,"127.0.0.1",KryoUtil.TCP_PORT, KryoUtil.UDP_PORT);
         } catch (IOException e) {
             e.printStackTrace();
         }
