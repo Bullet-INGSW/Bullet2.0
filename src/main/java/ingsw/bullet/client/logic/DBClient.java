@@ -4,6 +4,7 @@ import com.esotericsoftware.kryonet.Client;
 import ingsw.bullet.client.ClientConnectionhandler;
 import ingsw.bullet.server.NetworkUtility.Richiesta;
 import ingsw.bullet.model.*;
+//import ingsw.bullet.server.persistence.DBManager;
 import javafx.scene.control.TextInputDialog;
 
 import java.util.ArrayList;
@@ -74,7 +75,12 @@ public class DBClient implements DBClientInterface {
             istanza().ritornoVuoto=false;
             return null;
         }
-        return istanza().getCalendario();
+        Calendario c=istanza().getCalendario();
+        c.setEventi(DBClient.getIstance().findEventoByCalendario(c.getIdCalendario()));
+        if(c.getEventi()==null)
+            c.setEventi(new ArrayList<>());
+        System.out.println("Il calendario ha eventi: "+c.getEventi().size());
+        return c;
     }
 
     @Override
@@ -269,6 +275,26 @@ public class DBClient implements DBClientInterface {
         }
 
         return istanza().isBool();
+    }
+
+    @Override
+    public List<Evento> findEventoByCalendario(int idCalendario) {
+        String s="findEventoByCalendario";
+        Richiesta r=new Richiesta(s);
+        r.setNum(idCalendario);
+
+        setAttesa(true);
+
+        client().sendTCP(r);
+        while(inAttesa()){
+            System.out.print("");
+        }
+
+        if(istanza().ritornoVuoto){
+            istanza().ritornoVuoto=false;
+            return null;
+        }
+        return istanza().getListEvento();
     }
 
     @Override

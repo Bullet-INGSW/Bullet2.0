@@ -25,6 +25,7 @@ public interface DBClientInterface {
     Evento insertEvento(Evento c);
     Evento updateEvento(Evento c);
     boolean removeEvento(int id);
+    List<Evento> findEventoByCalendario(int idCalendario);
 
     Gruppo findGruppoById(int id);
     Gruppo insertGruppo(Gruppo c);

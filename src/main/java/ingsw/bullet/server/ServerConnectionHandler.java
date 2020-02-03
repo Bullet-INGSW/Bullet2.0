@@ -17,7 +17,7 @@ import java.util.List;
 
 public class ServerConnectionHandler {
     public ServerConnectionHandler() {
-        Log.set(Log.LEVEL_DEBUG);
+        Log.set(Log.LEVEL_INFO);
         connessioniLoggate = new HashMap<>();
         connessioniNonLoggate = new ArrayList<>();
 
@@ -69,6 +69,9 @@ public class ServerConnectionHandler {
                         case "findCalendarioPersonaleByEmail":
                             stringa = r.getStringa();
                             List<Calendario> cal = DBManager.getInstance().findCalendarioByUtente(stringa);
+                            System.out.println("Lunghezza cal="+ cal.size());
+                            calendario=cal.get(0);
+                            System.out.println("Eventi nel calendario "+calendario.getEventi().size());
                             if (!cal.isEmpty())
                                 connection.sendUDP(cal.get(0));
                             else
@@ -139,6 +142,15 @@ public class ServerConnectionHandler {
                             evento = DBManager.getInstance().findEventoByPrimaryKey(num);
                             DBManager.getInstance().deleteEvento(evento);
                             connection.sendUDP(true);
+                            break;
+                        case "findEventoByCalendario":
+                            num=r.getNum();
+                            listEvento=DBManager.getInstance().findEventoByCalendario(num);
+                            System.out.println(listEvento.size());
+                            if(listEvento==null)
+                                connection.sendUDP(new Errore());
+                            else
+                                connection.sendUDP(listEvento);
                             break;
 
 
@@ -392,6 +404,7 @@ public class ServerConnectionHandler {
     String stringa;
     List<Calendario> listCalendario = null;
     List<TDL> listTDL = null;
+    List<Evento> listEvento=null;
     List<Connection> connessioniNonLoggate;
     HashMap<Connection, String> connessioniLoggate;
 }

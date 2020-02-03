@@ -32,7 +32,7 @@ public class ClientConnectionhandler {
     public Client client;
 
     private ClientConnectionhandler() {
-        Log.set(Log.LEVEL_DEBUG);
+        Log.set(Log.LEVEL_INFO);
 
         client=new Client();
 
@@ -106,7 +106,17 @@ public class ClientConnectionhandler {
                 }
 
                 else if(object instanceof List){
+                    System.out.println("DImensione lista");
+                    if( ((List)object).size()>0 && ((List) object).get(0) instanceof Gruppo)
                     setListGruppo((List<Gruppo>)object);
+
+                    else if( ((List)object).size()>0 &&((List)object).get(0) instanceof TDL)
+                        setListTDL((List<TDL>)object);
+
+                    else if( ((List)object).size()>0 &&((List)object).get(0) instanceof Calendario)
+                        setListCalendario((List<Calendario>)object);
+                    else if( ((List)object).size()>0 &&((List)object).get(0) instanceof Evento)
+                        setListEvento((List<Evento>)object);
                 }
 
                 else if(object instanceof Errore){
@@ -262,8 +272,13 @@ public class ClientConnectionhandler {
         this.listCalendario = listCalendario;
     }
 
+    public List<Evento> getListEvento() {
+        return listEvento;
+    }
 
-
+    public void setListEvento(List<Evento> listEvento) {
+        this.listEvento = listEvento;
+    }
 
     //Attributi
     boolean inAttesa=false;
@@ -283,6 +298,7 @@ public class ClientConnectionhandler {
     List<Gruppo> listGruppo=null;
     List<Calendario> listCalendario=null;
     List<TDL> listTDL=null;
+    List<Evento> listEvento=null;
     private static ClientConnectionhandler instance=null;
 
     public List<TDL> getListTDL() {
