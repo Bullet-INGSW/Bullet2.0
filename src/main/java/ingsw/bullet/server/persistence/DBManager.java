@@ -302,6 +302,7 @@ public class DBManager {
 
 	public void addPartecipanteEvento(Partecipante partecipante) {
 		getDAOPartecipanteEvento().save(partecipante);
+
 	}
 
 	public void deletePartecipanteEvento(Partecipante partecipante) {

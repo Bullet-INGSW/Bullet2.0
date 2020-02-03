@@ -33,7 +33,7 @@ public class DAOTDL implements DAOInterface<TDL> {
 			ResultSet resultSet = statement.getGeneratedKeys();
 			resultSet.next();
 			int id = resultSet.getInt(1);
-			t = findByPrimaryKey(id);
+			t.setIdTDL(id);
 		} catch (SQLException e) {
 			throw new RuntimeException(e.getMessage());
 		} finally {
@@ -242,8 +242,7 @@ public class DAOTDL implements DAOInterface<TDL> {
 			ResultSet resultSet = statement.getGeneratedKeys();
 			resultSet.next();
 			int id = resultSet.getInt(1);
-
-			t = findByPrimaryKey(id);
+			t.setIdTDL(id);
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e.getMessage());

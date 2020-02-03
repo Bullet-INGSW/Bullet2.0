@@ -32,7 +32,7 @@ public class DAONotifica implements DAOInterface<Notifica> {
 			ResultSet resultSet = statement.getGeneratedKeys();
 			resultSet.next();
 			int id = resultSet.getInt(1);
-			t = findByPrimaryKey(id);
+			t.setIdNotifica(id);
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e.getMessage());
@@ -165,7 +165,7 @@ public class DAONotifica implements DAOInterface<Notifica> {
 			ResultSet resultSet = statement.getGeneratedKeys();
 			resultSet.next();
 			int id = resultSet.getInt(1);
-			t = findByPrimaryKey(id);
+			t.setIdNotifica(id);
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e.getMessage());

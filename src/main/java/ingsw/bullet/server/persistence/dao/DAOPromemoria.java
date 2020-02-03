@@ -36,8 +36,7 @@ public class DAOPromemoria implements DAOInterface<Promemoria> {
 			ResultSet resultSet = statement.getGeneratedKeys();
 			resultSet.next();
 			int id = resultSet.getInt(1);
-
-			t = findByPrimaryKey(id);
+			t.setIdPromemoria(id);
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e.getMessage());
@@ -235,8 +234,7 @@ public class DAOPromemoria implements DAOInterface<Promemoria> {
 			ResultSet resultSet = statement.getGeneratedKeys();
 			resultSet.next();
 			int id = resultSet.getInt(1);
-
-			t = findByPrimaryKey(id);
+			t.setIdPromemoria(id);
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e.getMessage());
