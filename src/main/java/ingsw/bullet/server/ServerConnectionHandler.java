@@ -231,9 +231,9 @@ public class ServerConnectionHandler {
                             break;
 
                         //Membro
-                        case "findMembroById":
+                        case "findMembro":
                             //DA FARE è SBAGLIATO
-                            membro = DBManager.getInstance().findMembroByPrimaryKey(r.getStringa(), Integer.parseInt(r.getStringa2()));
+                            membro = DBManager.getInstance().findMembroByPrimaryKey(r.getStringa(), r.getNum());
                             if (membro == null) connection.sendUDP(new Errore());
                             else
                                 connection.sendUDP(membro);

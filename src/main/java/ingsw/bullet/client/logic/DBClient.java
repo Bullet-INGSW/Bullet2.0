@@ -424,11 +424,11 @@ public class DBClient implements DBClientInterface {
     }
 
     @Override
-    public Membro findMembro(String email, String idGruppo) {
+    public Membro findMembro(String email, int idGruppo) {
         String s="findMembro";
         Richiesta r=new Richiesta(s);
         r.setStringa(email);
-        r.setStringa2(idGruppo);
+        r.setNum(idGruppo);
 
         setAttesa(true);
 

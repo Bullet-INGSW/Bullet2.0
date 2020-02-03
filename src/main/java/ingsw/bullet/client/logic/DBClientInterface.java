@@ -32,7 +32,7 @@ public interface DBClientInterface {
     Gruppo updateGruppo(Gruppo c);
     boolean removeGruppo(int id);
 
-    Membro findMembro(String email,String idGruppo);
+    Membro findMembro(String email,int idGruppo);
     Membro insertMembro(Membro c);
     Membro updateMembro(Membro c);
     boolean removeMembro(String email,String idGruppo);
