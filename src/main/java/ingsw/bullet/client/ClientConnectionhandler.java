@@ -33,7 +33,7 @@ public class ClientConnectionhandler {
     public Client client;
 
     private ClientConnectionhandler() {
-        Log.set(Log.LEVEL_DEBUG);
+        Log.set(Log.LEVEL_NONE);
 
         client=new Client();
         KryoUtil.registerClientClasses(client);
@@ -50,7 +50,6 @@ public class ClientConnectionhandler {
             @Override
             public void disconnected(Connection connection) {
 
-                System.out.println("Disconesso dal server");
             }
 
             @Override
@@ -110,7 +109,7 @@ public class ClientConnectionhandler {
                 }
 
                 else if(object instanceof List){
-                    System.out.println("Dimensione lista");
+
                     if( ((List)object).size()>0 && ((List) object).get(0) instanceof Gruppo)
                     setListGruppo((List<Gruppo>)object);
 

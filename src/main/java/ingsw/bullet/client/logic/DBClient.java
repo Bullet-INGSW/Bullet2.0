@@ -399,7 +399,6 @@ public class DBClient implements DBClientInterface {
 
     @Override
     public Membro insertMembro(Membro c) {
-        System.out.println("AFONISANFIOPSANFIOPDSAOPNF");
         String s="insertMembro";
         Richiesta r=new Richiesta(s);
         r.setMembro(c);

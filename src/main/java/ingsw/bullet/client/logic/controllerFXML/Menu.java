@@ -47,9 +47,7 @@ public class Menu {
             return;
         }
 
-        System.out.println("Sto cercando " + loginEmail.getText());
         Utente u = DBClient.getIstance().findUtenteByEmail(loginEmail.getText());
-        System.out.println("UTENTE: " + u);
 
         if(u == null)
         {

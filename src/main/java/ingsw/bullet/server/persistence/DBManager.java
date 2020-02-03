@@ -20,7 +20,7 @@ public class DBManager {
 			// System.out.println("DATI ------------ " + url + " " + user + " " + password);
 			Class.forName("org.mariadb.jdbc.Driver");
 			dataSource = new DataSource(url, user, password);
-			System.out.println("Connessione al DB ok");
+			//System.out.println("Connessione al DB ok");
 		} catch (Exception e) {
 			System.err.println("org.mariadb.jdbc.Driver: failed to load MariaDB JDBC driver\n" + e);
 			e.printStackTrace();

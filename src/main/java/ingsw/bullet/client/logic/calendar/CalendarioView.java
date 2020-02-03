@@ -77,7 +77,6 @@ public class CalendarioView extends CalendarView {
                         public void handle(CalendarEvent event) {
                             if(!controlliPermessi())
                             {
-                                System.out.println("modifica evento");
                                 Entry<?> entry = event.getEntry();
                                 entry.setTitle(event.getOldText());
                                 entry.setInterval(event.getOldInterval());
@@ -85,7 +84,6 @@ public class CalendarioView extends CalendarView {
                                 entry.setCalendar(event.getOldCalendar());
                                 return;
                             }
-                            System.out.println(event.getEntry() + " DTKUKUFKKUYFKU");
                             modificaEvento(event.getEntry(), event);
                         }
                     });
@@ -96,7 +94,7 @@ public class CalendarioView extends CalendarView {
 
 
         for (Evento e : calendario.getEventi()) {
-            System.out.println(e);
+            // System.out.println(e);
             Entry<String> entry = createEntryByEvento(e);
             eventi.put(entry.getId(), e);
         }
@@ -142,7 +140,7 @@ public class CalendarioView extends CalendarView {
                 calendar.addEventHandler(new EventHandler<CalendarEvent>() {
                     @Override
                     public void handle(CalendarEvent event) {
-                        System.out.println(event.getEntry());
+                        // System.out.println(event.getEntry());
                         modificaEvento(event.getEntry(), event);
                     }
                 });
@@ -172,7 +170,7 @@ public class CalendarioView extends CalendarView {
             if (control instanceof AllDayView) {
                 entry.setFullDay(true);
             }
-            System.out.println(getCalendarSources().get(0).getCalendars().get(0));
+            //System.out.println(getCalendarSources().get(0).getCalendars().get(0));
             aggiungiEvento(entry, getCalendarSources().get(0).getCalendars().get(0), false);
 
             return entry;
@@ -239,27 +237,26 @@ public class CalendarioView extends CalendarView {
         if (!controlliPermessi())
             return;
 
-        System.out.println("Event: " + event);
+        //System.out.println("Event: " + event);
 
         Evento e = eventi.get(entry.getId());
         if (e == null || e.getIdEvento() == 0)
             return;
-        System.out.println(e.getIdEvento());
-        System.out.println("UPDATE");
+        //  System.out.println(e.getIdEvento());
+        //System.out.println("UPDATE");
         e.setNome(entry.getTitle());
         e.setDescrizione(entry.getLocation());
         e.setDataInizio(entry.getStartAsLocalDateTime());
         e.setDataFine(entry.getEndAsLocalDateTime());
         e.setFullDay(entry.isFullDay());
         if (etichette.get(entry.getCalendar()) != null) {
-            System.out.println(etichette.get(entry.getCalendar()).getIdEtichetta());
+            //    System.out.println(etichette.get(entry.getCalendar()).getIdEtichetta());
             e.setIdEtichetta(etichette.get(entry.getCalendar()).getIdEtichetta());
         }
         else
             e.setIdEtichetta(1);
         e = DBClient.getIstance().updateEvento(e);
 
-        System.out.println("Modifica Evento ");
     }
 
     public void rimuoviEvento(Entry<?> entry, boolean removeOnCalendar) {
@@ -283,7 +280,6 @@ public class CalendarioView extends CalendarView {
 
                 if(!controlliPermessi())
                 {
-                    System.out.println("modifica evento");
                     Entry<?> entry = event.getEntry();
                     entry.setTitle(event.getOldText());
                     entry.setInterval(event.getOldInterval());
@@ -291,7 +287,6 @@ public class CalendarioView extends CalendarView {
                     entry.setCalendar(event.getOldCalendar());
                     return;
                 }
-                System.out.println(event.getEntry());
                 modificaEvento(event.getEntry(), event);
             }
         });
@@ -302,7 +297,6 @@ public class CalendarioView extends CalendarView {
         etichetta.setColore(styleNum);
 
         etichetta = DBClient.getIstance().insertEtichetta(etichetta);
-        System.out.println("ID ETICHETTA: " + etichetta.getIdEtichetta());
         if (etichetta != null) {
             myCalendarSource.getCalendars().add(calendar);
             etichette.put(calendar, etichetta);

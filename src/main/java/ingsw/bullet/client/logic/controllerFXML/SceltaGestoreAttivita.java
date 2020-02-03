@@ -41,7 +41,6 @@ public abstract class SceltaGestoreAttivita implements Initializable {
                 b.setOnAction(new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent actionEvent) {
-                        System.out.println(n.getNome());
                         mandaAGestoreAttivita(n);
                     }
                 });

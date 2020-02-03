@@ -29,14 +29,12 @@ public class CalendarioViewCondiviso extends CalendarioView {
 
 
     public boolean amministratoreControllo() {
-        System.out.println(inutile);
 
         if(inutile)
             return true;
 
 
         if (gruppo == null || membro == null) {
-            System.out.println("NOOOOOO");
             membro = DBClient.getIstance().findMembro(Profilo.getEmail(), calendario.getIdGruppo());
         }
         if (!membro.isAdmin()) {

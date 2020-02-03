@@ -17,7 +17,7 @@ import java.util.List;
 
 public class ServerConnectionHandler {
     public ServerConnectionHandler() {
-        Log.set(Log.LEVEL_DEBUG);
+        Log.set(Log.LEVEL_NONE);
         connessioniLoggate = new HashMap<>();
         connessioniNonLoggate = new ArrayList<>();
 
@@ -50,7 +50,7 @@ public class ServerConnectionHandler {
                 if (object instanceof Richiesta) {
                     Richiesta r = (Richiesta) object;
                     String tipo = r.getTipoRichiesta();
-                    System.out.println("Richiesta: " + tipo);
+                    //System.out.println("Richiesta: " + tipo);
                     switch (tipo) {
 
 
@@ -82,7 +82,6 @@ public class ServerConnectionHandler {
                                 else
                                     calendario.setEventi(listEvento);
 
-                                System.out.println("il calendario ha eventi " + calendario.getEventi().size());
                                 connection.sendTCP(calendario);
                             }
                             break;
@@ -170,7 +169,6 @@ public class ServerConnectionHandler {
                         case "findEventoByCalendario":
                             num=r.getNum();
                             listEvento=DBManager.getInstance().findEventoByCalendario(num);
-                            System.out.println(listEvento.size());
                             if(listEvento==null)
                                 connection.sendUDP(new Errore());
                             else
@@ -232,7 +230,6 @@ public class ServerConnectionHandler {
 
                         //Membro
                         case "findMembro":
-                            //DA FARE è SBAGLIATO
                             membro = DBManager.getInstance().findMembroByPrimaryKey(r.getStringa(), r.getNum());
                             if (membro == null) connection.sendUDP(new Errore());
                             else
@@ -240,7 +237,6 @@ public class ServerConnectionHandler {
                             break;
                         case "insertMembro":
                             membro = r.getMembro();
-                            System.out.println(membro.getEmail()+membro.getIdGruppo());
                             DBManager.getInstance().addMembro(membro);
                             connection.sendUDP(membro);
                             break;
@@ -426,7 +422,7 @@ public class ServerConnectionHandler {
                             break;
 
                         default:
-                            System.out.println("Caso non handeled " + tipo);
+                           //        System.out.println("Caso non handeled " + tipo);
                             break;
                     }
 

@@ -133,7 +133,6 @@ public class Profilo extends ProfiloBase {
             calendario.setNome("Calendario Personale");
             calendario.setEmail(email);
             DBClient.getIstance().insertCalendario(calendario);
-            System.out.println("CALENDARIO MA IN PROFILO: " + calendario);
         }
         return calendario;
     }

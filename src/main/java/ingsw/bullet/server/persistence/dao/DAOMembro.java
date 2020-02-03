@@ -19,7 +19,6 @@ public class DAOMembro implements DAOInterface<Membro> {
 		Connection connection = null;
 
 		try {
-			System.out.println(t.getEmail()+" "+t.getIdGruppo()+" "+t.isAdmin());
 			connection = this.dataSource.getConnection();
 			PreparedStatement statement;
 			String query = "INSERT INTO membro (email, id_gruppo, admin) VALUES (?,?,?);";
