@@ -70,17 +70,21 @@ public class ServerConnectionHandler {
                             stringa = r.getStringa();
 
                             List<Calendario> cal = DBManager.getInstance().findCalendarioByUtente(stringa);
+                            if(cal==null || cal.isEmpty()){
+                                connection.sendUDP(new Errore());
+                            }
+                            else {
+                                calendario = cal.get(0);
 
-                            calendario=cal.get(0);
+                                listEvento = DBManager.getInstance().findEventoByCalendario(calendario.getIdCalendario());
+                                if (listEvento == null)
+                                    calendario.setEventi(new ArrayList<>());
+                                else
+                                    calendario.setEventi(listEvento);
 
-                            listEvento=DBManager.getInstance().findEventoByCalendario(calendario.getIdCalendario());
-                            if(listEvento==null)
-                                calendario.setEventi(new ArrayList<>());
-                            else
-                            calendario.setEventi(listEvento);
-
-                            System.out.println("il calendario ha eventi "+calendario.getEventi().size());
+                                System.out.println("il calendario ha eventi " + calendario.getEventi().size());
                                 connection.sendTCP(calendario);
+                            }
                             break;
                         case "findCalendariCondivisiByEmail":
                            /* stringa = r.getStringa();
@@ -197,7 +201,34 @@ public class ServerConnectionHandler {
                             DBManager.getInstance().deleteGruppo(gruppo);
                             connection.sendUDP(true);
                             break;
+                        case "findGroupByEmail":
+                            stringa=r.getStringa();
+                            List<Gruppo> listGruppo=DBManager.getInstance().findGruppoByMembro(stringa);
+                            if(listGruppo==null)
+                                listGruppo=new ArrayList<>();
+                            if(!listGruppo.isEmpty()){
+                                for(int i=0;i<listGruppo.size();i++){
 
+                                    //Membri
+                                    listGruppo.get(i).setMembri(DBManager.getInstance().findMembroByGruppo(listGruppo.get(i).getIdGruppo()));
+                                    if(listGruppo.get(i).getMembri()==null)
+                                        listGruppo.get(i).setMembri(new ArrayList<>());
+                                    //calendari
+                                    listGruppo.get(i).setCalendari(DBManager.getInstance().findCalendarioByGruppo(listGruppo.get(i).getIdGruppo()));
+                                    if(listGruppo.get(i).getCalendari()==null)
+                                        listGruppo.get(i).setCalendari(new ArrayList<>());
+                                    //tdl
+                                    listGruppo.get(i).setTDL(DBManager.getInstance().findTDLByGruppo(listGruppo.get(i).getIdGruppo()));
+                                    if(listGruppo.get(i).getCalendari()==null)
+                                        listGruppo.get(i).setCalendari(new ArrayList<>());
+
+                                    listGruppo.get(i).setAmministratori(new ArrayList<>());
+
+                                }
+
+                            }
+                            connection.sendUDP(listGruppo);
+                            break;
 
                         //Membro
                         case "findMembroById":

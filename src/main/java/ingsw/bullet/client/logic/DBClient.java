@@ -5,6 +5,7 @@ import ingsw.bullet.client.ClientConnectionhandler;
 import ingsw.bullet.server.NetworkUtility.Richiesta;
 import ingsw.bullet.model.*;
 //import ingsw.bullet.server.persistence.DBManager;
+import ingsw.bullet.server.persistence.DBManager;
 import javafx.scene.control.TextInputDialog;
 
 import java.util.ArrayList;
@@ -76,9 +77,7 @@ public class DBClient implements DBClientInterface {
             return null;
         }
         Calendario c=istanza().getCalendario();
-        //c.setEventi(DBClient.getIstance().findEventoByCalendario(c.getIdCalendario()));
-        //if(c.getEventi()==null)
-            //c.setEventi(new ArrayList<>());
+
         System.out.println("Il calendario ha eventi: "+c.getEventi().size());
         return c;
     }
@@ -373,10 +372,22 @@ public class DBClient implements DBClientInterface {
         while(inAttesa()){
             System.out.print("");
         }
-        if(istanza().ritornoVuoto){
-            istanza().ritornoVuoto=false;
-            return null;
+
+        List<Gruppo> gruppi=istanza().getListGruppo();
+        if(!(gruppi==null || gruppi.size()==0 )){
+            for(int i=0;i<gruppi.size();i++){
+                Gruppo gru=gruppi.get(i);
+                List<Membro> membri=gru.getMembri();
+                List<Membro > ammi=new ArrayList<>();
+                if(!membri.isEmpty()){
+                    for(int j=0;j<gru.getMembri().size();j++){
+                        if(gru.getMembri().get(j).isAdmin())
+                            ammi.add(gru.getMembri().get(j));
+                    }
+                }
+            }
         }
+
         return istanza().getListGruppo();
     }
 

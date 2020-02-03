@@ -190,7 +190,7 @@ public class DAOGruppo implements DAOInterface<Gruppo> {
 			PreparedStatement statement;
 			String query = "SELECT DISTINCT " +
 					"gruppo.id_gruppo, " +
-					"gruppo.nome, " +
+					"gruppo.nome " +
 					"FROM gruppo " +
 					"JOIN membro m on gruppo.id_gruppo = m.id_gruppo " +
 					"WHERE m.email = ?";
