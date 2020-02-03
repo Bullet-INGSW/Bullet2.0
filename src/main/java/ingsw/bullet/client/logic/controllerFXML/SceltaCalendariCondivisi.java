@@ -11,6 +11,7 @@ import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class SceltaCalendariCondivisi extends SceltaGestoreAttivita {
@@ -32,7 +33,15 @@ public class SceltaCalendariCondivisi extends SceltaGestoreAttivita {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        nomiGestoriAttivita = new ArrayList<>(DBClient.getIstance().findCalendariCondivisiByEmail(Profilo.email));
+        List<Calendario> c = DBClient.getIstance().findCalendariCondivisiByEmail(Profilo.email);;
+
+        if(c != null)
+        for(Calendario calendario:c)
+        {
+            if(nomiGestoriAttivita == null)
+                nomiGestoriAttivita = new ArrayList<>();
+            nomiGestoriAttivita.add(calendario);
+        }
         super.initialize(url, resourceBundle);
     }
 }

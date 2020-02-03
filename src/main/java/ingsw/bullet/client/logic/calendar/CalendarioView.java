@@ -64,6 +64,8 @@ public class CalendarioView extends CalendarView {
         super();
         this.calendario = calendario;
 
+        System.out.println("\nCALENDARIO:\n" + calendario);
+
         Etichetta calendario1 = new Etichetta();
         calendario1.setNome(getCalendarSources().get(0).getCalendars().get(0).getName());
         calendario1.setColore(coloriMap.get(Calendar.Style.STYLE1));
@@ -77,6 +79,7 @@ public class CalendarioView extends CalendarView {
             myCalendarSource.getCalendars().add(c);
             etichette.put(c, e);
         }
+
 
         for(Evento e:calendario.getEventi())
         {
@@ -190,7 +193,7 @@ public class CalendarioView extends CalendarView {
 
                         Button indietro = new Button("Indietro");
                         ((HBox)c).getChildren().add(2,indietro);
-                        indietro.setOnAction(evt -> Main.getInstance().replaceSceneContent("profilo", Main.getInstance().stage, 600, 400));
+                        indietro.setOnAction(evt -> Main.getInstance().replaceSceneContent("profilo", (Stage)this.getScene().getWindow(), 600, 400));
                     }
 
             }
@@ -219,7 +222,6 @@ public class CalendarioView extends CalendarView {
         e.setFullDay(entry.isFullDay());
 
         e = DBClient.getIstance().insertEvento(e);
-        entry.setId(""+e.getIdEvento());
 
         if(e != null)
         {
@@ -268,7 +270,7 @@ public class CalendarioView extends CalendarView {
 
         Etichetta etichetta = new Etichetta();
         etichetta.setNome(calendar.getName());
-        etichetta.setColore(coloriMap.get(Calendar.Style.valueOf(calendar.getStyle())));
+        etichetta.setColore(styleNum);
 
         etichetta = DBClient.getIstance().insertEtichetta(etichetta);
         if(etichetta != null)
