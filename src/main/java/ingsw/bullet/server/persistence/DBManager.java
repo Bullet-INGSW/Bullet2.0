@@ -250,8 +250,13 @@ public class DBManager {
 	public DAOGruppo getDAOGruppo() {
 		return new DAOGruppo(dataSource);
     }
-    
-    // MEMBRO //
+
+	public List<Gruppo> findGruppoByMembro(String email) {
+		return getDAOGruppo().findByMembro(email);
+	}
+
+
+	// MEMBRO //
 	public Membro findMembroByPrimaryKey(String email, int id_gruppo) {
 		return getDAOMembro().findByPrimaryKey(email, id_gruppo);
 	}

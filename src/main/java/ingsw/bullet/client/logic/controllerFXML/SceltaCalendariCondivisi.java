@@ -7,6 +7,7 @@ import ingsw.bullet.model.Calendario;
 import ingsw.bullet.model.GestoreAttivita;
 import javafx.event.ActionEvent;
 import javafx.scene.Scene;
+import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -19,14 +20,14 @@ public class SceltaCalendariCondivisi extends SceltaGestoreAttivita {
         {
             Main.getInstance().stage.close();
             Scene scene = new Scene(new CalendarioView((Calendario)gestoreAttivita));
-            Main.getInstance().stage.setScene(scene);
-            Main.getInstance().stage.show();
+            ((Stage)gestoreAttivitaCondivise.getScene().getWindow()).setScene(scene);
         }
     }
 
     @Override
     public void nuovoGestoreAttivita(ActionEvent event) {
-        Main.getInstance().replaceSceneContent("nuovoCalendario", Main.getInstance().stage, 800, 600);
+        Main.getInstance().replaceSceneContent("nuovoCalendario",
+                (Stage)gestoreAttivitaCondivise.getScene().getWindow(), 800, 600);
     }
 
     @Override

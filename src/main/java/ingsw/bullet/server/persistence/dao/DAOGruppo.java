@@ -1,5 +1,6 @@
 package ingsw.bullet.server.persistence.dao;
 
+import ingsw.bullet.model.Calendario;
 import ingsw.bullet.model.Gruppo;
 import ingsw.bullet.model.Membro;
 import ingsw.bullet.server.persistence.DataSource;
@@ -177,6 +178,42 @@ public class DAOGruppo implements DAOInterface<Gruppo> {
 			}
 		}
 
+	}
+
+	public List<Gruppo> findByMembro(String email) {
+		Connection connection = null;
+		List<Gruppo> gruppi = new ArrayList<Gruppo>();
+
+		try {
+			connection = this.dataSource.getConnection();
+			Gruppo gruppo;
+			PreparedStatement statement;
+			String query = "SELECT DISTINCT " +
+					"gruppo.id_gruppo, " +
+					"gruppo.nome, " +
+					"FROM gruppo " +
+					"JOIN membro m on gruppo.id_gruppo = m.id_gruppo " +
+					"WHERE m.email = ?";
+			statement = connection.prepareStatement(query);
+			statement.setString(1, email);
+			ResultSet result = statement.executeQuery();
+
+			while (result.next()) {
+				gruppo = new Gruppo();
+				gruppo.setIdGruppo(result.getInt("id_gruppo"));
+				gruppo.setNome(result.getString("nome"));
+				gruppi.add(gruppo);
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException(e.getMessage());
+		} finally {
+			try {
+				connection.close();
+			} catch (SQLException e) {
+				throw new RuntimeException(e.getMessage());
+			}
+		}
+		return gruppi;
 	}
 
 }

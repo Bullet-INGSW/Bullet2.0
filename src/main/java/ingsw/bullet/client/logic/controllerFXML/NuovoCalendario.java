@@ -3,6 +3,7 @@ package ingsw.bullet.client.logic.controllerFXML;
 import ingsw.bullet.client.logic.DBClient;
 import ingsw.bullet.client.view.Main;
 import ingsw.bullet.model.Calendario;
+import javafx.stage.Stage;
 
 public class NuovoCalendario extends NuovoGestoreAttivita{
     @Override
@@ -12,6 +13,6 @@ public class NuovoCalendario extends NuovoGestoreAttivita{
         c.setIdGruppo(gruppoId);
         DBClient.getIstance().insertCalendario(c);
 
-        Main.getInstance().replaceSceneContent("sceltaCalendariCondivisi", Main.getInstance().stage, 800, 600);
+        Main.getInstance().replaceSceneContent("sceltaCalendariCondivisi", (Stage)nomeGestoreAttivita.getScene().getWindow(), 800, 600);
     }
 }

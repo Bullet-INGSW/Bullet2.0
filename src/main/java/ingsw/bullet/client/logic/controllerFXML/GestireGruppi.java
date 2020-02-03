@@ -1,6 +1,7 @@
 package ingsw.bullet.client.logic.controllerFXML;
 
 import ingsw.bullet.client.logic.DBClient;
+import ingsw.bullet.client.view.Main;
 import ingsw.bullet.model.Gruppo;
 import ingsw.bullet.model.Membro;
 import javafx.event.ActionEvent;
@@ -13,6 +14,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -117,12 +119,12 @@ public class GestireGruppi implements Initializable {
 
     @FXML
     void creaNuovoGruppo(ActionEvent event) {
-//      manda in creaGruppo
+        Main.getInstance().replaceSceneContent("creaGruppo", (Stage)elencoGruppi.getScene().getWindow(), 600, 400);
     }
 
     @FXML
     void indietro(ActionEvent event) {
-//      manda in profilo
+        Main.getInstance().replaceSceneContent("profilo", (Stage)elencoGruppi.getScene().getWindow(), 600, 400);
     }
 
 }

@@ -81,7 +81,7 @@ public class Profilo extends ProfiloBase {
 
     @FXML
     void calendariCondivisi(ActionEvent event) {
-        Main.getInstance().replaceSceneContent("sceltaCalendariCondivisi", Main.getInstance().stage, 600, 400);
+        Main.getInstance().replaceSceneContent("sceltaCalendariCondivisi", (Stage)emailLabel.getScene().getWindow(), 600, 400);
     }
 
     @FXML
@@ -93,12 +93,12 @@ public class Profilo extends ProfiloBase {
 
     @FXML
     void gestireGruppi(ActionEvent event) {
-        Main.getInstance().replaceSceneContent("gestireGruppi", Main.getInstance().stage, 600, 400);
+        Main.getInstance().replaceSceneContent("gestireGruppi", (Stage)emailLabel.getScene().getWindow(), 600, 400);
     }
 
     @FXML
     void tdlCondivise(ActionEvent event) {
-        Main.getInstance().replaceSceneContent("sceltaToDoListCondivise", Main.getInstance().stage, 600, 400);
+        Main.getInstance().replaceSceneContent("sceltaToDoListCondivise", (Stage)emailLabel.getScene().getWindow(), 600, 400);
     }
 
     @FXML

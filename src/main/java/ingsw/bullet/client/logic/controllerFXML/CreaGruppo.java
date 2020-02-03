@@ -16,6 +16,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 import java.util.ArrayList;
 
@@ -37,7 +38,7 @@ public class CreaGruppo {
     @FXML
     void inserisciMembro(KeyEvent event) {
         if (event.getCode().equals(KeyCode.ENTER) && membroDaAggiungere.getText() != null) {
-            if (DBClient.getIstance().findUtenteByEmail(membroDaAggiungere.getText()) != null) {
+            if (DBClient.getIstance().findUtenteByEmail(membroDaAggiungere.getText()) == null) {
                 new Alert(Alert.AlertType.ERROR, "Non è presente questo utente").showAndWait();
                 return;
             }
@@ -92,7 +93,7 @@ public class CreaGruppo {
             }
 
 //              va in gestire gruppi
-            Main.getInstance().replaceSceneContent("gestireGruppi", Main.getInstance().stage, 600, 400);
+            Main.getInstance().replaceSceneContent("gestireGruppi", (Stage)nomeGruppo.getScene().getWindow(), 600, 400);
         } else
             new Alert(Alert.AlertType.ERROR, "Inserire Nome Gruppo");
     }
@@ -100,7 +101,7 @@ public class CreaGruppo {
     @FXML
     void annulla(ActionEvent event) {
 // vai in gestisci gruppi
-        Main.getInstance().replaceSceneContent("gestireGruppi", Main.getInstance().stage, 600, 400);
+        Main.getInstance().replaceSceneContent("gestireGruppi", (Stage) elencoMembri.getScene().getWindow(), 600, 400);
     }
 
     ArrayList<String> getElencoMembri() {

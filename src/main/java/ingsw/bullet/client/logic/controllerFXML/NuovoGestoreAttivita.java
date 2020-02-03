@@ -11,6 +11,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -66,6 +67,6 @@ public abstract class NuovoGestoreAttivita implements Initializable {
 
     @FXML
     void indietro(ActionEvent event) {
-        Main.getInstance().replaceSceneContent("sceltaCalendariCondivisi", Main.getInstance().stage, 800, 600);
+        Main.getInstance().replaceSceneContent("sceltaCalendariCondivisi", (Stage)nomeGestoreAttivita.getScene().getWindow(), 800, 600);
     }
 }
