@@ -2,6 +2,7 @@ package ingsw.bullet.client.logic.controllerFXML;
 
 import ingsw.bullet.client.logic.DBClient;
 import ingsw.bullet.client.logic.calendar.CalendarioView;
+import ingsw.bullet.client.logic.calendar.CalendarioViewCondiviso;
 import ingsw.bullet.client.view.Main;
 import ingsw.bullet.model.Calendario;
 import ingsw.bullet.model.GestoreAttivita;
@@ -20,7 +21,7 @@ public class SceltaCalendariCondivisi extends SceltaGestoreAttivita {
         if(gestoreAttivita instanceof Calendario)
         {
             Main.getInstance().stage.close();
-            Scene scene = new Scene(new CalendarioView((Calendario)gestoreAttivita));
+            Scene scene = new Scene(new CalendarioViewCondiviso((Calendario)gestoreAttivita));
             ((Stage)gestoreAttivitaCondivise.getScene().getWindow()).setScene(scene);
         }
     }

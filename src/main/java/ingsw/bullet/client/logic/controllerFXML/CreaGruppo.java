@@ -67,15 +67,17 @@ public class CreaGruppo {
     }
 
     @FXML
-    void conferma(ActionEvent event) {
+    void conferma(ActionEvent event)
+    {
         if (nomeGruppo.getText() != null) {
             ArrayList<String> membri = getElencoMembri();
-            if ( membri.isEmpty())
-                new Alert(Alert.AlertType.ERROR, "Non hai aggiunto nessun membro");
-
+            if (membri==null || membri.isEmpty())
+            {    new Alert(Alert.AlertType.ERROR, "Non hai aggiunto nessun membro");
+                return;
+            }
             Gruppo g = new Gruppo();
             g.setNome(nomeGruppo.getText());
-            g = DBClient.getIstance().insertGruppo(g); //creaGruppo(Profilo.email, nomeGruppo.getText(),getElencoMembri());
+            g = DBClient.getIstance().insertGruppo(g);
 
             Utente utente = DBClient.getIstance().findUtenteByEmail(Profilo.email);
             Membro amministratore = new Membro();
@@ -84,7 +86,7 @@ public class CreaGruppo {
             amministratore.setIdGruppo(g.getIdGruppo());
             DBClient.getIstance().insertMembro(amministratore);
 
-            for (String email : getElencoMembri()) {
+            for (String email : membri) {
                 Membro membro = new Membro();
                 membro.setEmail(email);
                 membro.setAdmin(true);
@@ -108,8 +110,8 @@ public class CreaGruppo {
         ArrayList<String> s = null;
         for (Node n : elencoMembri.getChildren()) {
             s = new ArrayList<>();
-            if (n instanceof Label)
-                s.add(((Label) n).getText());
+            if (n instanceof Button)
+                s.add(((Button) n).getText());
         }
         return s;
     }

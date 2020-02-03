@@ -23,7 +23,7 @@ public class DAOMembro implements DAOInterface<Membro> {
 			PreparedStatement statement;
 			String query = "INSERT INTO membro (email, id_gruppo, admin) VALUES (?,?,?);";
 			statement = connection.prepareStatement(query);
-
+			
 			statement.setString(1, t.getEmail());
 			statement.setInt(2, t.getIdGruppo());
 			statement.setBoolean(3, t.isAdmin());

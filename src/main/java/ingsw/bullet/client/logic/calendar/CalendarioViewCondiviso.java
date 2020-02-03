@@ -29,7 +29,7 @@ public class CalendarioViewCondiviso extends CalendarioView {
 
     public boolean amministratoreControllo() {
         if (gruppo == null || membro == null) {
-            membro = DBClient.getIstance().findMembro(Profilo.getEmail(), ""+calendario.getIdGruppo());
+            membro = DBClient.getIstance().findMembro(Profilo.getEmail(), calendario.getIdGruppo());
             gruppo = DBClient.getIstance().findGruppoById(calendario.getIdGruppo());
         }
         if (!gruppo.getAmministratori().contains(membro)) {

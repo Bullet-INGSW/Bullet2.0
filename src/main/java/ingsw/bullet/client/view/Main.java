@@ -82,5 +82,8 @@ public class Main extends Application {
         launch();
     }
 
-
+    @Override
+    public void stop(){
+        System.exit(0);
+    }
 }

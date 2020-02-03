@@ -23,7 +23,7 @@ public class DAOUtente implements DAOInterface<Utente> {
 			connection = this.dataSource.getConnection();
 			PreparedStatement statement;
 			String query = "INSERT INTO utente (email, password, nome, cognome, sesso) VALUES (?,?,?,?,?);";
-			statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+			statement = connection.prepareStatement(query);
 
 			statement.setString(1, t.getEmail());
 			statement.setString(2, t.getPassword());
@@ -33,11 +33,7 @@ public class DAOUtente implements DAOInterface<Utente> {
 
 			statement.executeUpdate();
 
-			ResultSet resultSet = statement.getGeneratedKeys();
-			resultSet.next();
-
-			String email=resultSet.getString(1);
-			t = findByPrimaryKey(email);
+			t = findByPrimaryKey(t.getEmail());
 		} catch (SQLException e) {
 			throw new RuntimeException(e.getMessage());
 		} finally {

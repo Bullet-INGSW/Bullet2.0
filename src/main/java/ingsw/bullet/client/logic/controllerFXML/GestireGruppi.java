@@ -27,7 +27,9 @@ public class GestireGruppi implements Initializable {
     public static int WIDTH = 800;
     public static int HEIGHT = 600;
 
-    protected static ArrayList<Gruppo> gruppi;
+    protected ArrayList<Gruppo> gruppi;
+
+    protected Gruppo gruppoScelto = null;
 
     @FXML
     private VBox elencoGruppi;
@@ -47,8 +49,8 @@ public class GestireGruppi implements Initializable {
             @Override
             public void handle(ActionEvent actionEvent) {
                 ArrayList<Membro> membri = (ArrayList<Membro>) gruppo.getMembri();
-                elencoGruppi.getChildren().clear();
-
+                elencoMembri.getChildren().clear();
+                gruppoScelto = gruppo;
                 for (Membro s : membri) {
                     aggiungiBottoneMembro(s);
                 }
@@ -77,9 +79,10 @@ public class GestireGruppi implements Initializable {
         l.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                if (!utente.isAdmin()){
-                    DBClient.getIstance().removeMembro(utente.getEmail(),""+utente.getIdGruppo());
-                    rimuoviMembro(l);}
+                if (!utente.isAdmin()) {
+                    DBClient.getIstance().removeMembro(utente.getEmail(), "" + utente.getIdGruppo());
+                    rimuoviMembro(l);
+                }
             }
         });
         elencoMembri.getChildren().add(l);
@@ -93,7 +96,7 @@ public class GestireGruppi implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-         gruppi = (ArrayList<Gruppo>) DBClient.getIstance().findGroupByEmail(Profilo.email);
+        gruppi = (ArrayList<Gruppo>) DBClient.getIstance().findGroupByEmail(Profilo.email);
 
         if (gruppi != null)
             if (!gruppi.isEmpty())
@@ -105,26 +108,35 @@ public class GestireGruppi implements Initializable {
 
     @FXML
     void aggiungiMembro(ActionEvent event) {
-        TextInputDialog dialog = new TextInputDialog("email membro...");
-        dialog.setContentText("Aggiungi membro gruppo: ");
+        if (gruppoScelto != null) {
+            TextInputDialog dialog = new TextInputDialog("email membro...");
+            dialog.setContentText("Aggiungi membro gruppo: ");
 
-        Optional<String> resp = dialog.showAndWait();
-        if (resp.isPresent()) {
-            String email = resp.get();
-            if (DBClient.getIstance().findUtenteByEmail(email) != null)
-                new Alert(Alert.AlertType.ERROR, "Non esiste questo utente!");
-            //    aggiungiUtente(DBClient.getIstance().findMembroById(email);
+            Optional<String> resp = dialog.showAndWait();
+            if (resp.isPresent()) {
+                String email = resp.get();
+                if (DBClient.getIstance().findUtenteByEmail(email) == null)
+                    new Alert(Alert.AlertType.ERROR, "Non esiste questo utente!").showAndWait();
+                else {
+                    Membro membro = new Membro();
+                    membro.setEmail(email);
+                    membro.setIdGruppo(gruppoScelto.getIdGruppo());
+                    membro = DBClient.getIstance().insertMembro(membro);
+                    System.out.println(membro);
+                }
+                //    aggiungiUtente(DBClient.getIstance().findMembroById(email);
+            }
         }
     }
 
     @FXML
     void creaNuovoGruppo(ActionEvent event) {
-        Main.getInstance().replaceSceneContent("creaGruppo", (Stage)elencoGruppi.getScene().getWindow(), 600, 400);
+        Main.getInstance().replaceSceneContent("creaGruppo", (Stage) elencoGruppi.getScene().getWindow(), 600, 400);
     }
 
     @FXML
     void indietro(ActionEvent event) {
-        Main.getInstance().replaceSceneContent("profilo", (Stage)elencoGruppi.getScene().getWindow(), 600, 400);
+        Main.getInstance().replaceSceneContent("profilo", (Stage) elencoGruppi.getScene().getWindow(), 600, 400);
     }
 
 }

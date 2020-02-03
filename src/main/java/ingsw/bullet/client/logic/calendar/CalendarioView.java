@@ -29,18 +29,20 @@ public class CalendarioView extends CalendarView {
 
     protected int countEntry = 0;
 
-    HashMap<Entry<?>, Evento> eventi = new HashMap<>();
+    HashMap<String, Evento> eventi = new HashMap<>();
     HashMap<Calendar, Etichetta> etichette = new HashMap<>();
 
-    HashMap<Calendar.Style, Integer> coloriMap =new HashMap<>(){ {
-        put(Calendar.Style.STYLE1 ,0);
-        put(Calendar.Style.STYLE2, 1);
-        put(Calendar.Style.STYLE3, 2);
-        put(Calendar.Style.STYLE4, 3);
-        put(Calendar.Style.STYLE5, 4);
-        put(Calendar.Style.STYLE6, 5);
-        put(Calendar.Style.STYLE7, 6);
-    }};
+    HashMap<Calendar.Style, Integer> coloriMap = new HashMap<>() {
+        {
+            put(Calendar.Style.STYLE1, 0);
+            put(Calendar.Style.STYLE2, 1);
+            put(Calendar.Style.STYLE3, 2);
+            put(Calendar.Style.STYLE4, 3);
+            put(Calendar.Style.STYLE5, 4);
+            put(Calendar.Style.STYLE6, 5);
+            put(Calendar.Style.STYLE7, 6);
+        }
+    };
 
     Calendario calendario;
     CalendarSource myCalendarSource;
@@ -60,51 +62,57 @@ public class CalendarioView extends CalendarView {
     }
 
 
-    public CalendarioView(Calendario calendario){
+    public CalendarioView(Calendario calendario) {
         super();
         this.calendario = calendario;
 
         System.out.println("\nCALENDARIO:\n" + calendario);
 
-        Etichetta calendario1 = new Etichetta();
-        calendario1.setNome(getCalendarSources().get(0).getCalendars().get(0).getName());
-        calendario1.setColore(coloriMap.get(Calendar.Style.STYLE1));
-        calendario1.setIdEtichetta(1);
-        etichette.put(getCalendarSources().get(0).getCalendars().get(0),calendario1);
 
-        for(Etichetta e:calendario.getEtichette())
-        {
-            Calendar c = new Calendar(e.getNome());
-            c.setStyle(Calendar.Style.getStyle(e.getColore()));
-            myCalendarSource.getCalendars().add(c);
-            etichette.put(c, e);
+        for (Etichetta e : calendario.getEtichette()) {
+            if (e.getIdEtichetta() != 1) {
+                Calendar c = new Calendar(e.getNome());
+                c.setStyle(Calendar.Style.getStyle(e.getColore()));
+                if (!myCalendarSource.getCalendars().contains(c)) {
+                    myCalendarSource.getCalendars().add(c);
+                    c.addEventHandler(new EventHandler<CalendarEvent>() {
+                        @Override
+                        public void handle(CalendarEvent event) {
+                            System.out.println(event.getEntry());
+                            modificaEvento(event.getEntry(), event);
+                        }
+                    });
+                    etichette.put(c, e);
+                }
+            }
         }
 
 
-        for(Evento e:calendario.getEventi())
-        {
+        for (Evento e : calendario.getEventi()) {
+            System.out.println(e);
             Entry<String> entry = createEntryByEvento(e);
-            eventi.put(entry, e);
+            eventi.put(entry.getId(), e);
         }
     }
 
-    protected Entry<String> createEntryByEvento(@NotNull Evento evento)
-    {
-        Entry<String> entry = new Entry<>(evento.getNome());
+    protected Entry<String> createEntryByEvento(@NotNull Evento evento) {
+        Entry<String> entry = new Entry<>();
+        if (evento.getNome() != null)
+            entry.setTitle(evento.getNome());
 
-        if(evento.getDescrizione() != null)
+        if (evento.getDescrizione() != null)
             entry.setLocation(evento.getDescrizione());
 
-        entry.setId(""+evento.getIdEvento());
-        if(countEntry < evento.getIdEvento())
+        entry.setId("" + evento.getIdEvento());
+        if (countEntry < evento.getIdEvento())
             countEntry = evento.getIdEvento() + 1;
 
         entry.setInterval(evento.getDataInizio(), evento.getDataFine());
 
         Calendar c = getCalendarSources().get(0).getCalendars().get(0);
 
-        for(Etichetta etichetta:etichette.values())
-            if(etichetta.getIdEtichetta() == evento.getIdEvento()) {
+        for (Etichetta etichetta : etichette.values())
+            if (etichetta.getIdEtichetta() == evento.getIdEtichetta()) {
                 for (Calendar calendar : etichette.keySet())
                     c = calendar;
                 break;
@@ -115,18 +123,15 @@ public class CalendarioView extends CalendarView {
 
         entry.setFullDay(evento.isFullDay());
 
-        if(evento.getPeriodicita()) {
+        if (evento.getPeriodicita()) {
             entry.setRecurrenceRule(evento.getRecurrenceRule());
         }
         return entry;
     }
 
-    protected void setOnUpdateEntry()
-    {
-        for(CalendarSource calendarSource: getCalendarSources())
-        {
-            for(Calendar calendar:calendarSource.getCalendars())
-            {
+    protected void setOnUpdateEntry() {
+        for (CalendarSource calendarSource : getCalendarSources()) {
+            for (Calendar calendar : calendarSource.getCalendars()) {
                 calendar.addEventHandler(new EventHandler<CalendarEvent>() {
                     @Override
                     public void handle(CalendarEvent event) {
@@ -138,10 +143,9 @@ public class CalendarioView extends CalendarView {
         }
     }
 
-    protected void setOnActionNewEntry()
-    {
+    protected void setOnActionNewEntry() {
         setEntryFactory((param) -> {
-            if(!controlliPermessi())
+            if (!controlliPermessi())
                 return null;
             DateControl control = param.getDateControl();
             VirtualGrid grid = control.getVirtualGrid();
@@ -169,39 +173,35 @@ public class CalendarioView extends CalendarView {
 
     }
 
-    protected void setOnEntryEvent()
-    {
+    protected void setOnEntryEvent() {
 
     }
 
-    protected void setOnEntryCalendar()
-    {
-       Platform.runLater(() -> {
+    protected void setOnEntryCalendar() {
+        Platform.runLater(() -> {
             setToday(LocalDate.now());
             setTime(LocalTime.now());
             if (getSearchField().getParent() instanceof GridPane) {
                 GridPane gp = (GridPane) getSearchField().getParent();
                 for (Node c : gp.getChildren())
-                    if (c instanceof HBox)
-                    {
+                    if (c instanceof HBox) {
                         Node n = ((HBox) c).getChildren().get(1);
                         if (n instanceof Button)
                             ((Button) n).setOnAction(evt -> loadDialogCalendario("aggiungiEtichette", 200, 200));
                         Button delete = new Button("-");
-                        ((HBox)c).getChildren().add(1,delete);
-                        delete.setOnAction(evt ->loadDialogCalendario("eliminaEtichetta", 400, 200));
+                        ((HBox) c).getChildren().add(1, delete);
+                        delete.setOnAction(evt -> loadDialogCalendario("eliminaEtichetta", 400, 200));
 
                         Button indietro = new Button("Indietro");
-                        ((HBox)c).getChildren().add(2,indietro);
-                        indietro.setOnAction(evt -> Main.getInstance().replaceSceneContent("profilo", (Stage)this.getScene().getWindow(), 600, 400));
+                        ((HBox) c).getChildren().add(2, indietro);
+                        indietro.setOnAction(evt -> Main.getInstance().replaceSceneContent("profilo", (Stage) this.getScene().getWindow(), 600, 400));
                     }
 
             }
         });
     }
 
-    protected DialogCalendario loadDialogCalendario(String nome, int width, int height)
-    {
+    protected DialogCalendario loadDialogCalendario(String nome, int width, int height) {
         FXMLLoader fxmlLoader = Main.getInstance().replaceSceneContent
                 (nome, new Stage(), width, height);
         DialogCalendario dialogCalendario = fxmlLoader.<DialogCalendario>getController();
@@ -209,11 +209,9 @@ public class CalendarioView extends CalendarView {
         return dialogCalendario;
     }
 
-    public void aggiungiEvento(Entry<?> entry, Calendar calendar, boolean addOnCalendar)
-    {
+    public void aggiungiEvento(Entry<?> entry, Calendar calendar, boolean addOnCalendar) {
         Evento e = new Evento();
-        e.setIdEtichetta(etichette.get(calendar).getIdEtichetta());
-        System.out.println("CALENDARIO ID: " + calendario.getIdCalendario());
+        e.setIdEtichetta(1);
         e.setIdCalendario(calendario.getIdCalendario());
         e.setNome(entry.getTitle());
         e.setDescrizione(entry.getLocation());
@@ -223,49 +221,62 @@ public class CalendarioView extends CalendarView {
 
         e = DBClient.getIstance().insertEvento(e);
 
-        if(e != null)
-        {
-            if(addOnCalendar && calendar != null)
+        if (e != null) {
+            if (addOnCalendar && calendar != null)
                 calendar.addEntry(entry);
-            eventi.put(entry,e);
+            eventi.put(entry.getId(), e);
         }
     }
 
-    public void modificaEvento(Entry<?> entry, CalendarEvent event)
-    {
-        if(!controlliPermessi())
+    public void modificaEvento(Entry<?> entry, CalendarEvent event) {
+        if (!controlliPermessi())
             return;
 
-        System.out.println(event);
-        if(event.getEventType() != CalendarEvent.ENTRY_CALENDAR_CHANGED){
-            Evento e = eventi.get(entry);
-            e.setNome(entry.getTitle());
-            e.setDescrizione(entry.getLocation());
-            e.setDataInizio(entry.getStartAsLocalDateTime());
-            e.setDataFine(entry.getEndAsLocalDateTime());
-            e.setFullDay(entry.isFullDay());
-            DBClient.getIstance().updateEvento(e);
+        System.out.println("Event: " + event);
+
+        Evento e = eventi.get(entry.getId());
+        if (e == null || e.getIdEvento() == 0)
+            return;
+        System.out.println(e.getIdEvento());
+        System.out.println("UPDATE");
+        e.setNome(entry.getTitle());
+        e.setDescrizione(entry.getLocation());
+        e.setDataInizio(entry.getStartAsLocalDateTime());
+        e.setDataFine(entry.getEndAsLocalDateTime());
+        e.setFullDay(entry.isFullDay());
+        if (etichette.get(entry.getCalendar()) != null) {
+            System.out.println(etichette.get(entry.getCalendar()).getIdEtichetta());
+            e.setIdEtichetta(etichette.get(entry.getCalendar()).getIdEtichetta());
         }
+        else
+            e.setIdEtichetta(1);
+        e = DBClient.getIstance().updateEvento(e);
+
         System.out.println("Modifica Evento ");
     }
 
-    public void rimuoviEvento(Entry<?> entry, boolean removeOnCalendar)
-    {
-        if(!controlliPermessi())
+    public void rimuoviEvento(Entry<?> entry, boolean removeOnCalendar) {
+        if (!controlliPermessi())
             return;
-        DBClient.getIstance().removeEvento(eventi.get(entry).getIdEvento());
-        eventi.remove(entry);
+        DBClient.getIstance().removeEvento(eventi.get(entry.getId()).getIdEvento());
+        eventi.remove(entry.getId());
 
-        if(removeOnCalendar)
+        if (removeOnCalendar)
             entry.getCalendar().removeEntry(entry);
     }
 
-    public void aggiungiEtichetta(String nome, int styleNum)
-    {
-        if(!controlliPermessi())
+    public void aggiungiEtichetta(String nome, int styleNum) {
+        if (!controlliPermessi())
             return;
         Calendar calendar = new Calendar(nome);
         calendar.setStyle(Calendar.Style.getStyle(styleNum));
+        calendar.addEventHandler(new EventHandler<CalendarEvent>() {
+            @Override
+            public void handle(CalendarEvent event) {
+                System.out.println(event.getEntry());
+                modificaEvento(event.getEntry(), event);
+            }
+        });
 
 
         Etichetta etichetta = new Etichetta();
@@ -273,16 +284,15 @@ public class CalendarioView extends CalendarView {
         etichetta.setColore(styleNum);
 
         etichetta = DBClient.getIstance().insertEtichetta(etichetta);
-        if(etichetta != null)
-        {
+        System.out.println("ID ETICHETTA: " + etichetta.getIdEtichetta());
+        if (etichetta != null) {
             myCalendarSource.getCalendars().add(calendar);
-            etichette.put(calendar,etichetta);
+            etichette.put(calendar, etichetta);
         }
     }
 
-    public void rimuoviEtichetta(Calendar c)
-    {
-        if(!controlliPermessi())
+    public void rimuoviEtichetta(Calendar c) {
+        if (!controlliPermessi())
             return;
 
         myCalendarSource.getCalendars().remove(c);
@@ -290,8 +300,7 @@ public class CalendarioView extends CalendarView {
         etichette.remove(c);
     }
 
-    public boolean controlliPermessi()
-    {
+    public boolean controlliPermessi() {
         return true;
     }
 }
