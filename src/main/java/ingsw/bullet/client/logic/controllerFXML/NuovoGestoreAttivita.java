@@ -11,6 +11,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.net.URL;
@@ -26,7 +27,7 @@ public abstract class NuovoGestoreAttivita implements Initializable {
     protected TextField nomeGruppo;
 
     @FXML
-    protected AnchorPane gruppi;
+    protected VBox gruppiVbox;
 
     protected int gruppoId = -1;
 
@@ -43,6 +44,8 @@ public abstract class NuovoGestoreAttivita implements Initializable {
                     gruppoId = gruppo.getIdGruppo();
                 }
             });
+            gruppiVbox.getChildren().add(b);
+
         }
     }
 

@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.layout.FlowPane;
+import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -23,7 +24,7 @@ public abstract class SceltaGestoreAttivita implements Initializable {
 
     @FXML
     void indietro(ActionEvent event) {
-        Main.getInstance().replaceSceneContent("profilo", Main.getInstance().stage, 600, 400);
+        Main.getInstance().replaceSceneContent("profilo",(Stage)gestoreAttivitaCondivise.getScene().getWindow(), 600, 400);
     }
 
     @FXML
